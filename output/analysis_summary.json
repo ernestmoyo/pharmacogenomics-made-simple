@@ -1,0 +1,480 @@
+{
+  "PGX001": {
+    "risk_summary": {
+      "category": "High - Action Recommended",
+      "overall_score": 84.5,
+      "average_score": 84.5,
+      "critical_count": 0,
+      "high_count": 1,
+      "moderate_count": 0,
+      "low_count": 0,
+      "informational_count": 0,
+      "total_findings": 1,
+      "actionable_count": 1,
+      "max_score": 84.5
+    },
+    "finding_count": 1,
+    "recommendation_count": 1,
+    "critical_findings": []
+  },
+  "PGX002": {
+    "risk_summary": {
+      "category": "High - Action Recommended",
+      "overall_score": 79.5,
+      "average_score": 79.5,
+      "critical_count": 0,
+      "high_count": 1,
+      "moderate_count": 0,
+      "low_count": 0,
+      "informational_count": 0,
+      "total_findings": 1,
+      "actionable_count": 1,
+      "max_score": 79.5
+    },
+    "finding_count": 1,
+    "recommendation_count": 1,
+    "critical_findings": []
+  },
+  "PGX003": {
+    "risk_summary": {
+      "category": "Low - Informational",
+      "overall_score": 3.2,
+      "average_score": 3.2,
+      "critical_count": 0,
+      "high_count": 0,
+      "moderate_count": 0,
+      "low_count": 0,
+      "informational_count": 1,
+      "total_findings": 1,
+      "actionable_count": 0,
+      "max_score": 3.2
+    },
+    "finding_count": 1,
+    "recommendation_count": 0,
+    "critical_findings": []
+  },
+  "PGX004": {
+    "risk_summary": {
+      "category": "Critical - Immediate Action Required",
+      "overall_score": 100.0,
+      "average_score": 100.0,
+      "critical_count": 1,
+      "high_count": 0,
+      "moderate_count": 0,
+      "low_count": 0,
+      "informational_count": 0,
+      "total_findings": 1,
+      "actionable_count": 1,
+      "max_score": 100.0
+    },
+    "finding_count": 1,
+    "recommendation_count": 1,
+    "critical_findings": [
+      "CYP2D6 Poor Metabolizer: Greatly elevated plasma concentrations; high risk of cardiac and anticholinergic toxicity"
+    ]
+  },
+  "PGX005": {
+    "risk_summary": {
+      "category": "Low - Informational",
+      "overall_score": 0,
+      "critical_count": 0,
+      "high_count": 0,
+      "moderate_count": 0,
+      "low_count": 0,
+      "informational_count": 0,
+      "total_findings": 0,
+      "actionable_count": 0,
+      "max_score": 0
+    },
+    "finding_count": 0,
+    "recommendation_count": 0,
+    "critical_findings": []
+  },
+  "PGX006": {
+    "risk_summary": {
+      "category": "High - Action Recommended",
+      "overall_score": 84.5,
+      "average_score": 84.5,
+      "critical_count": 0,
+      "high_count": 1,
+      "moderate_count": 0,
+      "low_count": 0,
+      "informational_count": 0,
+      "total_findings": 1,
+      "actionable_count": 1,
+      "max_score": 84.5
+    },
+    "finding_count": 1,
+    "recommendation_count": 1,
+    "critical_findings": []
+  },
+  "PGX007": {
+    "risk_summary": {
+      "category": "High - Action Recommended",
+      "overall_score": 84.5,
+      "average_score": 84.5,
+      "critical_count": 0,
+      "high_count": 1,
+      "moderate_count": 0,
+      "low_count": 0,
+      "informational_count": 0,
+      "total_findings": 1,
+      "actionable_count": 1,
+      "max_score": 84.5
+    },
+    "finding_count": 1,
+    "recommendation_count": 1,
+    "critical_findings": []
+  },
+  "PGX008": {
+    "risk_summary": {
+      "category": "Critical - Immediate Action Required",
+      "overall_score": 100.0,
+      "average_score": 100.0,
+      "critical_count": 1,
+      "high_count": 0,
+      "moderate_count": 0,
+      "low_count": 0,
+      "informational_count": 0,
+      "total_findings": 1,
+      "actionable_count": 1,
+      "max_score": 100.0
+    },
+    "finding_count": 1,
+    "recommendation_count": 1,
+    "critical_findings": [
+      "CYP2D6 Ultra Rapid Metabolizer: Greatly increased conversion to morphine; risk of life-threatening respiratory depression and toxicity"
+    ]
+  },
+  "PGX009": {
+    "risk_summary": {
+      "category": "Moderate - Monitor Closely",
+      "overall_score": 59.5,
+      "average_score": 58.1,
+      "critical_count": 0,
+      "high_count": 0,
+      "moderate_count": 2,
+      "low_count": 0,
+      "informational_count": 0,
+      "total_findings": 2,
+      "actionable_count": 2,
+      "max_score": 59.5
+    },
+    "finding_count": 2,
+    "recommendation_count": 2,
+    "critical_findings": []
+  },
+  "PGX010": {
+    "risk_summary": {
+      "category": "Low - Informational",
+      "overall_score": 5.0,
+      "average_score": 5.0,
+      "critical_count": 0,
+      "high_count": 0,
+      "moderate_count": 0,
+      "low_count": 0,
+      "informational_count": 1,
+      "total_findings": 1,
+      "actionable_count": 0,
+      "max_score": 5.0
+    },
+    "finding_count": 1,
+    "recommendation_count": 0,
+    "critical_findings": []
+  },
+  "PGX011": {
+    "risk_summary": {
+      "category": "High - Action Recommended",
+      "overall_score": 87.5,
+      "average_score": 72.1,
+      "critical_count": 0,
+      "high_count": 2,
+      "moderate_count": 2,
+      "low_count": 0,
+      "informational_count": 0,
+      "total_findings": 4,
+      "actionable_count": 4,
+      "max_score": 87.5
+    },
+    "finding_count": 4,
+    "recommendation_count": 3,
+    "critical_findings": []
+  },
+  "PGX012": {
+    "risk_summary": {
+      "category": "Critical - Immediate Action Required",
+      "overall_score": 100.0,
+      "average_score": 57.5,
+      "critical_count": 1,
+      "high_count": 1,
+      "moderate_count": 0,
+      "low_count": 0,
+      "informational_count": 1,
+      "total_findings": 3,
+      "actionable_count": 2,
+      "max_score": 100.0
+    },
+    "finding_count": 3,
+    "recommendation_count": 2,
+    "critical_findings": [
+      "CYP2D6 Ultra Rapid Metabolizer: Increased active metabolite; risk of respiratory depression and seizures"
+    ]
+  },
+  "PGX013": {
+    "risk_summary": {
+      "category": "Critical - Immediate Action Required",
+      "overall_score": 100.0,
+      "average_score": 100.0,
+      "critical_count": 1,
+      "high_count": 0,
+      "moderate_count": 0,
+      "low_count": 0,
+      "informational_count": 0,
+      "total_findings": 1,
+      "actionable_count": 1,
+      "max_score": 100.0
+    },
+    "finding_count": 1,
+    "recommendation_count": 1,
+    "critical_findings": [
+      "CYP2D6 Poor Metabolizer: Greatly reduced conversion to morphine; minimal analgesic effect"
+    ]
+  },
+  "PGX014": {
+    "risk_summary": {
+      "category": "Critical - Immediate Action Required",
+      "overall_score": 100.0,
+      "average_score": 68.3,
+      "critical_count": 2,
+      "high_count": 0,
+      "moderate_count": 0,
+      "low_count": 0,
+      "informational_count": 1,
+      "total_findings": 3,
+      "actionable_count": 2,
+      "max_score": 100.0
+    },
+    "finding_count": 3,
+    "recommendation_count": 1,
+    "critical_findings": [
+      "VKORC1 High Sensitivity: Greatly increased warfarin sensitivity; low-dose requirement (typically 0.5-2 mg/day)",
+      "CYP2C9 Poor Metabolizer: Greatly reduced S-warfarin clearance; 50-80% dose reduction typically needed"
+    ]
+  },
+  "PGX015": {
+    "risk_summary": {
+      "category": "Critical - Immediate Action Required",
+      "overall_score": 100.0,
+      "average_score": 89.7,
+      "critical_count": 1,
+      "high_count": 2,
+      "moderate_count": 0,
+      "low_count": 0,
+      "informational_count": 0,
+      "total_findings": 3,
+      "actionable_count": 3,
+      "max_score": 100.0
+    },
+    "finding_count": 3,
+    "recommendation_count": 3,
+    "critical_findings": [
+      "CYP2C19 Poor Metabolizer: Greatly reduced active metabolite formation; inadequate platelet inhibition"
+    ]
+  },
+  "PGX016": {
+    "risk_summary": {
+      "category": "Critical - Immediate Action Required",
+      "overall_score": 100.0,
+      "average_score": 92.2,
+      "critical_count": 1,
+      "high_count": 1,
+      "moderate_count": 0,
+      "low_count": 0,
+      "informational_count": 0,
+      "total_findings": 2,
+      "actionable_count": 2,
+      "max_score": 100.0
+    },
+    "finding_count": 2,
+    "recommendation_count": 2,
+    "critical_findings": [
+      "SLCO1B1 Poor Function: Greatly increased simvastatin acid plasma concentrations; high myopathy risk"
+    ]
+  },
+  "PGX017": {
+    "risk_summary": {
+      "category": "High - Action Recommended",
+      "overall_score": 87.5,
+      "average_score": 66.6,
+      "critical_count": 0,
+      "high_count": 3,
+      "moderate_count": 0,
+      "low_count": 0,
+      "informational_count": 1,
+      "total_findings": 4,
+      "actionable_count": 3,
+      "max_score": 87.5
+    },
+    "finding_count": 4,
+    "recommendation_count": 2,
+    "critical_findings": []
+  },
+  "PGX018": {
+    "risk_summary": {
+      "category": "Critical - Immediate Action Required",
+      "overall_score": 100.0,
+      "average_score": 52.5,
+      "critical_count": 1,
+      "high_count": 0,
+      "moderate_count": 0,
+      "low_count": 0,
+      "informational_count": 1,
+      "total_findings": 2,
+      "actionable_count": 1,
+      "max_score": 100.0
+    },
+    "finding_count": 2,
+    "recommendation_count": 1,
+    "critical_findings": [
+      "CYP2C19 Poor Metabolizer: Greatly reduced active metabolite formation; inadequate platelet inhibition"
+    ]
+  },
+  "PGX019": {
+    "risk_summary": {
+      "category": "Critical - Immediate Action Required",
+      "overall_score": 100.0,
+      "average_score": 89.7,
+      "critical_count": 1,
+      "high_count": 2,
+      "moderate_count": 0,
+      "low_count": 0,
+      "informational_count": 0,
+      "total_findings": 3,
+      "actionable_count": 3,
+      "max_score": 100.0
+    },
+    "finding_count": 3,
+    "recommendation_count": 2,
+    "critical_findings": [
+      "CYP2C9 Poor Metabolizer: Greatly reduced S-warfarin clearance; 50-80% dose reduction typically needed"
+    ]
+  },
+  "PGX020": {
+    "risk_summary": {
+      "category": "Critical - Immediate Action Required",
+      "overall_score": 100.0,
+      "average_score": 62.9,
+      "critical_count": 1,
+      "high_count": 1,
+      "moderate_count": 0,
+      "low_count": 0,
+      "informational_count": 1,
+      "total_findings": 3,
+      "actionable_count": 2,
+      "max_score": 100.0
+    },
+    "finding_count": 3,
+    "recommendation_count": 2,
+    "critical_findings": [
+      "CYP2D6 Poor Metabolizer: Greatly reduced endoxifen formation; compromised anti-tumor efficacy"
+    ]
+  },
+  "PGX021": {
+    "risk_summary": {
+      "category": "Critical - Immediate Action Required",
+      "overall_score": 100.0,
+      "average_score": 52.5,
+      "critical_count": 1,
+      "high_count": 0,
+      "moderate_count": 0,
+      "low_count": 0,
+      "informational_count": 1,
+      "total_findings": 2,
+      "actionable_count": 1,
+      "max_score": 100.0
+    },
+    "finding_count": 2,
+    "recommendation_count": 1,
+    "critical_findings": [
+      "DPYD Intermediate Metabolizer: Partial DPD deficiency; significantly increased toxicity risk"
+    ]
+  },
+  "PGX022": {
+    "risk_summary": {
+      "category": "High - Action Recommended",
+      "overall_score": 84.5,
+      "average_score": 84.5,
+      "critical_count": 0,
+      "high_count": 1,
+      "moderate_count": 0,
+      "low_count": 0,
+      "informational_count": 0,
+      "total_findings": 1,
+      "actionable_count": 1,
+      "max_score": 84.5
+    },
+    "finding_count": 1,
+    "recommendation_count": 1,
+    "critical_findings": []
+  },
+  "PGX023": {
+    "risk_summary": {
+      "category": "Critical - Immediate Action Required",
+      "overall_score": 100.0,
+      "average_score": 52.5,
+      "critical_count": 1,
+      "high_count": 0,
+      "moderate_count": 0,
+      "low_count": 0,
+      "informational_count": 1,
+      "total_findings": 2,
+      "actionable_count": 1,
+      "max_score": 100.0
+    },
+    "finding_count": 2,
+    "recommendation_count": 1,
+    "critical_findings": [
+      "TPMT Poor Metabolizer: Complete TPMT deficiency; massive accumulation of active thioguanine nucleotides"
+    ]
+  },
+  "PGX024": {
+    "risk_summary": {
+      "category": "Critical - Immediate Action Required",
+      "overall_score": 100.0,
+      "average_score": 52.5,
+      "critical_count": 1,
+      "high_count": 0,
+      "moderate_count": 0,
+      "low_count": 0,
+      "informational_count": 1,
+      "total_findings": 2,
+      "actionable_count": 1,
+      "max_score": 100.0
+    },
+    "finding_count": 2,
+    "recommendation_count": 1,
+    "critical_findings": [
+      "UGT1A1 Poor Metabolizer: Greatly increased SN-38 exposure; severe neutropenia and diarrhea"
+    ]
+  },
+  "PGX025": {
+    "risk_summary": {
+      "category": "Critical - Immediate Action Required",
+      "overall_score": 100.0,
+      "average_score": 52.5,
+      "critical_count": 1,
+      "high_count": 0,
+      "moderate_count": 0,
+      "low_count": 0,
+      "informational_count": 1,
+      "total_findings": 2,
+      "actionable_count": 1,
+      "max_score": 100.0
+    },
+    "finding_count": 2,
+    "recommendation_count": 1,
+    "critical_findings": [
+      "DPYD Poor Metabolizer: Complete or near-complete DPD deficiency; lethal toxicity expected"
+    ]
+  }
+}

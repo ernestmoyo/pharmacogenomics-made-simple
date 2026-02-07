@@ -1,0 +1,954 @@
+{
+  "gene_drug_interactions": [
+    {
+      "gene": "CYP2D6",
+      "drug": "codeine",
+      "therapeutic_area": "pain_management",
+      "drug_class": "opioid_analgesic",
+      "mechanism": "CYP2D6 converts codeine to morphine (active metabolite). Activity determines analgesic efficacy and toxicity risk.",
+      "phenotype_impacts": {
+        "poor_metabolizer": {
+          "effect": "Greatly reduced conversion to morphine; minimal analgesic effect",
+          "risk_level": "high",
+          "recommendation": "Avoid codeine. Use analgesics not metabolized by CYP2D6 (e.g., morphine, acetaminophen, NSAIDs, or oxycodone with caution).",
+          "dosing_adjustment": "contraindicated",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Therapeutic failure; inadequate pain control"
+        },
+        "intermediate_metabolizer": {
+          "effect": "Reduced conversion to morphine; diminished analgesic effect likely",
+          "risk_level": "moderate",
+          "recommendation": "Use alternative analgesic if possible. If codeine is used, monitor closely for inadequate pain relief.",
+          "dosing_adjustment": "use_alternative_preferred",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Reduced efficacy; may require dose escalation or switch"
+        },
+        "normal_metabolizer": {
+          "effect": "Expected conversion to morphine; standard analgesic response",
+          "risk_level": "low",
+          "recommendation": "Use label-recommended dosing.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Standard therapeutic response expected"
+        },
+        "ultra_rapid_metabolizer": {
+          "effect": "Greatly increased conversion to morphine; risk of life-threatening respiratory depression and toxicity",
+          "risk_level": "critical",
+          "recommendation": "AVOID codeine. Use analgesics not metabolized by CYP2D6. Risk of fatal respiratory depression.",
+          "dosing_adjustment": "contraindicated",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Life-threatening toxicity; morphine accumulation; respiratory depression; death reported"
+        }
+      },
+      "cpic_guideline": "CPIC Guideline for CYP2D6 and Codeine Therapy (2019 Update)",
+      "pharmgkb_id": "PA166104996",
+      "references": [
+        "Crews KR, et al. Clin Pharmacol Ther. 2021;109(4):867-878",
+        "FDA Drug Safety Communication: Codeine use in children (2017)"
+      ]
+    },
+    {
+      "gene": "CYP2D6",
+      "drug": "tramadol",
+      "therapeutic_area": "pain_management",
+      "drug_class": "opioid_analgesic",
+      "mechanism": "CYP2D6 converts tramadol to O-desmethyltramadol (active metabolite with higher mu-opioid affinity).",
+      "phenotype_impacts": {
+        "poor_metabolizer": {
+          "effect": "Reduced formation of active metabolite; reduced analgesic efficacy",
+          "risk_level": "moderate",
+          "recommendation": "Consider alternative analgesic. If tramadol required, monitor for inadequate pain control.",
+          "dosing_adjustment": "use_alternative_preferred",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Diminished opioid-mediated analgesia"
+        },
+        "intermediate_metabolizer": {
+          "effect": "Moderately reduced active metabolite formation",
+          "risk_level": "low",
+          "recommendation": "Use standard dose with monitoring for efficacy.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level B",
+          "fda_label": false,
+          "clinical_consequence": "Slightly reduced efficacy possible"
+        },
+        "normal_metabolizer": {
+          "effect": "Normal conversion; expected therapeutic response",
+          "risk_level": "low",
+          "recommendation": "Use label-recommended dosing.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Standard therapeutic response"
+        },
+        "ultra_rapid_metabolizer": {
+          "effect": "Increased active metabolite; risk of respiratory depression and seizures",
+          "risk_level": "critical",
+          "recommendation": "AVOID tramadol. Risk of life-threatening toxicity. Use alternative analgesic.",
+          "dosing_adjustment": "contraindicated",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Respiratory depression; seizure risk; potential fatality"
+        }
+      },
+      "cpic_guideline": "CPIC Guideline for CYP2D6 and Codeine Therapy (applies to tramadol)",
+      "pharmgkb_id": "PA166104996",
+      "references": [
+        "Crews KR, et al. Clin Pharmacol Ther. 2021;109(4):867-878"
+      ]
+    },
+    {
+      "gene": "CYP2D6",
+      "drug": "oxycodone",
+      "therapeutic_area": "pain_management",
+      "drug_class": "opioid_analgesic",
+      "mechanism": "CYP2D6 converts oxycodone to oxymorphone (active metabolite), though parent compound also has analgesic activity.",
+      "phenotype_impacts": {
+        "poor_metabolizer": {
+          "effect": "Reduced oxymorphone formation; modestly reduced overall analgesic effect",
+          "risk_level": "low",
+          "recommendation": "Use standard dose; monitor for pain control. Parent compound retains activity.",
+          "dosing_adjustment": "monitor",
+          "evidence_level": "CPIC Level B",
+          "fda_label": false,
+          "clinical_consequence": "Modest reduction in analgesic effect"
+        },
+        "intermediate_metabolizer": {
+          "effect": "Slightly reduced oxymorphone formation",
+          "risk_level": "low",
+          "recommendation": "Use standard dosing.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level C",
+          "fda_label": false,
+          "clinical_consequence": "Minimal clinical impact expected"
+        },
+        "normal_metabolizer": {
+          "effect": "Normal metabolism; standard response expected",
+          "risk_level": "low",
+          "recommendation": "Use label-recommended dosing.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Standard therapeutic response"
+        },
+        "ultra_rapid_metabolizer": {
+          "effect": "Increased oxymorphone formation; potential for increased opioid effects",
+          "risk_level": "moderate",
+          "recommendation": "Use with caution; consider lower starting dose with careful titration.",
+          "dosing_adjustment": "reduce_dose",
+          "evidence_level": "CPIC Level B",
+          "fda_label": false,
+          "clinical_consequence": "Increased sedation, respiratory depression risk"
+        }
+      },
+      "cpic_guideline": "CPIC Guideline for CYP2D6 and Opioid Therapy",
+      "pharmgkb_id": "PA166228088",
+      "references": [
+        "Crews KR, et al. Clin Pharmacol Ther. 2021;109(4):867-878"
+      ]
+    },
+    {
+      "gene": "CYP2C19",
+      "drug": "citalopram",
+      "therapeutic_area": "psychiatry",
+      "drug_class": "SSRI_antidepressant",
+      "mechanism": "CYP2C19 is primary enzyme for citalopram demethylation. Metabolizer status affects plasma levels and adverse effect risk.",
+      "phenotype_impacts": {
+        "poor_metabolizer": {
+          "effect": "~2-fold increase in plasma concentrations; increased risk of QTc prolongation and side effects",
+          "risk_level": "high",
+          "recommendation": "Reduce dose by 50% (max 20 mg/day) OR switch to alternative SSRI not predominantly metabolized by CYP2C19 (e.g., sertraline, fluoxetine).",
+          "dosing_adjustment": "reduce_50_percent",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "QTc prolongation; serotonin syndrome risk; increased side effects"
+        },
+        "intermediate_metabolizer": {
+          "effect": "Moderately elevated plasma concentrations",
+          "risk_level": "moderate",
+          "recommendation": "Consider dose reduction to 75% of standard dose or use alternative SSRI.",
+          "dosing_adjustment": "reduce_25_percent",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Increased side effect burden possible"
+        },
+        "normal_metabolizer": {
+          "effect": "Standard metabolism; expected therapeutic response",
+          "risk_level": "low",
+          "recommendation": "Use label-recommended dosing.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Standard therapeutic response"
+        },
+        "ultra_rapid_metabolizer": {
+          "effect": "Greatly reduced plasma concentrations; likely therapeutic failure",
+          "risk_level": "high",
+          "recommendation": "Consider alternative SSRI not predominantly metabolized by CYP2C19 (e.g., fluoxetine, sertraline) OR increase dose with therapeutic drug monitoring.",
+          "dosing_adjustment": "increase_dose_or_switch",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Treatment failure; continued depression symptoms"
+        }
+      },
+      "cpic_guideline": "CPIC Guideline for CYP2C19 and CYP2D6 Genotypes and SSRIs/SNRIs (2023 Update)",
+      "pharmgkb_id": "PA166127636",
+      "references": [
+        "Bousman CA, et al. Clin Pharmacol Ther. 2023;114(1):51-68",
+        "FDA Label: Celexa (citalopram) - CYP2C19 poor metabolizer information"
+      ]
+    },
+    {
+      "gene": "CYP2C19",
+      "drug": "escitalopram",
+      "therapeutic_area": "psychiatry",
+      "drug_class": "SSRI_antidepressant",
+      "mechanism": "CYP2C19 is primary enzyme for escitalopram metabolism. S-enantiomer of citalopram with same metabolic pathway.",
+      "phenotype_impacts": {
+        "poor_metabolizer": {
+          "effect": "Significantly elevated plasma concentrations; QTc prolongation risk",
+          "risk_level": "high",
+          "recommendation": "Reduce dose by 50% (max 10 mg/day) OR switch to alternative SSRI (sertraline, fluoxetine).",
+          "dosing_adjustment": "reduce_50_percent",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "QTc prolongation; serotonin toxicity risk"
+        },
+        "intermediate_metabolizer": {
+          "effect": "Moderately elevated levels",
+          "risk_level": "moderate",
+          "recommendation": "Consider dose reduction to 75% of standard or use alternative SSRI.",
+          "dosing_adjustment": "reduce_25_percent",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Increased side effects possible"
+        },
+        "normal_metabolizer": {
+          "effect": "Standard metabolism",
+          "risk_level": "low",
+          "recommendation": "Use label-recommended dosing.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Standard therapeutic response"
+        },
+        "ultra_rapid_metabolizer": {
+          "effect": "Greatly reduced plasma concentrations",
+          "risk_level": "high",
+          "recommendation": "Switch to alternative SSRI (sertraline, fluoxetine) not dependent on CYP2C19.",
+          "dosing_adjustment": "switch_drug",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Therapeutic failure likely"
+        }
+      },
+      "cpic_guideline": "CPIC Guideline for CYP2C19 and CYP2D6 Genotypes and SSRIs/SNRIs (2023 Update)",
+      "pharmgkb_id": "PA166127636",
+      "references": [
+        "Bousman CA, et al. Clin Pharmacol Ther. 2023;114(1):51-68"
+      ]
+    },
+    {
+      "gene": "CYP2C19",
+      "drug": "sertraline",
+      "therapeutic_area": "psychiatry",
+      "drug_class": "SSRI_antidepressant",
+      "mechanism": "CYP2C19 is a secondary pathway for sertraline metabolism. Multiple enzymes involved; less CYP2C19-dependent than citalopram.",
+      "phenotype_impacts": {
+        "poor_metabolizer": {
+          "effect": "Modestly elevated plasma concentrations",
+          "risk_level": "low",
+          "recommendation": "Consider 25% dose reduction or standard dose with monitoring.",
+          "dosing_adjustment": "reduce_25_percent",
+          "evidence_level": "CPIC Level B",
+          "fda_label": false,
+          "clinical_consequence": "Modestly increased side effect risk"
+        },
+        "intermediate_metabolizer": {
+          "effect": "Slight elevation in plasma levels",
+          "risk_level": "low",
+          "recommendation": "Use standard dosing.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level C",
+          "fda_label": false,
+          "clinical_consequence": "Minimal clinical impact"
+        },
+        "normal_metabolizer": {
+          "effect": "Standard metabolism",
+          "risk_level": "low",
+          "recommendation": "Use label-recommended dosing.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Standard response"
+        },
+        "ultra_rapid_metabolizer": {
+          "effect": "Modestly reduced plasma concentrations",
+          "risk_level": "low",
+          "recommendation": "Use standard dose; consider increase if inadequate response. Sertraline less affected by CYP2C19 status.",
+          "dosing_adjustment": "monitor",
+          "evidence_level": "CPIC Level B",
+          "fda_label": false,
+          "clinical_consequence": "Modestly reduced efficacy possible"
+        }
+      },
+      "cpic_guideline": "CPIC Guideline for CYP2C19 and CYP2D6 Genotypes and SSRIs/SNRIs (2023 Update)",
+      "pharmgkb_id": "PA166127636",
+      "references": [
+        "Bousman CA, et al. Clin Pharmacol Ther. 2023;114(1):51-68"
+      ]
+    },
+    {
+      "gene": "CYP2D6",
+      "drug": "nortriptyline",
+      "therapeutic_area": "psychiatry",
+      "drug_class": "tricyclic_antidepressant",
+      "mechanism": "CYP2D6 is the primary enzyme for nortriptyline hydroxylation. Metabolizer status strongly affects drug levels and toxicity risk.",
+      "phenotype_impacts": {
+        "poor_metabolizer": {
+          "effect": "Greatly elevated plasma concentrations; high risk of cardiac and anticholinergic toxicity",
+          "risk_level": "critical",
+          "recommendation": "Reduce dose by 50% and use therapeutic drug monitoring. Consider alternative antidepressant.",
+          "dosing_adjustment": "reduce_50_percent",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Cardiac arrhythmia; anticholinergic toxicity; seizure risk"
+        },
+        "intermediate_metabolizer": {
+          "effect": "Moderately elevated concentrations",
+          "risk_level": "moderate",
+          "recommendation": "Reduce dose by 25% with therapeutic drug monitoring.",
+          "dosing_adjustment": "reduce_25_percent",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Increased side effect risk"
+        },
+        "normal_metabolizer": {
+          "effect": "Standard metabolism",
+          "risk_level": "low",
+          "recommendation": "Use label-recommended dosing.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Standard therapeutic response"
+        },
+        "ultra_rapid_metabolizer": {
+          "effect": "Subtherapeutic plasma concentrations likely",
+          "risk_level": "high",
+          "recommendation": "Avoid nortriptyline. Use alternative antidepressant not metabolized by CYP2D6.",
+          "dosing_adjustment": "switch_drug",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Therapeutic failure"
+        }
+      },
+      "cpic_guideline": "CPIC Guideline for CYP2D6 and CYP2C19 Genotypes and Tricyclic Antidepressants (2016)",
+      "pharmgkb_id": "PA166104998",
+      "references": [
+        "Hicks JK, et al. Clin Pharmacol Ther. 2017;102(1):37-44"
+      ]
+    },
+    {
+      "gene": "CYP2C19",
+      "drug": "clopidogrel",
+      "therapeutic_area": "cardiology",
+      "drug_class": "antiplatelet",
+      "mechanism": "CYP2C19 is essential for bioactivation of clopidogrel prodrug to active thiol metabolite. Poor metabolizers cannot activate the drug.",
+      "phenotype_impacts": {
+        "poor_metabolizer": {
+          "effect": "Greatly reduced active metabolite formation; inadequate platelet inhibition",
+          "risk_level": "critical",
+          "recommendation": "AVOID clopidogrel. Use prasugrel or ticagrelor (not dependent on CYP2C19 activation).",
+          "dosing_adjustment": "contraindicated",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Stent thrombosis; myocardial infarction; stroke; cardiovascular death"
+        },
+        "intermediate_metabolizer": {
+          "effect": "Reduced active metabolite formation; diminished antiplatelet effect",
+          "risk_level": "high",
+          "recommendation": "Switch to prasugrel or ticagrelor, especially for ACS/PCI patients.",
+          "dosing_adjustment": "switch_drug",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Increased cardiovascular event risk"
+        },
+        "normal_metabolizer": {
+          "effect": "Adequate bioactivation; expected antiplatelet response",
+          "risk_level": "low",
+          "recommendation": "Use label-recommended dosing.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Standard therapeutic response"
+        },
+        "ultra_rapid_metabolizer": {
+          "effect": "Increased active metabolite formation; enhanced antiplatelet effect",
+          "risk_level": "moderate",
+          "recommendation": "Use standard dosing. Monitor for increased bleeding risk.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level B",
+          "fda_label": false,
+          "clinical_consequence": "Possible increased bleeding risk"
+        }
+      },
+      "cpic_guideline": "CPIC Guideline for CYP2C19 and Clopidogrel Therapy (2022 Update)",
+      "pharmgkb_id": "PA166104948",
+      "references": [
+        "Lee CR, et al. Clin Pharmacol Ther. 2022;112(5):959-967",
+        "FDA Boxed Warning: Plavix (clopidogrel) - CYP2C19 poor metabolizers"
+      ]
+    },
+    {
+      "gene": "VKORC1",
+      "drug": "warfarin",
+      "therapeutic_area": "cardiology",
+      "drug_class": "anticoagulant",
+      "mechanism": "VKORC1 encodes vitamin K epoxide reductase, the direct target of warfarin. Variants affect warfarin sensitivity and dose requirements.",
+      "phenotype_impacts": {
+        "high_sensitivity": {
+          "effect": "Greatly increased warfarin sensitivity; low-dose requirement (typically 0.5-2 mg/day)",
+          "risk_level": "critical",
+          "recommendation": "Reduce starting dose significantly (1-2 mg/day). Use pharmacogenomic dosing algorithm. Monitor INR closely (every 2-3 days initially).",
+          "dosing_adjustment": "reduce_major",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Major bleeding; hemorrhagic stroke; over-anticoagulation"
+        },
+        "moderate_sensitivity": {
+          "effect": "Increased warfarin sensitivity; lower dose requirement",
+          "risk_level": "high",
+          "recommendation": "Reduce starting dose to 3-4 mg/day. Use pharmacogenomic dosing algorithm. Monitor INR at least weekly initially.",
+          "dosing_adjustment": "reduce_moderate",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Bleeding risk if standard doses used"
+        },
+        "normal_sensitivity": {
+          "effect": "Standard warfarin sensitivity",
+          "risk_level": "low",
+          "recommendation": "Use standard dosing algorithm (typically 5 mg/day starting dose).",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Standard therapeutic response"
+        }
+      },
+      "cpic_guideline": "CPIC Guideline for Pharmacogenetics-Guided Warfarin Dosing (2017 Update)",
+      "pharmgkb_id": "PA166104949",
+      "references": [
+        "Johnson JA, et al. Clin Pharmacol Ther. 2017;102(3):397-404",
+        "FDA Label: Coumadin (warfarin) - Pharmacogenomic dosing table"
+      ]
+    },
+    {
+      "gene": "CYP2C9",
+      "drug": "warfarin",
+      "therapeutic_area": "cardiology",
+      "drug_class": "anticoagulant",
+      "mechanism": "CYP2C9 is the primary enzyme for S-warfarin metabolism (the more potent enantiomer). Reduced function variants decrease warfarin clearance.",
+      "phenotype_impacts": {
+        "poor_metabolizer": {
+          "effect": "Greatly reduced S-warfarin clearance; 50-80% dose reduction typically needed",
+          "risk_level": "critical",
+          "recommendation": "Reduce starting dose to 1-2 mg/day. Use pharmacogenomic dosing algorithm incorporating both CYP2C9 and VKORC1 status. Frequent INR monitoring essential.",
+          "dosing_adjustment": "reduce_major",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Severe bleeding; supratherapeutic INR; hemorrhage"
+        },
+        "intermediate_metabolizer": {
+          "effect": "Reduced S-warfarin clearance; lower maintenance dose needed",
+          "risk_level": "high",
+          "recommendation": "Reduce starting dose to 3-4 mg/day. Use pharmacogenomic dosing algorithm. Monitor INR closely.",
+          "dosing_adjustment": "reduce_moderate",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Bleeding risk with standard dosing"
+        },
+        "normal_metabolizer": {
+          "effect": "Standard S-warfarin metabolism",
+          "risk_level": "low",
+          "recommendation": "Use standard dosing algorithm.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Standard therapeutic response"
+        }
+      },
+      "cpic_guideline": "CPIC Guideline for Pharmacogenetics-Guided Warfarin Dosing (2017 Update)",
+      "pharmgkb_id": "PA166104949",
+      "references": [
+        "Johnson JA, et al. Clin Pharmacol Ther. 2017;102(3):397-404"
+      ]
+    },
+    {
+      "gene": "SLCO1B1",
+      "drug": "simvastatin",
+      "therapeutic_area": "cardiology",
+      "drug_class": "statin",
+      "mechanism": "SLCO1B1 encodes hepatic uptake transporter OATP1B1. Reduced function increases systemic statin exposure and myopathy risk.",
+      "phenotype_impacts": {
+        "poor_function": {
+          "effect": "Greatly increased simvastatin acid plasma concentrations; high myopathy risk",
+          "risk_level": "critical",
+          "recommendation": "AVOID simvastatin. Use rosuvastatin or pravastatin (less SLCO1B1-dependent). If statin needed, use low-dose rosuvastatin or pravastatin.",
+          "dosing_adjustment": "contraindicated",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Myopathy; rhabdomyolysis; acute kidney injury"
+        },
+        "intermediate_function": {
+          "effect": "Increased simvastatin exposure; elevated myopathy risk",
+          "risk_level": "high",
+          "recommendation": "Avoid simvastatin doses >20 mg/day OR switch to rosuvastatin or pravastatin.",
+          "dosing_adjustment": "reduce_dose_or_switch",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Myopathy risk; muscle pain; CK elevation"
+        },
+        "normal_function": {
+          "effect": "Normal hepatic uptake and statin clearance",
+          "risk_level": "low",
+          "recommendation": "Use label-recommended dosing.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Standard therapeutic response"
+        }
+      },
+      "cpic_guideline": "CPIC Guideline for SLCO1B1, ABCG2, and CYP2C9 and Statin-Associated Musculoskeletal Symptoms (2022)",
+      "pharmgkb_id": "PA166105005",
+      "references": [
+        "Cooper-DeHoff RM, et al. Clin Pharmacol Ther. 2022;111(5):1007-1021",
+        "SEARCH Collaborative Group. Lancet. 2008;372(9635):270-278"
+      ]
+    },
+    {
+      "gene": "SLCO1B1",
+      "drug": "atorvastatin",
+      "therapeutic_area": "cardiology",
+      "drug_class": "statin",
+      "mechanism": "SLCO1B1 mediates hepatic uptake of atorvastatin. Reduced function modestly increases systemic exposure.",
+      "phenotype_impacts": {
+        "poor_function": {
+          "effect": "Increased atorvastatin exposure; elevated but lower myopathy risk than simvastatin",
+          "risk_level": "moderate",
+          "recommendation": "Use atorvastatin <=40 mg/day with monitoring for muscle symptoms. Consider rosuvastatin or pravastatin if symptoms develop.",
+          "dosing_adjustment": "reduce_dose",
+          "evidence_level": "CPIC Level B",
+          "fda_label": false,
+          "clinical_consequence": "Myopathy risk; muscle symptoms"
+        },
+        "intermediate_function": {
+          "effect": "Modestly increased atorvastatin exposure",
+          "risk_level": "low",
+          "recommendation": "Use standard dosing with routine muscle symptom monitoring.",
+          "dosing_adjustment": "monitor",
+          "evidence_level": "CPIC Level B",
+          "fda_label": false,
+          "clinical_consequence": "Low risk of muscle symptoms"
+        },
+        "normal_function": {
+          "effect": "Normal hepatic uptake",
+          "risk_level": "low",
+          "recommendation": "Use label-recommended dosing.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Standard therapeutic response"
+        }
+      },
+      "cpic_guideline": "CPIC Guideline for SLCO1B1 and Statins (2022)",
+      "pharmgkb_id": "PA166105005",
+      "references": [
+        "Cooper-DeHoff RM, et al. Clin Pharmacol Ther. 2022;111(5):1007-1021"
+      ]
+    },
+    {
+      "gene": "CYP2D6",
+      "drug": "tamoxifen",
+      "therapeutic_area": "oncology",
+      "drug_class": "selective_estrogen_receptor_modulator",
+      "mechanism": "CYP2D6 converts tamoxifen to endoxifen (primary active metabolite with ~100x greater anti-estrogenic potency).",
+      "phenotype_impacts": {
+        "poor_metabolizer": {
+          "effect": "Greatly reduced endoxifen formation; compromised anti-tumor efficacy",
+          "risk_level": "critical",
+          "recommendation": "AVOID tamoxifen. Switch to aromatase inhibitor (if postmenopausal) or consider higher tamoxifen dose (40mg) with endoxifen level monitoring.",
+          "dosing_adjustment": "switch_drug",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Increased breast cancer recurrence risk; treatment failure"
+        },
+        "intermediate_metabolizer": {
+          "effect": "Reduced endoxifen levels; diminished efficacy",
+          "risk_level": "high",
+          "recommendation": "Consider aromatase inhibitor (if postmenopausal) or increase tamoxifen to 40 mg/day with endoxifen monitoring.",
+          "dosing_adjustment": "increase_dose_or_switch",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Reduced anti-tumor efficacy; higher recurrence risk"
+        },
+        "normal_metabolizer": {
+          "effect": "Adequate endoxifen formation; expected therapeutic benefit",
+          "risk_level": "low",
+          "recommendation": "Use label-recommended dosing (20 mg/day).",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Standard therapeutic response"
+        },
+        "ultra_rapid_metabolizer": {
+          "effect": "Increased endoxifen formation; enhanced efficacy possible",
+          "risk_level": "low",
+          "recommendation": "Use standard dosing. May have enhanced therapeutic benefit.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level B",
+          "fda_label": false,
+          "clinical_consequence": "Potentially enhanced anti-tumor effect"
+        }
+      },
+      "cpic_guideline": "CPIC Guideline for CYP2D6 and Tamoxifen Therapy (2018)",
+      "pharmgkb_id": "PA166176068",
+      "references": [
+        "Goetz MP, et al. Clin Pharmacol Ther. 2018;103(5):770-777"
+      ]
+    },
+    {
+      "gene": "DPYD",
+      "drug": "fluorouracil",
+      "therapeutic_area": "oncology",
+      "drug_class": "antimetabolite",
+      "mechanism": "DPYD encodes dihydropyrimidine dehydrogenase (DPD), responsible for >80% of 5-FU catabolism. Deficiency causes life-threatening toxicity.",
+      "phenotype_impacts": {
+        "poor_metabolizer": {
+          "effect": "Complete or near-complete DPD deficiency; 5-FU accumulation to lethal levels",
+          "risk_level": "critical",
+          "recommendation": "5-FU and capecitabine are CONTRAINDICATED. Use alternative chemotherapy regimen. DPD deficiency is potentially fatal.",
+          "dosing_adjustment": "contraindicated",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Fatal toxicity: severe mucositis, myelosuppression, neurotoxicity, death"
+        },
+        "intermediate_metabolizer": {
+          "effect": "Partial DPD deficiency; significantly increased toxicity risk",
+          "risk_level": "critical",
+          "recommendation": "Reduce 5-FU/capecitabine dose by 50%. Monitor closely for toxicity. Increase dose only if tolerated after 2+ cycles.",
+          "dosing_adjustment": "reduce_50_percent",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Severe toxicity: neutropenia, mucositis, diarrhea, hand-foot syndrome"
+        },
+        "normal_metabolizer": {
+          "effect": "Normal DPD activity; standard 5-FU catabolism",
+          "risk_level": "low",
+          "recommendation": "Use label-recommended dosing based on BSA.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Standard toxicity profile"
+        }
+      },
+      "cpic_guideline": "CPIC Guideline for DPYD Genotype and Fluoropyrimidine Dosing (2017)",
+      "pharmgkb_id": "PA166122686",
+      "references": [
+        "Amstutz U, et al. Clin Pharmacol Ther. 2018;103(2):210-216",
+        "EMA Recommendation: DPD testing before fluoropyrimidine treatment (2020)"
+      ]
+    },
+    {
+      "gene": "DPYD",
+      "drug": "capecitabine",
+      "therapeutic_area": "oncology",
+      "drug_class": "antimetabolite",
+      "mechanism": "Capecitabine is an oral prodrug of 5-FU. Same DPD-dependent catabolism pathway applies.",
+      "phenotype_impacts": {
+        "poor_metabolizer": {
+          "effect": "Complete or near-complete DPD deficiency; lethal toxicity expected",
+          "risk_level": "critical",
+          "recommendation": "Capecitabine is CONTRAINDICATED. Use alternative chemotherapy.",
+          "dosing_adjustment": "contraindicated",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Fatal toxicity"
+        },
+        "intermediate_metabolizer": {
+          "effect": "Partial DPD deficiency; significantly increased toxicity",
+          "risk_level": "critical",
+          "recommendation": "Reduce capecitabine dose by 50%. Monitor closely for toxicity signs.",
+          "dosing_adjustment": "reduce_50_percent",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Severe mucositis, myelosuppression, hand-foot syndrome"
+        },
+        "normal_metabolizer": {
+          "effect": "Normal DPD activity",
+          "risk_level": "low",
+          "recommendation": "Use label-recommended dosing based on BSA.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Standard toxicity profile"
+        }
+      },
+      "cpic_guideline": "CPIC Guideline for DPYD and Fluoropyrimidines (2017)",
+      "pharmgkb_id": "PA166122686",
+      "references": [
+        "Amstutz U, et al. Clin Pharmacol Ther. 2018;103(2):210-216"
+      ]
+    },
+    {
+      "gene": "UGT1A1",
+      "drug": "irinotecan",
+      "therapeutic_area": "oncology",
+      "drug_class": "topoisomerase_inhibitor",
+      "mechanism": "UGT1A1 glucuronidates SN-38 (active metabolite of irinotecan). Reduced activity leads to SN-38 accumulation and severe toxicity.",
+      "phenotype_impacts": {
+        "poor_metabolizer": {
+          "effect": "Greatly increased SN-38 exposure; severe neutropenia and diarrhea",
+          "risk_level": "critical",
+          "recommendation": "Reduce irinotecan dose by 30% for UGT1A1 *28/*28 (homozygous). Monitor closely for neutropenia and severe diarrhea.",
+          "dosing_adjustment": "reduce_30_percent",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Severe neutropenia; life-threatening diarrhea; sepsis risk"
+        },
+        "intermediate_metabolizer": {
+          "effect": "Moderately increased SN-38 exposure",
+          "risk_level": "moderate",
+          "recommendation": "Consider dose reduction in high-dose regimens (>250 mg/m2). Standard dosing may be acceptable in lower-dose regimens with monitoring.",
+          "dosing_adjustment": "reduce_dose_high_regimens",
+          "evidence_level": "CPIC Level B",
+          "fda_label": true,
+          "clinical_consequence": "Increased neutropenia and diarrhea risk"
+        },
+        "normal_metabolizer": {
+          "effect": "Normal SN-38 glucuronidation",
+          "risk_level": "low",
+          "recommendation": "Use label-recommended dosing.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Standard toxicity profile"
+        }
+      },
+      "cpic_guideline": "PharmGKB Clinical Annotation for UGT1A1 and Irinotecan",
+      "pharmgkb_id": "PA166170901",
+      "references": [
+        "FDA Label: Camptosar (irinotecan) - UGT1A1*28 dosing guidance",
+        "Innocenti F, et al. J Clin Oncol. 2009;27(16):2604-2614"
+      ]
+    },
+    {
+      "gene": "TPMT",
+      "drug": "mercaptopurine",
+      "therapeutic_area": "oncology",
+      "drug_class": "thiopurine_antimetabolite",
+      "mechanism": "TPMT methylates thiopurines to inactive metabolites. Deficiency leads to accumulation of cytotoxic thioguanine nucleotides.",
+      "phenotype_impacts": {
+        "poor_metabolizer": {
+          "effect": "Complete TPMT deficiency; massive accumulation of active thioguanine nucleotides",
+          "risk_level": "critical",
+          "recommendation": "Reduce dose to 10% of standard. Consider 3x weekly dosing instead of daily. Mandatory TGN level monitoring.",
+          "dosing_adjustment": "reduce_90_percent",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Fatal myelosuppression; pancytopenia; death"
+        },
+        "intermediate_metabolizer": {
+          "effect": "Reduced TPMT activity; increased TGN accumulation",
+          "risk_level": "high",
+          "recommendation": "Reduce dose by 30-50%. Monitor TGN levels and CBC closely.",
+          "dosing_adjustment": "reduce_30_to_50_percent",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Myelosuppression; leukopenia; infection risk"
+        },
+        "normal_metabolizer": {
+          "effect": "Normal TPMT activity",
+          "risk_level": "low",
+          "recommendation": "Use label-recommended dosing with standard TGN monitoring.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Standard therapeutic response"
+        }
+      },
+      "cpic_guideline": "CPIC Guideline for TPMT/NUDT15 and Thiopurines (2018)",
+      "pharmgkb_id": "PA166104945",
+      "references": [
+        "Relling MV, et al. Clin Pharmacol Ther. 2019;105(5):1095-1105"
+      ]
+    },
+    {
+      "gene": "CYP2D6",
+      "drug": "ondansetron",
+      "therapeutic_area": "oncology",
+      "drug_class": "antiemetic",
+      "mechanism": "CYP2D6 metabolizes ondansetron. Ultra-rapid metabolizers may have reduced antiemetic efficacy.",
+      "phenotype_impacts": {
+        "poor_metabolizer": {
+          "effect": "Increased ondansetron exposure; potentially enhanced antiemetic effect",
+          "risk_level": "low",
+          "recommendation": "Use standard dosing. May have enhanced antiemetic effect.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level B",
+          "fda_label": false,
+          "clinical_consequence": "Potentially enhanced efficacy; minimal clinical concern"
+        },
+        "normal_metabolizer": {
+          "effect": "Standard metabolism",
+          "risk_level": "low",
+          "recommendation": "Use label-recommended dosing.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Standard response"
+        },
+        "ultra_rapid_metabolizer": {
+          "effect": "Increased ondansetron clearance; reduced antiemetic efficacy",
+          "risk_level": "moderate",
+          "recommendation": "Consider alternative antiemetic (granisetron) not primarily metabolized by CYP2D6.",
+          "dosing_adjustment": "switch_drug",
+          "evidence_level": "CPIC Level B",
+          "fda_label": false,
+          "clinical_consequence": "Breakthrough nausea/vomiting"
+        }
+      },
+      "cpic_guideline": "CPIC Guideline for CYP2D6 and Ondansetron/Tropisetron (2021)",
+      "pharmgkb_id": "PA166161954",
+      "references": [
+        "Bell GC, et al. Clin Pharmacol Ther. 2017;101(2):234-237"
+      ]
+    },
+    {
+      "gene": "CYP3A4",
+      "drug": "tacrolimus",
+      "therapeutic_area": "oncology",
+      "drug_class": "calcineurin_inhibitor",
+      "mechanism": "CYP3A4 and CYP3A5 are primary enzymes for tacrolimus metabolism. CYP3A5 expressors require higher doses to achieve therapeutic levels.",
+      "phenotype_impacts": {
+        "poor_metabolizer": {
+          "effect": "Reduced tacrolimus metabolism; elevated trough levels",
+          "risk_level": "high",
+          "recommendation": "Reduce starting dose by 30-50%. Monitor trough levels closely (target 5-15 ng/mL depending on indication).",
+          "dosing_adjustment": "reduce_30_to_50_percent",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Nephrotoxicity; neurotoxicity; over-immunosuppression"
+        },
+        "intermediate_metabolizer": {
+          "effect": "Modestly reduced metabolism",
+          "risk_level": "moderate",
+          "recommendation": "Use standard starting dose with close trough level monitoring. Adjust based on therapeutic drug monitoring.",
+          "dosing_adjustment": "monitor",
+          "evidence_level": "CPIC Level B",
+          "fda_label": false,
+          "clinical_consequence": "Potential for elevated trough levels"
+        },
+        "normal_metabolizer": {
+          "effect": "Standard metabolism",
+          "risk_level": "low",
+          "recommendation": "Use label-recommended dosing with standard TDM.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Standard therapeutic response"
+        }
+      },
+      "cpic_guideline": "CPIC Guideline for CYP3A5 and Tacrolimus (2015)",
+      "pharmgkb_id": "PA166124619",
+      "references": [
+        "Birdwell KA, et al. Clin Pharmacol Ther. 2015;98(1):19-24"
+      ]
+    },
+    {
+      "gene": "HLA-B",
+      "drug": "carbamazepine",
+      "therapeutic_area": "psychiatry",
+      "drug_class": "anticonvulsant_mood_stabilizer",
+      "mechanism": "HLA-B*15:02 allele is strongly associated with carbamazepine-induced Stevens-Johnson syndrome (SJS) and toxic epidermal necrolysis (TEN).",
+      "phenotype_impacts": {
+        "hla_b_1502_positive": {
+          "effect": "High risk of SJS/TEN (up to 5% in carriers vs <0.01% in non-carriers)",
+          "risk_level": "critical",
+          "recommendation": "CONTRAINDICATED. Do not initiate carbamazepine. Use alternative mood stabilizer (valproate, lamotrigine with HLA testing, lithium).",
+          "dosing_adjustment": "contraindicated",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Stevens-Johnson syndrome; toxic epidermal necrolysis; potentially fatal"
+        },
+        "hla_b_1502_negative": {
+          "effect": "Low risk of SJS/TEN from HLA-B*15:02 (other risk factors may still apply)",
+          "risk_level": "low",
+          "recommendation": "Use label-recommended dosing. Note: HLA-A*31:01 also associated with carbamazepine hypersensitivity in European populations.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Standard risk profile"
+        }
+      },
+      "cpic_guideline": "CPIC Guideline for HLA-B Genotype and Carbamazepine/Oxcarbazepine (2021)",
+      "pharmgkb_id": "PA166176068",
+      "references": [
+        "Phillips EJ, et al. Clin Pharmacol Ther. 2018;103(4):612-617",
+        "FDA Boxed Warning: Tegretol (carbamazepine) - HLA-B*15:02 testing requirement"
+      ]
+    },
+    {
+      "gene": "CYP2D6",
+      "drug": "atomoxetine",
+      "therapeutic_area": "psychiatry",
+      "drug_class": "SNRI_ADHD",
+      "mechanism": "CYP2D6 is the primary metabolizing enzyme for atomoxetine. Poor metabolizers have ~10-fold higher AUC.",
+      "phenotype_impacts": {
+        "poor_metabolizer": {
+          "effect": "~10-fold increase in plasma exposure; greatly increased side effects",
+          "risk_level": "high",
+          "recommendation": "Start at 0.5 mg/kg/day (vs 1.2 mg/kg standard). Titrate slowly. Maximum dose 1.2 mg/kg/day (vs 1.8 mg/kg standard).",
+          "dosing_adjustment": "reduce_50_percent",
+          "evidence_level": "CPIC Level A",
+          "fda_label": true,
+          "clinical_consequence": "Cardiovascular side effects; liver toxicity; mood changes"
+        },
+        "intermediate_metabolizer": {
+          "effect": "Moderately increased exposure",
+          "risk_level": "moderate",
+          "recommendation": "Start at standard dose; titrate cautiously with monitoring.",
+          "dosing_adjustment": "monitor",
+          "evidence_level": "CPIC Level B",
+          "fda_label": false,
+          "clinical_consequence": "Increased side effect risk"
+        },
+        "normal_metabolizer": {
+          "effect": "Standard metabolism",
+          "risk_level": "low",
+          "recommendation": "Use label-recommended dosing.",
+          "dosing_adjustment": "none",
+          "evidence_level": "CPIC Level A",
+          "fda_label": false,
+          "clinical_consequence": "Standard response"
+        },
+        "ultra_rapid_metabolizer": {
+          "effect": "Increased clearance; potentially reduced efficacy",
+          "risk_level": "moderate",
+          "recommendation": "May need higher doses to achieve therapeutic effect. Monitor for efficacy.",
+          "dosing_adjustment": "increase_dose",
+          "evidence_level": "CPIC Level C",
+          "fda_label": false,
+          "clinical_consequence": "Possible reduced efficacy"
+        }
+      },
+      "cpic_guideline": "CPIC Guideline for CYP2D6 and Atomoxetine (2019)",
+      "pharmgkb_id": "PA166181082",
+      "references": [
+        "Brown JT, et al. Clin Pharmacol Ther. 2019;106(1):94-102"
+      ]
+    }
+  ]
+}

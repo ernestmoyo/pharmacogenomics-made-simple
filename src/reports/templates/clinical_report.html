@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PGx Clinical Report — {{ patient.patient_id }}</title>
+<style>
+  :root {
+    --navy: #1a365d;
+    --navy-light: #2c5282;
+    --slate: #475569;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1;
+    --gray-600: #475569;
+    --gray-800: #1e293b;
+    --critical: #dc2626;
+    --critical-bg: #fef2f2;
+    --high: #ea580c;
+    --high-bg: #fff7ed;
+    --moderate: #d97706;
+    --moderate-bg: #fffbeb;
+    --low: #16a34a;
+    --low-bg: #f0fdf4;
+    --info: #2563eb;
+    --info-bg: #eff6ff;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--gray-800);
+    background: var(--white);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .page {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* HEADER */
+  .report-header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+    color: white;
+    padding: 28px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .report-header .company-name {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .report-header .company-sub {
+    font-size: 12px;
+    opacity: 0.85;
+    margin-top: 2px;
+  }
+  .report-header .report-meta {
+    text-align: right;
+    font-size: 11px;
+    line-height: 1.6;
+  }
+  .report-header .report-id {
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  .confidential-bar {
+    background: var(--critical);
+    color: white;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 4px 0;
+  }
+
+  /* SECTIONS */
+  .section {
+    margin: 24px 0;
+    border: 1px solid var(--gray-200);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .section-header {
+    background: var(--navy);
+    color: white;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .section-body {
+    padding: 20px;
+  }
+
+  /* PATIENT DEMOGRAPHICS */
+  .demographics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .demo-item {
+    padding: 8px 12px;
+    background: var(--gray-50);
+    border-radius: 4px;
+  }
+  .demo-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--slate);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .demo-value {
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  /* RISK SUMMARY */
+  .risk-banner {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 20px;
+  }
+  .risk-badge {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .risk-badge .score { font-size: 28px; }
+  .risk-badge .score-label { font-size: 9px; text-transform: uppercase; }
+  .risk-details { flex: 1; }
+  .risk-category {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .risk-stats {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .risk-stat {
+    text-align: center;
+    padding: 6px 14px;
+    border-radius: 4px;
+    background: var(--gray-50);
+  }
+  .risk-stat .stat-num {
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .risk-stat .stat-label {
+    font-size: 10px;
+    color: var(--slate);
+  }
+
+  /* TABLES */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  th {
+    background: var(--gray-100);
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--slate);
+    border-bottom: 2px solid var(--gray-200);
+  }
+  td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--gray-200);
+    vertical-align: top;
+  }
+  tr:nth-child(even) { background: var(--gray-50); }
+
+  /* BADGES */
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .badge-critical { background: var(--critical); color: white; }
+  .badge-high { background: var(--high); color: white; }
+  .badge-moderate { background: var(--moderate); color: white; }
+  .badge-low { background: var(--low); color: white; }
+  .badge-info { background: var(--info); color: white; }
+  .badge-fda {
+    background: #7c3aed;
+    color: white;
+    font-size: 9px;
+    padding: 1px 6px;
+  }
+  .badge-cpic {
+    background: var(--navy);
+    color: white;
+    font-size: 9px;
+    padding: 1px 6px;
+  }
+
+  /* PHENOTYPE BADGES */
+  .phenotype-normal { color: var(--low); font-weight: 600; }
+  .phenotype-intermediate { color: var(--moderate); font-weight: 600; }
+  .phenotype-poor { color: var(--critical); font-weight: 600; }
+  .phenotype-ultra { color: var(--critical); font-weight: 600; }
+  .phenotype-high-sens { color: var(--critical); font-weight: 600; }
+  .phenotype-mod-sens { color: var(--high); font-weight: 600; }
+
+  /* FINDING CARDS */
+  .finding-card {
+    border: 1px solid var(--gray-200);
+    border-radius: 6px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .finding-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .finding-card-header .drug-name {
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .finding-card-header .gene-info {
+    font-size: 12px;
+    color: var(--slate);
+  }
+  .finding-card-body {
+    padding: 16px;
+  }
+  .finding-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+  .finding-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--slate);
+    text-transform: uppercase;
+  }
+
+  /* RECOMMENDATION BOX */
+  .rec-box {
+    border-left: 4px solid;
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .rec-box-critical { border-color: var(--critical); background: var(--critical-bg); }
+  .rec-box-high { border-color: var(--high); background: var(--high-bg); }
+  .rec-box-moderate { border-color: var(--moderate); background: var(--moderate-bg); }
+  .rec-box-low { border-color: var(--low); background: var(--low-bg); }
+  .rec-box .rec-title {
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .rec-box .rec-text { font-size: 13px; }
+
+  /* RECOMMENDATION TABLE */
+  .rec-priority {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    line-height: 28px;
+  }
+  .rec-p1 { background: var(--critical); }
+  .rec-p2 { background: var(--high); }
+  .rec-p3 { background: var(--moderate); }
+  .rec-p4 { background: var(--low); }
+
+  /* FOOTER */
+  .report-footer {
+    border-top: 2px solid var(--navy);
+    padding: 16px 0;
+    margin-top: 24px;
+    font-size: 10px;
+    color: var(--slate);
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  /* DISCLAIMER */
+  .disclaimer {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 4px;
+    padding: 16px;
+    font-size: 11px;
+    color: var(--slate);
+    line-height: 1.7;
+  }
+  .disclaimer h4 {
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+
+  .evidence-legend {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .evidence-item {
+    padding: 8px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 4px;
+    font-size: 11px;
+  }
+  .evidence-item strong { display: block; margin-bottom: 2px; }
+
+  /* PRINT */
+  @media print {
+    body { font-size: 11px; }
+    .page { max-width: 100%; padding: 0; }
+    .section { break-inside: avoid; }
+    .finding-card { break-inside: avoid; }
+    .report-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .badge, .rec-priority, .risk-badge { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="report-header">
+  <div>
+    <div class="company-name">PGx Clinical Solutions</div>
+    <div class="company-sub">Clinical Pharmacogenomics Interpretation Report</div>
+    <div class="company-sub">Ernest Moyo | Rangarirai Makuku | Tapiwa Mupereki | Ngonidzashe Faya</div>
+  </div>
+  <div class="report-meta">
+    <div class="report-id">{{ report_metadata.report_id }}</div>
+    <div>Generated: {{ report_metadata.generated_date }}</div>
+    <div>Version {{ report_metadata.version }}</div>
+  </div>
+</div>
+<div class="confidential-bar">CONFIDENTIAL — FOR CLINICAL USE ONLY — PROTECTED HEALTH INFORMATION</div>
+
+<div class="page">
+
+<!-- PATIENT DEMOGRAPHICS -->
+<div class="section">
+  <div class="section-header">Patient Information</div>
+  <div class="section-body">
+    <div class="demographics-grid">
+      <div class="demo-item">
+        <div class="demo-label">Patient Name</div>
+        <div class="demo-value">{{ patient.demographics.last_name }}, {{ patient.demographics.first_name }}</div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-label">Patient ID (MRN)</div>
+        <div class="demo-value">{{ patient.patient_id }}</div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-label">Age / Sex</div>
+        <div class="demo-value">{{ patient.demographics.age }} yr / {{ patient.demographics.sex }}</div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-label">Ethnicity</div>
+        <div class="demo-value">{{ patient.demographics.ethnicity }}</div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-label">Weight</div>
+        <div class="demo-value">{{ patient.demographics.weight_kg }} kg</div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-label">Primary Diagnosis</div>
+        <div class="demo-value">{{ patient.clinical_context.primary_diagnosis }}</div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-label">Therapeutic Area</div>
+        <div class="demo-value">{{ patient.clinical_context.therapeutic_area | replace('_', ' ') | title }}</div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-label">Reason for Testing</div>
+        <div class="demo-value" style="font-size:11px;">{{ patient.clinical_context.reason_for_pgx_testing }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXECUTIVE RISK SUMMARY -->
+<div class="section">
+  <div class="section-header">Executive Summary — Risk Assessment</div>
+  <div class="section-body">
+    <div class="risk-banner">
+      <div class="risk-badge" style="background:
+        {% if risk_summary.critical_count > 0 %}var(--critical)
+        {% elif risk_summary.high_count > 0 %}var(--high)
+        {% elif risk_summary.moderate_count > 0 %}var(--moderate)
+        {% else %}var(--low){% endif %};">
+        <div class="score">{{ risk_summary.overall_score | int }}</div>
+        <div class="score-label">Risk Score</div>
+      </div>
+      <div class="risk-details">
+        <div class="risk-category" style="color:
+          {% if risk_summary.critical_count > 0 %}var(--critical)
+          {% elif risk_summary.high_count > 0 %}var(--high)
+          {% elif risk_summary.moderate_count > 0 %}var(--moderate)
+          {% else %}var(--low){% endif %};">
+          {{ risk_summary.category }}
+        </div>
+        <div class="risk-stats">
+          <div class="risk-stat">
+            <div class="stat-num" style="color:var(--critical)">{{ risk_summary.critical_count }}</div>
+            <div class="stat-label">Critical</div>
+          </div>
+          <div class="risk-stat">
+            <div class="stat-num" style="color:var(--high)">{{ risk_summary.high_count }}</div>
+            <div class="stat-label">High</div>
+          </div>
+          <div class="risk-stat">
+            <div class="stat-num" style="color:var(--moderate)">{{ risk_summary.moderate_count }}</div>
+            <div class="stat-label">Moderate</div>
+          </div>
+          <div class="risk-stat">
+            <div class="stat-num">{{ risk_summary.total_findings }}</div>
+            <div class="stat-label">Total Findings</div>
+          </div>
+          <div class="risk-stat">
+            <div class="stat-num">{{ risk_summary.actionable_count }}</div>
+            <div class="stat-label">Actionable</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CURRENT MEDICATIONS -->
+<div class="section">
+  <div class="section-header">Current Medications Analyzed</div>
+  <div class="section-body">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Medication</th><th>PGx Finding</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        {% for med in patient.medications %}
+        {% set med_name = med if med is string else med.name %}
+        {% set has_finding = [] %}
+        {% for f in scored_findings if f.drug and (med_name | lower) in (f.drug | lower) %}
+          {% if has_finding.append(f) %}{% endif %}
+        {% endfor %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td><strong>{{ med_name | replace('_', ' ') | title }}</strong></td>
+          <td>
+            {% if has_finding %}
+              {% for f in has_finding %}
+              <span class="badge badge-{{ f.severity }}">{{ f.severity | upper }}</span>
+              {% endfor %}
+            {% else %}
+              <span style="color:var(--low);">No actionable findings</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if has_finding %}
+              {% for f in has_finding %}
+              {{ f.finding_type | replace('_', ' ') | title }}{% if not loop.last %}, {% endif %}
+              {% endfor %}
+            {% else %}
+              Standard dosing appropriate
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- GENOTYPE RESULTS -->
+<div class="section">
+  <div class="section-header">Pharmacogenomic Genotype Results</div>
+  <div class="section-body">
+    <table>
+      <thead>
+        <tr><th>Gene</th><th>Diplotype / Variant</th><th>Phenotype</th><th>Clinical Significance</th></tr>
+      </thead>
+      <tbody>
+        {% for gene, data in patient.genotype.items() %}
+        {% set pheno = data.phenotype | default('') %}
+        <tr>
+          <td><strong>{{ gene }}</strong></td>
+          <td>{{ data.diplotype | default(data.variant | default(data.allele | default('—'))) }}</td>
+          <td>
+            <span class="
+              {% if 'normal' in pheno or 'negative' in pheno %}phenotype-normal
+              {% elif 'intermediate' in pheno %}phenotype-intermediate
+              {% elif 'poor' in pheno %}phenotype-poor
+              {% elif 'ultra' in pheno %}phenotype-ultra
+              {% elif 'high' in pheno %}phenotype-high-sens
+              {% elif 'moderate' in pheno %}phenotype-mod-sens
+              {% endif %}">
+              {{ pheno | phenotype_display }}
+            </span>
+          </td>
+          <td>
+            {% if 'normal' in pheno or 'negative' in pheno %}
+              Standard enzyme activity / drug response expected
+            {% elif 'intermediate' in pheno %}
+              Reduced enzyme activity — some drugs may need dose adjustment
+            {% elif 'poor' in pheno %}
+              Absent or greatly reduced enzyme activity — significant drug impact
+            {% elif 'ultra' in pheno %}
+              Increased enzyme activity — risk of toxicity or reduced efficacy
+            {% elif 'high_sensitivity' in pheno %}
+              Greatly increased drug sensitivity — major dose reduction needed
+            {% elif 'moderate_sensitivity' in pheno %}
+              Increased drug sensitivity — dose adjustment likely needed
+            {% elif 'positive' in pheno %}
+              HLA risk allele detected — hypersensitivity risk for specific drugs
+            {% else %}
+              See findings below for clinical interpretation
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- GENE-DRUG INTERACTION FINDINGS -->
+{% if gene_drug_findings %}
+<div class="section">
+  <div class="section-header">Gene-Drug Interaction Analysis</div>
+  <div class="section-body">
+    {% for finding in gene_drug_findings %}
+    <div class="finding-card">
+      <div class="finding-card-header">
+        <div>
+          <span class="drug-name">{{ finding.drug | replace('_', ' ') | title }}</span>
+          <span class="gene-info">— {{ finding.gene }} ({{ finding.phenotype | phenotype_display }})</span>
+        </div>
+        <div>
+          <span class="badge badge-{{ finding.severity }}">{{ finding.severity | upper }}</span>
+          {% if finding.fda_label %}<span class="badge badge-fda">FDA LABEL</span>{% endif %}
+          {% if finding.evidence_level %}<span class="badge badge-cpic">{{ finding.evidence_level }}</span>{% endif %}
+        </div>
+      </div>
+      <div class="finding-card-body">
+        <div class="finding-row">
+          <span class="finding-label">Diplotype</span>
+          <span>{{ finding.diplotype | default('—') }}</span>
+        </div>
+        <div class="finding-row">
+          <span class="finding-label">Clinical Effect</span>
+          <span>{{ finding.summary }}</span>
+        </div>
+        {% if finding.mechanism %}
+        <div class="finding-row">
+          <span class="finding-label">Mechanism</span>
+          <span>{{ finding.mechanism }}</span>
+        </div>
+        {% endif %}
+        {% if finding.clinical_consequence %}
+        <div class="finding-row">
+          <span class="finding-label">Consequence</span>
+          <span><strong>{{ finding.clinical_consequence }}</strong></span>
+        </div>
+        {% endif %}
+
+        <div class="rec-box rec-box-{{ finding.severity }}">
+          <div class="rec-title">Recommendation</div>
+          <div class="rec-text">{{ finding.recommendation }}</div>
+        </div>
+
+        {% if finding.references %}
+        <div class="finding-row">
+          <span class="finding-label">References</span>
+          <span style="font-size:11px;color:var(--slate);">
+            {% for ref in finding.references %}{{ ref }}{% if not loop.last %}<br>{% endif %}{% endfor %}
+          </span>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<!-- DRUG-DRUG INTERACTIONS -->
+{% if ddi_findings or drug_drug_interactions %}
+<div class="section">
+  <div class="section-header">Drug-Drug Interaction Analysis</div>
+  <div class="section-body">
+    {% if ddi_findings %}
+    {% for finding in ddi_findings %}
+    <div class="finding-card">
+      <div class="finding-card-header">
+        <div>
+          <span class="drug-name">{{ finding.drug }}</span>
+        </div>
+        <span class="badge badge-{{ finding.severity }}">{{ finding.severity | upper }}</span>
+      </div>
+      <div class="finding-card-body">
+        {% if finding.mechanism %}
+        <div class="finding-row">
+          <span class="finding-label">Mechanism</span>
+          <span>{{ finding.mechanism }}</span>
+        </div>
+        {% endif %}
+        <div class="finding-row">
+          <span class="finding-label">Clinical Effect</span>
+          <span>{{ finding.clinical_consequence }}</span>
+        </div>
+        <div class="rec-box rec-box-{{ finding.severity }}">
+          <div class="rec-title">Recommendation</div>
+          <div class="rec-text">{{ finding.recommendation }}</div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p style="color:var(--low); padding:8px 0;">No significant drug-drug interactions identified among current medications.</p>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+<!-- ORGAN FUNCTION WARNINGS -->
+{% if organ_findings %}
+<div class="section">
+  <div class="section-header">Renal &amp; Hepatic Considerations</div>
+  <div class="section-body">
+    <table>
+      <thead>
+        <tr><th>Type</th><th>Drug</th><th>Finding</th><th>Recommendation</th><th>Severity</th></tr>
+      </thead>
+      <tbody>
+        {% for f in organ_findings %}
+        <tr>
+          <td>{{ f.finding_type | replace('_', ' ') | title }}</td>
+          <td><strong>{{ f.drug | replace('_', ' ') | title }}</strong></td>
+          <td>{{ f.summary }}</td>
+          <td>{{ f.recommendation }}</td>
+          <td><span class="badge badge-{{ f.severity }}">{{ f.severity | upper }}</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endif %}
+
+<!-- PRIORITIZED RECOMMENDATIONS -->
+{% if recommendations %}
+<div class="section">
+  <div class="section-header">Prioritized Clinical Recommendations</div>
+  <div class="section-body">
+    {% for rec in recommendations %}
+    <div style="display:flex; gap:14px; align-items:flex-start; margin-bottom:18px; padding-bottom:18px; border-bottom:1px solid var(--gray-200);">
+      <div class="rec-priority rec-p{{ rec.priority }}">{{ loop.index }}</div>
+      <div style="flex:1;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <div>
+            <strong style="font-size:14px;">{{ rec.drug | replace('_', ' ') | title }}</strong>
+            {% if rec.gene %}<span style="color:var(--slate);"> — {{ rec.gene }}</span>{% endif %}
+          </div>
+          <div>
+            <span class="badge badge-{{ rec.severity }}">{{ rec.action_type | action_label }}</span>
+            <span class="badge" style="background:var(--gray-600);color:white;">{{ rec.time_frame | time_frame_label }}</span>
+          </div>
+        </div>
+        <div style="margin-bottom:6px;">{{ rec.recommendation_text }}</div>
+        {% if rec.suggested_dose %}
+        <div style="font-size:12px; color:var(--navy); margin-bottom:4px;">
+          <strong>Dose adjustment:</strong> {{ rec.suggested_dose }}
+        </div>
+        {% endif %}
+        {% if rec.suggested_alternatives %}
+        <div style="font-size:12px; color:var(--navy); margin-bottom:4px;">
+          <strong>Alternatives:</strong> {{ rec.suggested_alternatives | join(', ') }}
+        </div>
+        {% endif %}
+        <div style="font-size:11px; color:var(--slate);">
+          <strong>Monitoring:</strong> {{ rec.monitoring_plan }}
+        </div>
+        {% if rec.rationale %}
+        <div style="font-size:11px; color:var(--slate); margin-top:4px;">
+          <strong>Rationale:</strong> {{ rec.rationale }}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<!-- LAB VALUES -->
+<div class="section">
+  <div class="section-header">Relevant Laboratory Values</div>
+  <div class="section-body">
+    <table>
+      <thead>
+        <tr><th>Test</th><th>Value</th><th>Reference Range</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        {% if patient.lab_values.egfr is defined %}
+        <tr>
+          <td>eGFR</td>
+          <td>{{ patient.lab_values.egfr }} mL/min/1.73m²</td>
+          <td>≥90 mL/min/1.73m²</td>
+          <td>{% if patient.lab_values.egfr >= 90 %}<span class="phenotype-normal">Normal</span>
+              {% elif patient.lab_values.egfr >= 60 %}<span class="phenotype-intermediate">Mild Impairment</span>
+              {% elif patient.lab_values.egfr >= 30 %}<span class="phenotype-poor">Moderate Impairment</span>
+              {% else %}<span class="phenotype-poor">Severe Impairment</span>{% endif %}</td>
+        </tr>
+        {% endif %}
+        {% if patient.lab_values.alt is defined %}
+        <tr>
+          <td>ALT</td>
+          <td>{{ patient.lab_values.alt }} U/L</td>
+          <td>7-40 U/L</td>
+          <td>{% if patient.lab_values.alt <= 40 %}<span class="phenotype-normal">Normal</span>
+              {% elif patient.lab_values.alt <= 120 %}<span class="phenotype-intermediate">Elevated</span>
+              {% else %}<span class="phenotype-poor">Significantly Elevated</span>{% endif %}</td>
+        </tr>
+        {% endif %}
+        {% if patient.lab_values.ast is defined %}
+        <tr>
+          <td>AST</td>
+          <td>{{ patient.lab_values.ast }} U/L</td>
+          <td>8-33 U/L</td>
+          <td>{% if patient.lab_values.ast <= 33 %}<span class="phenotype-normal">Normal</span>
+              {% elif patient.lab_values.ast <= 99 %}<span class="phenotype-intermediate">Elevated</span>
+              {% else %}<span class="phenotype-poor">Significantly Elevated</span>{% endif %}</td>
+        </tr>
+        {% endif %}
+        {% if patient.lab_values.scr is defined %}
+        <tr>
+          <td>Serum Creatinine</td>
+          <td>{{ patient.lab_values.scr }} mg/dL</td>
+          <td>0.6-1.2 mg/dL</td>
+          <td>{% if patient.lab_values.scr <= 1.2 %}<span class="phenotype-normal">Normal</span>
+              {% else %}<span class="phenotype-intermediate">Elevated</span>{% endif %}</td>
+        </tr>
+        {% endif %}
+        {% if patient.lab_values.inr is defined %}
+        <tr>
+          <td>INR</td>
+          <td>{{ patient.lab_values.inr }}</td>
+          <td>2.0-3.0 (on warfarin)</td>
+          <td>{% if patient.lab_values.inr >= 2.0 and patient.lab_values.inr <= 3.0 %}<span class="phenotype-normal">Therapeutic</span>
+              {% elif patient.lab_values.inr > 3.0 %}<span class="phenotype-poor">Supratherapeutic</span>
+              {% else %}<span class="phenotype-intermediate">Subtherapeutic</span>{% endif %}</td>
+        </tr>
+        {% endif %}
+        {% if patient.lab_values.albumin is defined %}
+        <tr>
+          <td>Albumin</td>
+          <td>{{ patient.lab_values.albumin }} g/dL</td>
+          <td>3.5-5.5 g/dL</td>
+          <td>{% if patient.lab_values.albumin >= 3.5 %}<span class="phenotype-normal">Normal</span>
+              {% else %}<span class="phenotype-intermediate">Low</span>{% endif %}</td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- METHODOLOGY & DISCLAIMERS -->
+<div class="section">
+  <div class="section-header">Methodology, Evidence, &amp; Disclaimers</div>
+  <div class="section-body">
+    <div class="disclaimer">
+      <h4>Clinical Interpretation Methodology</h4>
+      <p>This report was generated using clinical pharmacogenomics guidelines from the Clinical Pharmacogenetics Implementation Consortium (CPIC), FDA pharmacogenomic labeling, and PharmGKB clinical annotations. Drug-drug interaction analysis includes phenoconversion assessment where concomitant medications may alter functional enzyme activity.</p>
+
+      <h4 style="margin-top:12px;">Evidence Level Legend</h4>
+      <div class="evidence-legend">
+        <div class="evidence-item">
+          <strong>CPIC Level A</strong>
+          Strong evidence. Prescribing action recommended based on preponderance of evidence from clinical studies.
+        </div>
+        <div class="evidence-item">
+          <strong>CPIC Level B</strong>
+          Moderate evidence. Prescribing action may be considered based on available evidence.
+        </div>
+        <div class="evidence-item">
+          <strong>CPIC Level C</strong>
+          Optional. Evidence is limited; clinical action based on expert opinion.
+        </div>
+      </div>
+
+      <h4 style="margin-top:12px;">Important Disclaimers</h4>
+      <ul style="margin-left:16px; margin-top:4px;">
+        <li>This report is intended to <strong>support, not replace</strong>, clinical judgment by qualified healthcare professionals.</li>
+        <li>Genetic test results should be interpreted in the context of the patient's complete clinical picture, including comorbidities, organ function, and concomitant medications.</li>
+        <li>Pharmacogenomic recommendations may change as new evidence emerges. This report reflects guidelines current as of the report generation date.</li>
+        <li>Not all genetic variants affecting drug metabolism have been characterized. A "normal metabolizer" result does not guarantee typical drug response.</li>
+        <li>Environmental factors (diet, smoking, supplements) may also influence drug metabolism and are not captured in genetic testing.</li>
+      </ul>
+
+      <h4 style="margin-top:12px;">Data Privacy</h4>
+      <p>This report contains Protected Health Information (PHI) governed by HIPAA. Distribution is limited to authorized healthcare personnel involved in the patient's care. Do not transmit via unsecured channels.</p>
+    </div>
+  </div>
+</div>
+
+</div><!-- end .page -->
+
+<!-- FOOTER -->
+<div class="report-footer">
+  <div class="page">
+    <strong>PGx Clinical Solutions</strong> — Clinical Pharmacogenomics Interpretation Services<br>
+    Report {{ report_metadata.report_id }} | Generated {{ report_metadata.generated_date }} | Platform v{{ report_metadata.version }}<br>
+    Ernest Moyo | Rangarirai Makuku | Tapiwa Mupereki | Ngonidzashe Faya<br>
+    This document is confidential and intended solely for the use of the addressee.
+  </div>
+</div>
+
+</body>
+</html>

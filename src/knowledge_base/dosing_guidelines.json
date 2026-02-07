@@ -1,0 +1,154 @@
+{
+  "dosing_guidelines": {
+    "warfarin": {
+      "standard_starting_dose_mg": 5.0,
+      "therapeutic_range": "INR 2.0-3.0 (most indications)",
+      "pharmacogenomic_dosing_table": {
+        "VKORC1_normal__CYP2C9_normal": {"dose_mg_per_day": "5-7", "monitoring": "Standard INR monitoring"},
+        "VKORC1_normal__CYP2C9_intermediate": {"dose_mg_per_day": "3-4", "monitoring": "INR weekly x4, then biweekly"},
+        "VKORC1_normal__CYP2C9_poor": {"dose_mg_per_day": "1.5-2", "monitoring": "INR every 2-3 days x2 weeks, then weekly"},
+        "VKORC1_moderate_sensitivity__CYP2C9_normal": {"dose_mg_per_day": "3-4", "monitoring": "INR weekly x4, then biweekly"},
+        "VKORC1_moderate_sensitivity__CYP2C9_intermediate": {"dose_mg_per_day": "2-3", "monitoring": "INR every 2-3 days x2 weeks, then weekly"},
+        "VKORC1_moderate_sensitivity__CYP2C9_poor": {"dose_mg_per_day": "0.5-1.5", "monitoring": "INR every 2-3 days x3 weeks minimum"},
+        "VKORC1_high_sensitivity__CYP2C9_normal": {"dose_mg_per_day": "1.5-2.5", "monitoring": "INR every 2-3 days x2 weeks, then weekly"},
+        "VKORC1_high_sensitivity__CYP2C9_intermediate": {"dose_mg_per_day": "1-2", "monitoring": "INR every 2-3 days x3 weeks minimum"},
+        "VKORC1_high_sensitivity__CYP2C9_poor": {"dose_mg_per_day": "0.5-1", "monitoring": "INR daily x1 week, then every 2-3 days x3 weeks"}
+      },
+      "additional_factors": ["age", "weight", "amiodarone_use", "diet_vitamin_K", "liver_function"],
+      "fda_dosing_table": true,
+      "cpic_algorithm": "IWPC or Gage warfarin dosing algorithm incorporating CYP2C9 and VKORC1"
+    },
+    "citalopram": {
+      "standard_dose_range_mg": "20-40",
+      "max_dose_mg": 40,
+      "pgx_adjustments": {
+        "CYP2C19_poor_metabolizer": {"max_dose_mg": 20, "starting_dose_mg": 10, "note": "FDA maximum 20 mg/day for CYP2C19 PMs due to QTc risk"},
+        "CYP2C19_intermediate_metabolizer": {"max_dose_mg": 30, "starting_dose_mg": 10, "note": "Consider lower max dose"},
+        "CYP2C19_normal_metabolizer": {"max_dose_mg": 40, "starting_dose_mg": 20, "note": "Standard dosing"},
+        "CYP2C19_ultra_rapid_metabolizer": {"max_dose_mg": 40, "starting_dose_mg": 20, "note": "May need higher dose or alternative agent"}
+      },
+      "therapeutic_drug_monitoring": "Target serum level 50-110 ng/mL",
+      "qtc_monitoring": "ECG recommended for doses >20 mg or in patients >60 years"
+    },
+    "escitalopram": {
+      "standard_dose_range_mg": "10-20",
+      "max_dose_mg": 20,
+      "pgx_adjustments": {
+        "CYP2C19_poor_metabolizer": {"max_dose_mg": 10, "starting_dose_mg": 5, "note": "50% dose reduction; max 10 mg/day"},
+        "CYP2C19_intermediate_metabolizer": {"max_dose_mg": 15, "starting_dose_mg": 5, "note": "Consider 75% of standard max"},
+        "CYP2C19_normal_metabolizer": {"max_dose_mg": 20, "starting_dose_mg": 10, "note": "Standard dosing"},
+        "CYP2C19_ultra_rapid_metabolizer": {"max_dose_mg": 20, "starting_dose_mg": 10, "note": "Alternative SSRI recommended"}
+      }
+    },
+    "codeine": {
+      "standard_dose_range_mg": "15-60 every 4-6 hours",
+      "max_dose_mg_per_day": 360,
+      "pgx_adjustments": {
+        "CYP2D6_poor_metabolizer": {"recommendation": "AVOID. Use morphine, NSAIDs, or acetaminophen", "dose_change": "contraindicated"},
+        "CYP2D6_intermediate_metabolizer": {"recommendation": "Use alternative if possible", "dose_change": "alternative_preferred"},
+        "CYP2D6_normal_metabolizer": {"recommendation": "Standard dosing", "dose_change": "none"},
+        "CYP2D6_ultra_rapid_metabolizer": {"recommendation": "AVOID. Life-threatening toxicity risk", "dose_change": "contraindicated"}
+      },
+      "alternatives": ["morphine", "hydromorphone", "acetaminophen", "NSAIDs", "ketorolac"]
+    },
+    "tamoxifen": {
+      "standard_dose_mg": 20,
+      "duration_years": "5-10",
+      "pgx_adjustments": {
+        "CYP2D6_poor_metabolizer": {"recommendation": "Switch to aromatase inhibitor (postmenopausal) or increase to 40 mg", "dose_change": "switch_or_increase"},
+        "CYP2D6_intermediate_metabolizer": {"recommendation": "Consider aromatase inhibitor or increase to 40 mg/day", "dose_change": "increase_or_switch"},
+        "CYP2D6_normal_metabolizer": {"recommendation": "Standard 20 mg/day", "dose_change": "none"},
+        "CYP2D6_ultra_rapid_metabolizer": {"recommendation": "Standard 20 mg/day", "dose_change": "none"}
+      },
+      "avoid_concomitant": ["fluoxetine", "paroxetine", "quinidine"],
+      "endoxifen_target": ">5.9 ng/mL"
+    },
+    "fluorouracil": {
+      "dosing_basis": "body_surface_area",
+      "pgx_adjustments": {
+        "DPYD_poor_metabolizer": {"recommendation": "CONTRAINDICATED", "dose_change": "contraindicated"},
+        "DPYD_intermediate_metabolizer": {"recommendation": "Reduce dose by 50%", "dose_change": "reduce_50_percent"},
+        "DPYD_normal_metabolizer": {"recommendation": "Standard BSA-based dosing", "dose_change": "none"}
+      },
+      "pre_treatment_testing": "DPYD genotyping recommended before initiation"
+    },
+    "simvastatin": {
+      "standard_dose_range_mg": "10-40",
+      "pgx_adjustments": {
+        "SLCO1B1_poor_function": {"recommendation": "AVOID simvastatin. Use rosuvastatin or pravastatin", "max_dose_mg": 0},
+        "SLCO1B1_intermediate_function": {"recommendation": "Max 20 mg/day or switch", "max_dose_mg": 20},
+        "SLCO1B1_normal_function": {"recommendation": "Standard dosing up to 40 mg/day", "max_dose_mg": 40}
+      },
+      "myopathy_monitoring": "Report unexplained muscle pain. Check CK if symptomatic."
+    },
+    "clopidogrel": {
+      "standard_dose_mg": 75,
+      "loading_dose_mg": 300,
+      "pgx_adjustments": {
+        "CYP2C19_poor_metabolizer": {"recommendation": "Use prasugrel or ticagrelor", "dose_change": "switch_drug"},
+        "CYP2C19_intermediate_metabolizer": {"recommendation": "Use prasugrel or ticagrelor for ACS/PCI", "dose_change": "switch_drug"},
+        "CYP2C19_normal_metabolizer": {"recommendation": "Standard 75 mg/day", "dose_change": "none"},
+        "CYP2C19_ultra_rapid_metabolizer": {"recommendation": "Standard 75 mg/day", "dose_change": "none"}
+      },
+      "alternative_agents": {
+        "prasugrel": {"dose": "10 mg/day", "note": "Not CYP2C19 dependent"},
+        "ticagrelor": {"dose": "90 mg BID", "note": "Not CYP2C19 dependent"}
+      }
+    },
+    "mercaptopurine": {
+      "dosing_basis": "body_surface_area_or_weight",
+      "pgx_adjustments": {
+        "TPMT_poor_metabolizer": {"recommendation": "Reduce to 10% of standard dose", "dose_change": "reduce_90_percent"},
+        "TPMT_intermediate_metabolizer": {"recommendation": "Reduce dose by 30-50%", "dose_change": "reduce_30_to_50_percent"},
+        "TPMT_normal_metabolizer": {"recommendation": "Standard dosing", "dose_change": "none"}
+      }
+    },
+    "irinotecan": {
+      "dosing_basis": "body_surface_area",
+      "pgx_adjustments": {
+        "UGT1A1_poor_metabolizer": {"recommendation": "Reduce dose by 30%", "dose_change": "reduce_30_percent"},
+        "UGT1A1_intermediate_metabolizer": {"recommendation": "Reduce for high-dose regimens", "dose_change": "conditional"},
+        "UGT1A1_normal_metabolizer": {"recommendation": "Standard dosing", "dose_change": "none"}
+      }
+    },
+    "nortriptyline": {
+      "standard_dose_range_mg": "25-150",
+      "therapeutic_range_ng_ml": "50-150",
+      "pgx_adjustments": {
+        "CYP2D6_poor_metabolizer": {"starting_dose_mg": 10, "max_dose_mg": 75, "note": "Reduce 50%. Use TDM"},
+        "CYP2D6_intermediate_metabolizer": {"starting_dose_mg": 25, "max_dose_mg": 100, "note": "Reduce 25%. Use TDM"},
+        "CYP2D6_normal_metabolizer": {"starting_dose_mg": 25, "max_dose_mg": 150, "note": "Standard dosing"},
+        "CYP2D6_ultra_rapid_metabolizer": {"note": "Avoid. Use alternative antidepressant", "dose_change": "switch_drug"}
+      }
+    }
+  },
+  "renal_adjustments": {
+    "egfr_thresholds": {
+      "normal": {"min": 90, "label": "Normal kidney function"},
+      "mild_impairment": {"min": 60, "max": 89, "label": "Mild (CKD Stage 2)"},
+      "moderate_impairment": {"min": 30, "max": 59, "label": "Moderate (CKD Stage 3)"},
+      "severe_impairment": {"min": 15, "max": 29, "label": "Severe (CKD Stage 4)"},
+      "kidney_failure": {"max": 14, "label": "Kidney Failure (CKD Stage 5)"}
+    },
+    "drugs_requiring_renal_adjustment": {
+      "metformin": {"egfr_cutoff": 30, "action": "Contraindicated below eGFR 30"},
+      "gabapentin": {"egfr_cutoff": 60, "action": "Reduce dose below eGFR 60"},
+      "morphine": {"egfr_cutoff": 30, "action": "Avoid or reduce dose; active metabolite accumulates"},
+      "tramadol": {"egfr_cutoff": 30, "action": "Reduce dose; max 200 mg/day if eGFR <30"}
+    }
+  },
+  "hepatic_adjustments": {
+    "alt_ast_thresholds": {
+      "normal": {"max_uln_ratio": 1.0},
+      "mildly_elevated": {"min_uln_ratio": 1.0, "max_uln_ratio": 3.0},
+      "moderately_elevated": {"min_uln_ratio": 3.0, "max_uln_ratio": 5.0},
+      "severely_elevated": {"min_uln_ratio": 5.0}
+    },
+    "drugs_requiring_hepatic_adjustment": {
+      "simvastatin": "Hold if ALT >3x ULN",
+      "atorvastatin": "Hold if ALT >3x ULN",
+      "warfarin": "Reduce dose; liver disease increases sensitivity",
+      "tamoxifen": "Monitor hepatic function"
+    }
+  }
+}

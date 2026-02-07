@@ -1,0 +1,186 @@
+{
+  "drug_drug_interactions": [
+    {
+      "drug_a": "fluoxetine",
+      "drug_b": "codeine",
+      "severity": "major",
+      "mechanism": "Fluoxetine is a potent CYP2D6 inhibitor. Converts any CYP2D6 phenotype to functional poor metabolizer status, blocking codeine-to-morphine conversion.",
+      "clinical_effect": "Therapeutic failure of codeine analgesia regardless of patient genotype",
+      "recommendation": "Avoid combination. Use non-opioid analgesic or opioid not dependent on CYP2D6 activation (morphine, hydromorphone).",
+      "evidence_level": "strong",
+      "phenoconversion": {"target_gene": "CYP2D6", "functional_phenotype": "poor_metabolizer"},
+      "references": ["Preskorn SH. J Psychiatr Pract. 2013;19(5):394-398"]
+    },
+    {
+      "drug_a": "paroxetine",
+      "drug_b": "codeine",
+      "severity": "major",
+      "mechanism": "Paroxetine is a potent CYP2D6 inhibitor. Blocks codeine bioactivation to morphine.",
+      "clinical_effect": "Therapeutic failure of codeine analgesia",
+      "recommendation": "Avoid combination. Use alternative analgesic or alternative antidepressant.",
+      "evidence_level": "strong",
+      "phenoconversion": {"target_gene": "CYP2D6", "functional_phenotype": "poor_metabolizer"},
+      "references": ["Lam YWF, et al. J Clin Psychopharmacol. 2002;22(1):68-72"]
+    },
+    {
+      "drug_a": "fluoxetine",
+      "drug_b": "tamoxifen",
+      "severity": "major",
+      "mechanism": "Fluoxetine potently inhibits CYP2D6, blocking tamoxifen conversion to endoxifen (active metabolite).",
+      "clinical_effect": "Reduced tamoxifen efficacy; increased breast cancer recurrence risk",
+      "recommendation": "AVOID combination. Switch antidepressant to one with minimal CYP2D6 inhibition (e.g., venlafaxine, citalopram, escitalopram).",
+      "evidence_level": "strong",
+      "phenoconversion": {"target_gene": "CYP2D6", "functional_phenotype": "poor_metabolizer"},
+      "references": ["Kelly CM, et al. BMJ. 2010;340:c693"]
+    },
+    {
+      "drug_a": "paroxetine",
+      "drug_b": "tamoxifen",
+      "severity": "major",
+      "mechanism": "Paroxetine potently inhibits CYP2D6, blocking endoxifen formation.",
+      "clinical_effect": "Reduced tamoxifen efficacy; increased breast cancer recurrence risk",
+      "recommendation": "AVOID combination. Use alternative antidepressant (venlafaxine, citalopram).",
+      "evidence_level": "strong",
+      "phenoconversion": {"target_gene": "CYP2D6", "functional_phenotype": "poor_metabolizer"},
+      "references": ["Kelly CM, et al. BMJ. 2010;340:c693"]
+    },
+    {
+      "drug_a": "omeprazole",
+      "drug_b": "clopidogrel",
+      "severity": "major",
+      "mechanism": "Omeprazole inhibits CYP2C19, reducing clopidogrel bioactivation. Esomeprazole has similar effect.",
+      "clinical_effect": "Reduced antiplatelet effect of clopidogrel; increased cardiovascular event risk",
+      "recommendation": "Use pantoprazole (minimal CYP2C19 inhibition) if PPI needed with clopidogrel.",
+      "evidence_level": "strong",
+      "phenoconversion": {"target_gene": "CYP2C19", "functional_phenotype": "reduced_function"},
+      "references": ["FDA Drug Safety Communication: Clopidogrel and PPIs (2009)", "Kwok CS, et al. Am J Gastroenterol. 2012;107(7):1011-1019"]
+    },
+    {
+      "drug_a": "fluconazole",
+      "drug_b": "warfarin",
+      "severity": "major",
+      "mechanism": "Fluconazole inhibits CYP2C9, reducing S-warfarin metabolism. Potentiates anticoagulation effect.",
+      "clinical_effect": "Supratherapeutic INR; major bleeding risk",
+      "recommendation": "Reduce warfarin dose by 25-50% when initiating fluconazole. Monitor INR every 2-3 days until stable.",
+      "evidence_level": "strong",
+      "phenoconversion": {"target_gene": "CYP2C9", "functional_phenotype": "poor_metabolizer"},
+      "references": ["Black DJ, et al. Br J Clin Pharmacol. 1999;47(5):577-581"]
+    },
+    {
+      "drug_a": "amiodarone",
+      "drug_b": "warfarin",
+      "severity": "major",
+      "mechanism": "Amiodarone inhibits CYP2C9 and CYP1A2, reducing warfarin clearance. Effect persists for months after amiodarone discontinuation.",
+      "clinical_effect": "Significantly elevated INR; major bleeding risk",
+      "recommendation": "Reduce warfarin dose by 30-50% when initiating amiodarone. Monitor INR closely for weeks. Interaction persists for months after amiodarone stop.",
+      "evidence_level": "strong",
+      "phenoconversion": {"target_gene": "CYP2C9", "functional_phenotype": "reduced_function"},
+      "references": ["Sanoski CA, Bauman JL. Pharmacotherapy. 2002;22(12):1568-1577"]
+    },
+    {
+      "drug_a": "carbamazepine",
+      "drug_b": "citalopram",
+      "severity": "moderate",
+      "mechanism": "Carbamazepine induces CYP3A4 and possibly CYP2C19, potentially increasing citalopram metabolism.",
+      "clinical_effect": "Reduced citalopram plasma levels; potential therapeutic failure of antidepressant",
+      "recommendation": "Monitor for antidepressant efficacy. Consider dose increase or alternative antidepressant.",
+      "evidence_level": "moderate",
+      "phenoconversion": null,
+      "references": ["Spina E, et al. Ther Drug Monit. 2008;30(2):143-150"]
+    },
+    {
+      "drug_a": "rifampin",
+      "drug_b": "warfarin",
+      "severity": "major",
+      "mechanism": "Rifampin is a potent inducer of CYP2C9, CYP3A4, and CYP1A2, dramatically increasing warfarin clearance.",
+      "clinical_effect": "Therapeutic failure of warfarin; subtherapeutic INR; thromboembolic risk",
+      "recommendation": "Avoid combination if possible. If unavoidable, increase warfarin dose 2-5x with frequent INR monitoring. Re-adjust dose when rifampin stopped.",
+      "evidence_level": "strong",
+      "phenoconversion": {"target_gene": "CYP2C9", "functional_phenotype": "ultra_rapid_metabolizer"},
+      "references": ["Heimark LD, et al. Clin Pharmacol Ther. 1987;42(4):388-394"]
+    },
+    {
+      "drug_a": "metoprolol",
+      "drug_b": "fluoxetine",
+      "severity": "moderate",
+      "mechanism": "Fluoxetine inhibits CYP2D6, reducing metoprolol metabolism and increasing its plasma concentration.",
+      "clinical_effect": "Enhanced beta-blockade; bradycardia; hypotension",
+      "recommendation": "Monitor heart rate and blood pressure. Consider dose reduction of metoprolol or switch to atenolol (renally eliminated).",
+      "evidence_level": "moderate",
+      "phenoconversion": {"target_gene": "CYP2D6", "functional_phenotype": "poor_metabolizer"},
+      "references": ["Hemeryck A, Belpaire FM. Curr Drug Metab. 2002;3(1):13-37"]
+    },
+    {
+      "drug_a": "ketoconazole",
+      "drug_b": "simvastatin",
+      "severity": "major",
+      "mechanism": "Ketoconazole potently inhibits CYP3A4, greatly increasing simvastatin exposure.",
+      "clinical_effect": "Massively elevated statin levels; rhabdomyolysis risk",
+      "recommendation": "CONTRAINDICATED. Do not co-administer. Temporarily discontinue simvastatin during azole antifungal therapy.",
+      "evidence_level": "strong",
+      "phenoconversion": null,
+      "references": ["FDA Label: Zocor (simvastatin) - Contraindications section"]
+    },
+    {
+      "drug_a": "citalopram",
+      "drug_b": "tramadol",
+      "severity": "major",
+      "mechanism": "Both drugs increase serotonin levels. Combination increases serotonin syndrome risk.",
+      "clinical_effect": "Serotonin syndrome: hyperthermia, rigidity, myoclonus, autonomic instability, delirium",
+      "recommendation": "Use with caution. Monitor for serotonin syndrome symptoms. Consider non-serotonergic analgesic alternatives.",
+      "evidence_level": "moderate",
+      "phenoconversion": null,
+      "references": ["Gillman PK. Br J Pharmacol. 2007;151(6):737-748"]
+    },
+    {
+      "drug_a": "methotrexate",
+      "drug_b": "omeprazole",
+      "severity": "moderate",
+      "mechanism": "PPIs may reduce renal clearance of methotrexate through inhibition of renal transporters.",
+      "clinical_effect": "Increased methotrexate exposure; increased toxicity risk (myelosuppression, mucositis)",
+      "recommendation": "Monitor methotrexate levels closely if PPI is required. Consider H2 blocker as alternative acid suppression.",
+      "evidence_level": "moderate",
+      "phenoconversion": null,
+      "references": ["Bezabeh S, et al. J Oncol Pharm Pract. 2012;18(4):409-416"]
+    },
+    {
+      "drug_a": "bupropion",
+      "drug_b": "tamoxifen",
+      "severity": "moderate",
+      "mechanism": "Bupropion is a moderate CYP2D6 inhibitor, potentially reducing endoxifen formation.",
+      "clinical_effect": "Modestly reduced tamoxifen efficacy; clinical significance debated",
+      "recommendation": "Consider alternative antidepressant with lower CYP2D6 inhibition (venlafaxine, citalopram) if possible.",
+      "evidence_level": "moderate",
+      "phenoconversion": {"target_gene": "CYP2D6", "functional_phenotype": "intermediate_metabolizer"},
+      "references": ["Borges S, et al. J Clin Pharmacol. 2006;46(12):1378-1387"]
+    }
+  ],
+  "cyp_inhibitors": {
+    "CYP2D6": {
+      "strong": ["fluoxetine", "paroxetine", "quinidine", "bupropion_high_dose"],
+      "moderate": ["duloxetine", "sertraline", "bupropion", "terbinafine"],
+      "weak": ["amiodarone", "cimetidine"]
+    },
+    "CYP2C19": {
+      "strong": ["fluoxetine", "fluvoxamine", "ticlopidine"],
+      "moderate": ["omeprazole", "esomeprazole", "voriconazole"],
+      "weak": ["cimetidine"]
+    },
+    "CYP2C9": {
+      "strong": ["fluconazole"],
+      "moderate": ["amiodarone", "fluoxetine", "fluvoxamine"],
+      "weak": ["sertraline"]
+    },
+    "CYP3A4": {
+      "strong": ["ketoconazole", "itraconazole", "clarithromycin", "ritonavir", "nefazodone"],
+      "moderate": ["erythromycin", "fluconazole", "diltiazem", "verapamil", "grapefruit_juice"],
+      "weak": ["cimetidine"]
+    }
+  },
+  "cyp_inducers": {
+    "CYP2C9": ["rifampin", "phenytoin", "carbamazepine"],
+    "CYP2C19": ["rifampin", "carbamazepine", "St_Johns_Wort"],
+    "CYP3A4": ["rifampin", "phenytoin", "carbamazepine", "phenobarbital", "St_Johns_Wort"],
+    "CYP1A2": ["rifampin", "smoking", "carbamazepine"]
+  }
+}

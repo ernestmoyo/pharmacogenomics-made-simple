@@ -1,0 +1,628 @@
+"""
+Synthetic Patient Data Generator
+================================
+Generates 25 realistic pharmacogenomics patient profiles across
+psychiatry, oncology, pain management, and cardiology.
+"""
+
+import json
+import random
+from pathlib import Path
+from datetime import datetime, timedelta
+
+
+def generate_patients(seed: int = 42) -> list:
+    """Generate 25 synthetic patient profiles with realistic PGx data."""
+    random.seed(seed)
+    patients = []
+
+    # =========================================================================
+    # PSYCHIATRY PATIENTS (7 patients)
+    # =========================================================================
+
+    patients.append({
+        "patient_id": "PGX001",
+        "demographics": {
+            "first_name": "Maria", "last_name": "Santos",
+            "age": 34, "sex": "F", "weight_kg": 62, "height_cm": 163,
+            "ethnicity": "Hispanic"
+        },
+        "genotype": {
+            "CYP2C19": {"diplotype": "*2/*2", "phenotype": "poor_metabolizer"},
+            "CYP2D6": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2C9": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP3A4": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "HLA-B": {"allele": "negative", "phenotype": "hla_b_1502_negative"},
+        },
+        "medications": ["citalopram", "buspirone", "trazodone", "lisinopril", "metformin"],
+        "lab_values": {"egfr": 95, "alt": 22, "ast": 19, "scr": 0.8, "albumin": 4.1},
+        "clinical_context": {
+            "primary_diagnosis": "Major Depressive Disorder",
+            "therapeutic_area": "psychiatry",
+            "reason_for_pgx_testing": "Inadequate response to citalopram 40mg after 8 weeks; considering dose adjustment or switch"
+        }
+    })
+
+    patients.append({
+        "patient_id": "PGX002",
+        "demographics": {
+            "first_name": "James", "last_name": "Williams",
+            "age": 28, "sex": "M", "weight_kg": 81, "height_cm": 178,
+            "ethnicity": "African American"
+        },
+        "genotype": {
+            "CYP2C19": {"diplotype": "*17/*17", "phenotype": "ultra_rapid_metabolizer"},
+            "CYP2D6": {"diplotype": "*1/*4", "phenotype": "intermediate_metabolizer"},
+            "CYP2C9": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP3A4": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "HLA-B": {"allele": "negative", "phenotype": "hla_b_1502_negative"},
+        },
+        "medications": ["escitalopram", "quetiapine", "melatonin", "ibuprofen"],
+        "lab_values": {"egfr": 110, "alt": 18, "ast": 20, "scr": 1.0, "albumin": 4.3},
+        "clinical_context": {
+            "primary_diagnosis": "Generalized Anxiety Disorder with Insomnia",
+            "therapeutic_area": "psychiatry",
+            "reason_for_pgx_testing": "Escitalopram 20mg not achieving adequate anxiolytic effect"
+        }
+    })
+
+    patients.append({
+        "patient_id": "PGX003",
+        "demographics": {
+            "first_name": "Yuki", "last_name": "Tanaka",
+            "age": 45, "sex": "F", "weight_kg": 55, "height_cm": 158,
+            "ethnicity": "East Asian"
+        },
+        "genotype": {
+            "CYP2C19": {"diplotype": "*1/*2", "phenotype": "intermediate_metabolizer"},
+            "CYP2D6": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2C9": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP3A4": {"diplotype": "*1/*22", "phenotype": "intermediate_metabolizer"},
+            "HLA-B": {"allele": "*15:02 positive", "phenotype": "hla_b_1502_positive"},
+        },
+        "medications": ["sertraline", "alprazolam", "omeprazole", "levothyroxine"],
+        "lab_values": {"egfr": 88, "alt": 25, "ast": 22, "scr": 0.7, "albumin": 3.9},
+        "clinical_context": {
+            "primary_diagnosis": "Panic Disorder",
+            "therapeutic_area": "psychiatry",
+            "reason_for_pgx_testing": "Psychiatrist considering carbamazepine for mood stabilization; HLA testing ordered"
+        }
+    })
+
+    patients.append({
+        "patient_id": "PGX004",
+        "demographics": {
+            "first_name": "Robert", "last_name": "Chen",
+            "age": 62, "sex": "M", "weight_kg": 73, "height_cm": 170,
+            "ethnicity": "East Asian"
+        },
+        "genotype": {
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2D6": {"diplotype": "*4/*4", "phenotype": "poor_metabolizer"},
+            "CYP2C9": {"diplotype": "*1/*2", "phenotype": "intermediate_metabolizer"},
+            "CYP3A4": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "HLA-B": {"allele": "negative", "phenotype": "hla_b_1502_negative"},
+        },
+        "medications": ["nortriptyline", "gabapentin", "amlodipine", "metoprolol", "aspirin"],
+        "lab_values": {"egfr": 72, "alt": 31, "ast": 28, "scr": 1.1, "albumin": 3.8},
+        "clinical_context": {
+            "primary_diagnosis": "Treatment-Resistant Depression with Neuropathic Pain",
+            "therapeutic_area": "psychiatry",
+            "reason_for_pgx_testing": "Experiencing significant anticholinergic side effects on nortriptyline 75mg"
+        }
+    })
+
+    patients.append({
+        "patient_id": "PGX005",
+        "demographics": {
+            "first_name": "Priya", "last_name": "Sharma",
+            "age": 19, "sex": "F", "weight_kg": 58, "height_cm": 162,
+            "ethnicity": "South Asian"
+        },
+        "genotype": {
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2D6": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2C9": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP3A4": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "HLA-B": {"allele": "negative", "phenotype": "hla_b_1502_negative"},
+        },
+        "medications": ["fluoxetine", "lamotrigine", "oral_contraceptive"],
+        "lab_values": {"egfr": 115, "alt": 15, "ast": 14, "scr": 0.6, "albumin": 4.4},
+        "clinical_context": {
+            "primary_diagnosis": "Bipolar II Disorder",
+            "therapeutic_area": "psychiatry",
+            "reason_for_pgx_testing": "Baseline PGx testing before medication optimization"
+        }
+    })
+
+    patients.append({
+        "patient_id": "PGX006",
+        "demographics": {
+            "first_name": "David", "last_name": "Okonkwo",
+            "age": 41, "sex": "M", "weight_kg": 90, "height_cm": 183,
+            "ethnicity": "African American"
+        },
+        "genotype": {
+            "CYP2C19": {"diplotype": "*2/*2", "phenotype": "poor_metabolizer"},
+            "CYP2D6": {"diplotype": "*1/*2", "phenotype": "normal_metabolizer"},
+            "CYP2C9": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP3A4": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "HLA-B": {"allele": "negative", "phenotype": "hla_b_1502_negative"},
+        },
+        "medications": ["citalopram", "aripiprazole", "metformin", "lisinopril", "atorvastatin"],
+        "lab_values": {"egfr": 85, "alt": 35, "ast": 30, "scr": 1.2, "albumin": 3.9},
+        "clinical_context": {
+            "primary_diagnosis": "Schizoaffective Disorder, Depressive Type",
+            "therapeutic_area": "psychiatry",
+            "reason_for_pgx_testing": "Persistent depressive symptoms despite citalopram 40mg; QTc 470ms on ECG"
+        }
+    })
+
+    patients.append({
+        "patient_id": "PGX007",
+        "demographics": {
+            "first_name": "Emily", "last_name": "Kowalski",
+            "age": 55, "sex": "F", "weight_kg": 70, "height_cm": 165,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2D6": {"diplotype": "*4/*5", "phenotype": "poor_metabolizer"},
+            "CYP2C9": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP3A4": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "HLA-B": {"allele": "negative", "phenotype": "hla_b_1502_negative"},
+        },
+        "medications": ["atomoxetine", "venlafaxine", "lorazepam", "omeprazole"],
+        "lab_values": {"egfr": 78, "alt": 28, "ast": 25, "scr": 0.9, "albumin": 4.0},
+        "clinical_context": {
+            "primary_diagnosis": "ADHD and Comorbid Depression",
+            "therapeutic_area": "psychiatry",
+            "reason_for_pgx_testing": "Experiencing cardiovascular side effects on atomoxetine 80mg (elevated HR, palpitations)"
+        }
+    })
+
+    # =========================================================================
+    # PAIN MANAGEMENT PATIENTS (6 patients)
+    # =========================================================================
+
+    patients.append({
+        "patient_id": "PGX008",
+        "demographics": {
+            "first_name": "Michael", "last_name": "Thompson",
+            "age": 47, "sex": "M", "weight_kg": 95, "height_cm": 180,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "CYP2D6": {"diplotype": "*1/*1xN", "phenotype": "ultra_rapid_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2C9": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP3A4": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": ["codeine", "acetaminophen", "ibuprofen", "cyclobenzaprine", "omeprazole"],
+        "lab_values": {"egfr": 92, "alt": 40, "ast": 35, "scr": 1.0, "albumin": 4.2},
+        "clinical_context": {
+            "primary_diagnosis": "Chronic Low Back Pain, Post-Surgical",
+            "therapeutic_area": "pain_management",
+            "reason_for_pgx_testing": "Reported excessive sedation and nausea on standard codeine dose; concern for ultra-rapid metabolism"
+        }
+    })
+
+    patients.append({
+        "patient_id": "PGX009",
+        "demographics": {
+            "first_name": "Linda", "last_name": "Martinez",
+            "age": 67, "sex": "F", "weight_kg": 68, "height_cm": 160,
+            "ethnicity": "Hispanic"
+        },
+        "genotype": {
+            "CYP2D6": {"diplotype": "*4/*4", "phenotype": "poor_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*2", "phenotype": "intermediate_metabolizer"},
+            "CYP2C9": {"diplotype": "*1/*3", "phenotype": "intermediate_metabolizer"},
+            "CYP3A4": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": ["tramadol", "acetaminophen", "gabapentin", "amlodipine", "omeprazole", "metformin"],
+        "lab_values": {"egfr": 55, "alt": 28, "ast": 30, "scr": 1.3, "albumin": 3.6},
+        "clinical_context": {
+            "primary_diagnosis": "Diabetic Neuropathy with Osteoarthritis",
+            "therapeutic_area": "pain_management",
+            "reason_for_pgx_testing": "Tramadol 50mg TID not providing adequate pain relief despite dose escalation"
+        }
+    })
+
+    patients.append({
+        "patient_id": "PGX010",
+        "demographics": {
+            "first_name": "Anthony", "last_name": "Jackson",
+            "age": 35, "sex": "M", "weight_kg": 88, "height_cm": 185,
+            "ethnicity": "African American"
+        },
+        "genotype": {
+            "CYP2D6": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2C9": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP3A4": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": ["oxycodone", "naproxen", "cyclobenzaprine", "tizanidine"],
+        "lab_values": {"egfr": 105, "alt": 20, "ast": 18, "scr": 1.1, "albumin": 4.3},
+        "clinical_context": {
+            "primary_diagnosis": "Acute Post-Operative Pain (ACL Reconstruction)",
+            "therapeutic_area": "pain_management",
+            "reason_for_pgx_testing": "Pre-surgical PGx testing for opioid prescribing guidance"
+        }
+    })
+
+    patients.append({
+        "patient_id": "PGX011",
+        "demographics": {
+            "first_name": "Susan", "last_name": "Nguyen",
+            "age": 72, "sex": "F", "weight_kg": 52, "height_cm": 155,
+            "ethnicity": "East Asian"
+        },
+        "genotype": {
+            "CYP2D6": {"diplotype": "*1/*10", "phenotype": "intermediate_metabolizer"},
+            "CYP2C19": {"diplotype": "*2/*3", "phenotype": "poor_metabolizer"},
+            "CYP2C9": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP3A4": {"diplotype": "*1/*22", "phenotype": "intermediate_metabolizer"},
+        },
+        "medications": ["codeine", "fluoxetine", "gabapentin", "lisinopril", "hydrochlorothiazide", "calcium_vitamin_d"],
+        "lab_values": {"egfr": 48, "alt": 32, "ast": 35, "scr": 1.4, "albumin": 3.4},
+        "clinical_context": {
+            "primary_diagnosis": "Chronic Pain from Vertebral Compression Fractures",
+            "therapeutic_area": "pain_management",
+            "reason_for_pgx_testing": "Codeine ineffective for pain; also on fluoxetine which may inhibit CYP2D6"
+        }
+    })
+
+    patients.append({
+        "patient_id": "PGX012",
+        "demographics": {
+            "first_name": "Thomas", "last_name": "O'Brien",
+            "age": 58, "sex": "M", "weight_kg": 102, "height_cm": 175,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "CYP2D6": {"diplotype": "*1/*1xN", "phenotype": "ultra_rapid_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*17", "phenotype": "normal_metabolizer"},
+            "CYP2C9": {"diplotype": "*1/*2", "phenotype": "intermediate_metabolizer"},
+            "CYP3A4": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": ["tramadol", "citalopram", "pregabalin", "metoprolol", "atorvastatin"],
+        "lab_values": {"egfr": 75, "alt": 45, "ast": 40, "scr": 1.2, "albumin": 3.8},
+        "clinical_context": {
+            "primary_diagnosis": "Fibromyalgia with Comorbid Depression",
+            "therapeutic_area": "pain_management",
+            "reason_for_pgx_testing": "Concern about tramadol safety given multiple medications and potential serotonin syndrome risk"
+        }
+    })
+
+    patients.append({
+        "patient_id": "PGX013",
+        "demographics": {
+            "first_name": "Karen", "last_name": "Patel",
+            "age": 43, "sex": "F", "weight_kg": 65, "height_cm": 167,
+            "ethnicity": "South Asian"
+        },
+        "genotype": {
+            "CYP2D6": {"diplotype": "*4/*6", "phenotype": "poor_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2C9": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP3A4": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": ["codeine", "naproxen", "duloxetine", "omeprazole"],
+        "lab_values": {"egfr": 98, "alt": 18, "ast": 16, "scr": 0.7, "albumin": 4.2},
+        "clinical_context": {
+            "primary_diagnosis": "Migraine with Chronic Tension Headache",
+            "therapeutic_area": "pain_management",
+            "reason_for_pgx_testing": "Codeine-containing analgesics consistently ineffective for migraine rescue"
+        }
+    })
+
+    # =========================================================================
+    # CARDIOLOGY PATIENTS (6 patients)
+    # =========================================================================
+
+    patients.append({
+        "patient_id": "PGX014",
+        "demographics": {
+            "first_name": "Harold", "last_name": "Washington",
+            "age": 71, "sex": "M", "weight_kg": 78, "height_cm": 172,
+            "ethnicity": "African American"
+        },
+        "genotype": {
+            "VKORC1": {"variant": "-1639A>A", "phenotype": "high_sensitivity"},
+            "CYP2C9": {"diplotype": "*2/*3", "phenotype": "poor_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2D6": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "SLCO1B1": {"diplotype": "*1a/*1a", "phenotype": "normal_function"},
+        },
+        "medications": ["warfarin", "lisinopril", "metoprolol", "atorvastatin", "furosemide", "potassium_chloride"],
+        "lab_values": {"egfr": 62, "alt": 28, "ast": 25, "scr": 1.3, "albumin": 3.7, "inr": 3.8},
+        "clinical_context": {
+            "primary_diagnosis": "Atrial Fibrillation, Heart Failure (HFrEF)",
+            "therapeutic_area": "cardiology",
+            "reason_for_pgx_testing": "Difficulty achieving stable INR on warfarin; multiple supratherapeutic INR episodes despite dose reductions"
+        }
+    })
+
+    patients.append({
+        "patient_id": "PGX015",
+        "demographics": {
+            "first_name": "Angela", "last_name": "Rossi",
+            "age": 59, "sex": "F", "weight_kg": 72, "height_cm": 165,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "CYP2C19": {"diplotype": "*2/*2", "phenotype": "poor_metabolizer"},
+            "CYP2D6": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2C9": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "VKORC1": {"variant": "-1639G>G", "phenotype": "normal_sensitivity"},
+            "SLCO1B1": {"diplotype": "*1a/*5", "phenotype": "intermediate_function"},
+        },
+        "medications": ["clopidogrel", "omeprazole", "simvastatin", "metoprolol", "lisinopril", "aspirin"],
+        "lab_values": {"egfr": 80, "alt": 30, "ast": 27, "scr": 0.9, "albumin": 4.0},
+        "clinical_context": {
+            "primary_diagnosis": "Acute Coronary Syndrome, Post-PCI with Drug-Eluting Stent",
+            "therapeutic_area": "cardiology",
+            "reason_for_pgx_testing": "Post-stent PGx testing; on clopidogrel dual antiplatelet therapy"
+        }
+    })
+
+    patients.append({
+        "patient_id": "PGX016",
+        "demographics": {
+            "first_name": "George", "last_name": "Papadopoulos",
+            "age": 65, "sex": "M", "weight_kg": 85, "height_cm": 176,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "CYP2C19": {"diplotype": "*1/*2", "phenotype": "intermediate_metabolizer"},
+            "CYP2D6": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2C9": {"diplotype": "*1/*2", "phenotype": "intermediate_metabolizer"},
+            "VKORC1": {"variant": "-1639G>A", "phenotype": "moderate_sensitivity"},
+            "SLCO1B1": {"diplotype": "*5/*5", "phenotype": "poor_function"},
+        },
+        "medications": ["simvastatin", "clopidogrel", "metoprolol", "lisinopril", "amlodipine", "pantoprazole"],
+        "lab_values": {"egfr": 70, "alt": 55, "ast": 48, "scr": 1.2, "albumin": 3.8},
+        "clinical_context": {
+            "primary_diagnosis": "Coronary Artery Disease, Hyperlipidemia",
+            "therapeutic_area": "cardiology",
+            "reason_for_pgx_testing": "Muscle pain and elevated CK on simvastatin 40mg; questioning statin tolerance"
+        }
+    })
+
+    patients.append({
+        "patient_id": "PGX017",
+        "demographics": {
+            "first_name": "Catherine", "last_name": "Dubois",
+            "age": 76, "sex": "F", "weight_kg": 60, "height_cm": 158,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "VKORC1": {"variant": "-1639G>A", "phenotype": "moderate_sensitivity"},
+            "CYP2C9": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2D6": {"diplotype": "*1/*4", "phenotype": "intermediate_metabolizer"},
+            "SLCO1B1": {"diplotype": "*1a/*1a", "phenotype": "normal_function"},
+        },
+        "medications": ["warfarin", "amiodarone", "digoxin", "furosemide", "potassium_chloride", "omeprazole"],
+        "lab_values": {"egfr": 45, "alt": 38, "ast": 42, "scr": 1.5, "albumin": 3.3, "inr": 3.2},
+        "clinical_context": {
+            "primary_diagnosis": "Atrial Fibrillation with Amiodarone, Heart Failure",
+            "therapeutic_area": "cardiology",
+            "reason_for_pgx_testing": "Unstable INR despite compliance; amiodarone DDI suspected"
+        }
+    })
+
+    patients.append({
+        "patient_id": "PGX018",
+        "demographics": {
+            "first_name": "William", "last_name": "Kim",
+            "age": 52, "sex": "M", "weight_kg": 77, "height_cm": 174,
+            "ethnicity": "East Asian"
+        },
+        "genotype": {
+            "CYP2C19": {"diplotype": "*2/*3", "phenotype": "poor_metabolizer"},
+            "CYP2D6": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2C9": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "VKORC1": {"variant": "-1639G>G", "phenotype": "normal_sensitivity"},
+            "SLCO1B1": {"diplotype": "*1a/*1a", "phenotype": "normal_function"},
+        },
+        "medications": ["clopidogrel", "atorvastatin", "metoprolol", "aspirin", "pantoprazole"],
+        "lab_values": {"egfr": 90, "alt": 22, "ast": 20, "scr": 1.0, "albumin": 4.1},
+        "clinical_context": {
+            "primary_diagnosis": "Acute MI, Post-PCI with DES",
+            "therapeutic_area": "cardiology",
+            "reason_for_pgx_testing": "Routine post-ACS PGx testing per institutional protocol"
+        }
+    })
+
+    patients.append({
+        "patient_id": "PGX019",
+        "demographics": {
+            "first_name": "Patricia", "last_name": "Anderson",
+            "age": 68, "sex": "F", "weight_kg": 82, "height_cm": 168,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2D6": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2C9": {"diplotype": "*2/*2", "phenotype": "poor_metabolizer"},
+            "VKORC1": {"variant": "-1639G>A", "phenotype": "moderate_sensitivity"},
+            "SLCO1B1": {"diplotype": "*1a/*5", "phenotype": "intermediate_function"},
+        },
+        "medications": ["warfarin", "simvastatin", "metoprolol", "lisinopril", "amlodipine", "aspirin"],
+        "lab_values": {"egfr": 58, "alt": 42, "ast": 38, "scr": 1.2, "albumin": 3.6, "inr": 2.8},
+        "clinical_context": {
+            "primary_diagnosis": "Atrial Fibrillation, Hypertension, Hyperlipidemia",
+            "therapeutic_area": "cardiology",
+            "reason_for_pgx_testing": "Warfarin dose requirements unusually low (2mg/day); statin myalgia"
+        }
+    })
+
+    # =========================================================================
+    # ONCOLOGY PATIENTS (6 patients)
+    # =========================================================================
+
+    patients.append({
+        "patient_id": "PGX020",
+        "demographics": {
+            "first_name": "Margaret", "last_name": "Taylor",
+            "age": 56, "sex": "F", "weight_kg": 68, "height_cm": 164,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "CYP2D6": {"diplotype": "*4/*4", "phenotype": "poor_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "DPYD": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "UGT1A1": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "TPMT": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": ["tamoxifen", "fluoxetine", "ondansetron", "omeprazole", "calcium_vitamin_d"],
+        "lab_values": {"egfr": 82, "alt": 35, "ast": 30, "scr": 0.8, "albumin": 3.9},
+        "clinical_context": {
+            "primary_diagnosis": "ER+ Breast Cancer (Stage IIA), Comorbid Depression",
+            "therapeutic_area": "oncology",
+            "reason_for_pgx_testing": "Oncologist concerned about fluoxetine-tamoxifen interaction; CYP2D6 status unknown"
+        }
+    })
+
+    patients.append({
+        "patient_id": "PGX021",
+        "demographics": {
+            "first_name": "Richard", "last_name": "Garcia",
+            "age": 63, "sex": "M", "weight_kg": 75, "height_cm": 170,
+            "ethnicity": "Hispanic"
+        },
+        "genotype": {
+            "DPYD": {"diplotype": "*1/*2A", "phenotype": "intermediate_metabolizer"},
+            "CYP2D6": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "UGT1A1": {"diplotype": "*1/*28", "phenotype": "intermediate_metabolizer"},
+            "TPMT": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": ["fluorouracil", "leucovorin", "oxaliplatin", "ondansetron", "dexamethasone", "omeprazole"],
+        "lab_values": {"egfr": 68, "alt": 45, "ast": 50, "scr": 1.1, "albumin": 3.5},
+        "clinical_context": {
+            "primary_diagnosis": "Colorectal Cancer (Stage III), FOLFOX Chemotherapy",
+            "therapeutic_area": "oncology",
+            "reason_for_pgx_testing": "Pre-chemotherapy DPYD testing per institutional protocol"
+        }
+    })
+
+    patients.append({
+        "patient_id": "PGX022",
+        "demographics": {
+            "first_name": "Jennifer", "last_name": "Brown",
+            "age": 48, "sex": "F", "weight_kg": 64, "height_cm": 168,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "CYP2D6": {"diplotype": "*1/*4", "phenotype": "intermediate_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "DPYD": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "UGT1A1": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "TPMT": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": ["tamoxifen", "venlafaxine", "ondansetron", "melatonin"],
+        "lab_values": {"egfr": 95, "alt": 20, "ast": 18, "scr": 0.7, "albumin": 4.2},
+        "clinical_context": {
+            "primary_diagnosis": "ER+ Breast Cancer (Stage I), Anxiety",
+            "therapeutic_area": "oncology",
+            "reason_for_pgx_testing": "Routine PGx testing at tamoxifen initiation"
+        }
+    })
+
+    patients.append({
+        "patient_id": "PGX023",
+        "demographics": {
+            "first_name": "Daniel", "last_name": "Mwangi",
+            "age": 7, "sex": "M", "weight_kg": 23, "height_cm": 122,
+            "ethnicity": "African American"
+        },
+        "genotype": {
+            "TPMT": {"diplotype": "*3A/*3A", "phenotype": "poor_metabolizer"},
+            "CYP2D6": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "DPYD": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "UGT1A1": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": ["mercaptopurine", "methotrexate", "prednisone", "ondansetron", "trimethoprim_sulfamethoxazole"],
+        "lab_values": {"egfr": 120, "alt": 55, "ast": 48, "scr": 0.4, "albumin": 3.8},
+        "clinical_context": {
+            "primary_diagnosis": "Acute Lymphoblastic Leukemia (ALL), Maintenance Phase",
+            "therapeutic_area": "oncology",
+            "reason_for_pgx_testing": "Severe neutropenia on standard-dose mercaptopurine; TPMT testing ordered"
+        }
+    })
+
+    patients.append({
+        "patient_id": "PGX024",
+        "demographics": {
+            "first_name": "Barbara", "last_name": "Nakamura",
+            "age": 61, "sex": "F", "weight_kg": 58, "height_cm": 157,
+            "ethnicity": "East Asian"
+        },
+        "genotype": {
+            "UGT1A1": {"diplotype": "*28/*28", "phenotype": "poor_metabolizer"},
+            "DPYD": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2D6": {"diplotype": "*1/*10", "phenotype": "intermediate_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*2", "phenotype": "intermediate_metabolizer"},
+            "TPMT": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": ["irinotecan", "fluorouracil", "leucovorin", "ondansetron", "dexamethasone", "granisetron"],
+        "lab_values": {"egfr": 72, "alt": 38, "ast": 42, "scr": 0.9, "albumin": 3.4},
+        "clinical_context": {
+            "primary_diagnosis": "Metastatic Colorectal Cancer, FOLFIRI Regimen",
+            "therapeutic_area": "oncology",
+            "reason_for_pgx_testing": "Severe diarrhea and neutropenia after first FOLFIRI cycle"
+        }
+    })
+
+    patients.append({
+        "patient_id": "PGX025",
+        "demographics": {
+            "first_name": "Steven", "last_name": "Mueller",
+            "age": 70, "sex": "M", "weight_kg": 80, "height_cm": 178,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "DPYD": {"diplotype": "*2A/*2A", "phenotype": "poor_metabolizer"},
+            "CYP2D6": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "UGT1A1": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "TPMT": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": ["capecitabine", "ondansetron", "dexamethasone", "omeprazole", "metoprolol", "lisinopril"],
+        "lab_values": {"egfr": 55, "alt": 30, "ast": 28, "scr": 1.4, "albumin": 3.5},
+        "clinical_context": {
+            "primary_diagnosis": "Gastric Cancer (Stage III), Planned Capecitabine Monotherapy",
+            "therapeutic_area": "oncology",
+            "reason_for_pgx_testing": "Pre-chemotherapy DPYD genotyping (institutional requirement)"
+        }
+    })
+
+    return patients
+
+
+def save_patients(patients: list, output_path: Path):
+    """Save patient data to JSON file."""
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(patients, f, indent=2, ensure_ascii=False)
+    print(f"Saved {len(patients)} patients to {output_path}")
+
+
+if __name__ == "__main__":
+    patients = generate_patients()
+    output = Path(__file__).parent.parent.parent / "data" / "patients.json"
+    save_patients(patients, output)
+
+    # Print summary
+    areas = {}
+    for p in patients:
+        area = p["clinical_context"]["therapeutic_area"]
+        areas[area] = areas.get(area, 0) + 1
+
+    print(f"\nGenerated {len(patients)} patients:")
+    for area, count in sorted(areas.items()):
+        print(f"  {area}: {count}")

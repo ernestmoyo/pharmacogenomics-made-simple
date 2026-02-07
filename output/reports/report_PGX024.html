@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PGx Clinical Report — PGX024</title>
+<style>
+  :root {
+    --navy: #1a365d;
+    --navy-light: #2c5282;
+    --slate: #475569;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1;
+    --gray-600: #475569;
+    --gray-800: #1e293b;
+    --critical: #dc2626;
+    --critical-bg: #fef2f2;
+    --high: #ea580c;
+    --high-bg: #fff7ed;
+    --moderate: #d97706;
+    --moderate-bg: #fffbeb;
+    --low: #16a34a;
+    --low-bg: #f0fdf4;
+    --info: #2563eb;
+    --info-bg: #eff6ff;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--gray-800);
+    background: var(--white);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .page {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* HEADER */
+  .report-header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+    color: white;
+    padding: 28px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .report-header .company-name {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .report-header .company-sub {
+    font-size: 12px;
+    opacity: 0.85;
+    margin-top: 2px;
+  }
+  .report-header .report-meta {
+    text-align: right;
+    font-size: 11px;
+    line-height: 1.6;
+  }
+  .report-header .report-id {
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  .confidential-bar {
+    background: var(--critical);
+    color: white;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 4px 0;
+  }
+
+  /* SECTIONS */
+  .section {
+    margin: 24px 0;
+    border: 1px solid var(--gray-200);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .section-header {
+    background: var(--navy);
+    color: white;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .section-body {
+    padding: 20px;
+  }
+
+  /* PATIENT DEMOGRAPHICS */
+  .demographics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .demo-item {
+    padding: 8px 12px;
+    background: var(--gray-50);
+    border-radius: 4px;
+  }
+  .demo-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--slate);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .demo-value {
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  /* RISK SUMMARY */
+  .risk-banner {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 20px;
+  }
+  .risk-badge {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .risk-badge .score { font-size: 28px; }
+  .risk-badge .score-label { font-size: 9px; text-transform: uppercase; }
+  .risk-details { flex: 1; }
+  .risk-category {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .risk-stats {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .risk-stat {
+    text-align: center;
+    padding: 6px 14px;
+    border-radius: 4px;
+    background: var(--gray-50);
+  }
+  .risk-stat .stat-num {
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .risk-stat .stat-label {
+    font-size: 10px;
+    color: var(--slate);
+  }
+
+  /* TABLES */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  th {
+    background: var(--gray-100);
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--slate);
+    border-bottom: 2px solid var(--gray-200);
+  }
+  td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--gray-200);
+    vertical-align: top;
+  }
+  tr:nth-child(even) { background: var(--gray-50); }
+
+  /* BADGES */
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .badge-critical { background: var(--critical); color: white; }
+  .badge-high { background: var(--high); color: white; }
+  .badge-moderate { background: var(--moderate); color: white; }
+  .badge-low { background: var(--low); color: white; }
+  .badge-info { background: var(--info); color: white; }
+  .badge-fda {
+    background: #7c3aed;
+    color: white;
+    font-size: 9px;
+    padding: 1px 6px;
+  }
+  .badge-cpic {
+    background: var(--navy);
+    color: white;
+    font-size: 9px;
+    padding: 1px 6px;
+  }
+
+  /* PHENOTYPE BADGES */
+  .phenotype-normal { color: var(--low); font-weight: 600; }
+  .phenotype-intermediate { color: var(--moderate); font-weight: 600; }
+  .phenotype-poor { color: var(--critical); font-weight: 600; }
+  .phenotype-ultra { color: var(--critical); font-weight: 600; }
+  .phenotype-high-sens { color: var(--critical); font-weight: 600; }
+  .phenotype-mod-sens { color: var(--high); font-weight: 600; }
+
+  /* FINDING CARDS */
+  .finding-card {
+    border: 1px solid var(--gray-200);
+    border-radius: 6px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .finding-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .finding-card-header .drug-name {
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .finding-card-header .gene-info {
+    font-size: 12px;
+    color: var(--slate);
+  }
+  .finding-card-body {
+    padding: 16px;
+  }
+  .finding-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+  .finding-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--slate);
+    text-transform: uppercase;
+  }
+
+  /* RECOMMENDATION BOX */
+  .rec-box {
+    border-left: 4px solid;
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .rec-box-critical { border-color: var(--critical); background: var(--critical-bg); }
+  .rec-box-high { border-color: var(--high); background: var(--high-bg); }
+  .rec-box-moderate { border-color: var(--moderate); background: var(--moderate-bg); }
+  .rec-box-low { border-color: var(--low); background: var(--low-bg); }
+  .rec-box .rec-title {
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .rec-box .rec-text { font-size: 13px; }
+
+  /* RECOMMENDATION TABLE */
+  .rec-priority {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    line-height: 28px;
+  }
+  .rec-p1 { background: var(--critical); }
+  .rec-p2 { background: var(--high); }
+  .rec-p3 { background: var(--moderate); }
+  .rec-p4 { background: var(--low); }
+
+  /* FOOTER */
+  .report-footer {
+    border-top: 2px solid var(--navy);
+    padding: 16px 0;
+    margin-top: 24px;
+    font-size: 10px;
+    color: var(--slate);
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  /* DISCLAIMER */
+  .disclaimer {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 4px;
+    padding: 16px;
+    font-size: 11px;
+    color: var(--slate);
+    line-height: 1.7;
+  }
+  .disclaimer h4 {
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+
+  .evidence-legend {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .evidence-item {
+    padding: 8px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 4px;
+    font-size: 11px;
+  }
+  .evidence-item strong { display: block; margin-bottom: 2px; }
+
+  /* PRINT */
+  @media print {
+    body { font-size: 11px; }
+    .page { max-width: 100%; padding: 0; }
+    .section { break-inside: avoid; }
+    .finding-card { break-inside: avoid; }
+    .report-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .badge, .rec-priority, .risk-badge { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="report-header">
+  <div>
+    <div class="company-name">PGx Clinical Solutions</div>
+    <div class="company-sub">Clinical Pharmacogenomics Interpretation Report</div>
+    <div class="company-sub">Ernest Moyo | Rangarirai Makuku | Tapiwa Mupereki | Ngonidzashe Faya</div>
+  </div>
+  <div class="report-meta">
+    <div class="report-id">RPT-PGX024-20260207</div>
+    <div>Generated: February 07, 2026 at 09:44 PM</div>
+    <div>Version 1.0.0</div>
+  </div>
+</div>
+<div class="confidential-bar">CONFIDENTIAL — FOR CLINICAL USE ONLY — PROTECTED HEALTH INFORMATION</div>
+
+<div class="page">
+
+<!-- PATIENT DEMOGRAPHICS -->
+<div class="section">
+  <div class="section-header">Patient Information</div>
+  <div class="section-body">
+    <div class="demographics-grid">
+      <div class="demo-item">
+        <div class="demo-label">Patient Name</div>
+        <div class="demo-value">Nakamura, Barbara</div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-label">Patient ID (MRN)</div>
+        <div class="demo-value">PGX024</div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-label">Age / Sex</div>
+        <div class="demo-value">61 yr / F</div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-label">Ethnicity</div>
+        <div class="demo-value">East Asian</div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-label">Weight</div>
+        <div class="demo-value">58 kg</div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-label">Primary Diagnosis</div>
+        <div class="demo-value">Metastatic Colorectal Cancer, FOLFIRI Regimen</div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-label">Therapeutic Area</div>
+        <div class="demo-value">Oncology</div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-label">Reason for Testing</div>
+        <div class="demo-value" style="font-size:11px;">Severe diarrhea and neutropenia after first FOLFIRI cycle</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXECUTIVE RISK SUMMARY -->
+<div class="section">
+  <div class="section-header">Executive Summary — Risk Assessment</div>
+  <div class="section-body">
+    <div class="risk-banner">
+      <div class="risk-badge" style="background:
+        var(--critical)
+        ;">
+        <div class="score">100</div>
+        <div class="score-label">Risk Score</div>
+      </div>
+      <div class="risk-details">
+        <div class="risk-category" style="color:
+          var(--critical)
+          ;">
+          Critical - Immediate Action Required
+        </div>
+        <div class="risk-stats">
+          <div class="risk-stat">
+            <div class="stat-num" style="color:var(--critical)">1</div>
+            <div class="stat-label">Critical</div>
+          </div>
+          <div class="risk-stat">
+            <div class="stat-num" style="color:var(--high)">0</div>
+            <div class="stat-label">High</div>
+          </div>
+          <div class="risk-stat">
+            <div class="stat-num" style="color:var(--moderate)">0</div>
+            <div class="stat-label">Moderate</div>
+          </div>
+          <div class="risk-stat">
+            <div class="stat-num">2</div>
+            <div class="stat-label">Total Findings</div>
+          </div>
+          <div class="risk-stat">
+            <div class="stat-num">1</div>
+            <div class="stat-label">Actionable</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CURRENT MEDICATIONS -->
+<div class="section">
+  <div class="section-header">Current Medications Analyzed</div>
+  <div class="section-body">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Medication</th><th>PGx Finding</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        
+        
+        
+        
+          
+        
+        <tr>
+          <td>1</td>
+          <td><strong>Irinotecan</strong></td>
+          <td>
+            
+              
+              <span class="badge badge-critical">CRITICAL</span>
+              
+            
+          </td>
+          <td>
+            
+              
+              Gene Drug Interaction
+              
+            
+          </td>
+        </tr>
+        
+        
+        
+        
+          
+        
+        <tr>
+          <td>2</td>
+          <td><strong>Fluorouracil</strong></td>
+          <td>
+            
+              
+              <span class="badge badge-informational">INFORMATIONAL</span>
+              
+            
+          </td>
+          <td>
+            
+              
+              Gene Drug Interaction
+              
+            
+          </td>
+        </tr>
+        
+        
+        
+        
+        <tr>
+          <td>3</td>
+          <td><strong>Leucovorin</strong></td>
+          <td>
+            
+              <span style="color:var(--low);">No actionable findings</span>
+            
+          </td>
+          <td>
+            
+              Standard dosing appropriate
+            
+          </td>
+        </tr>
+        
+        
+        
+        
+        <tr>
+          <td>4</td>
+          <td><strong>Ondansetron</strong></td>
+          <td>
+            
+              <span style="color:var(--low);">No actionable findings</span>
+            
+          </td>
+          <td>
+            
+              Standard dosing appropriate
+            
+          </td>
+        </tr>
+        
+        
+        
+        
+        <tr>
+          <td>5</td>
+          <td><strong>Dexamethasone</strong></td>
+          <td>
+            
+              <span style="color:var(--low);">No actionable findings</span>
+            
+          </td>
+          <td>
+            
+              Standard dosing appropriate
+            
+          </td>
+        </tr>
+        
+        
+        
+        
+        <tr>
+          <td>6</td>
+          <td><strong>Granisetron</strong></td>
+          <td>
+            
+              <span style="color:var(--low);">No actionable findings</span>
+            
+          </td>
+          <td>
+            
+              Standard dosing appropriate
+            
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- GENOTYPE RESULTS -->
+<div class="section">
+  <div class="section-header">Pharmacogenomic Genotype Results</div>
+  <div class="section-body">
+    <table>
+      <thead>
+        <tr><th>Gene</th><th>Diplotype / Variant</th><th>Phenotype</th><th>Clinical Significance</th></tr>
+      </thead>
+      <tbody>
+        
+        
+        <tr>
+          <td><strong>UGT1A1</strong></td>
+          <td>*28/*28</td>
+          <td>
+            <span class="
+              phenotype-poor
+              ">
+              Poor Metabolizer
+            </span>
+          </td>
+          <td>
+            
+              Absent or greatly reduced enzyme activity — significant drug impact
+            
+          </td>
+        </tr>
+        
+        
+        <tr>
+          <td><strong>DPYD</strong></td>
+          <td>*1/*1</td>
+          <td>
+            <span class="
+              phenotype-normal
+              ">
+              Normal Metabolizer
+            </span>
+          </td>
+          <td>
+            
+              Standard enzyme activity / drug response expected
+            
+          </td>
+        </tr>
+        
+        
+        <tr>
+          <td><strong>CYP2D6</strong></td>
+          <td>*1/*10</td>
+          <td>
+            <span class="
+              phenotype-intermediate
+              ">
+              Intermediate Metabolizer
+            </span>
+          </td>
+          <td>
+            
+              Reduced enzyme activity — some drugs may need dose adjustment
+            
+          </td>
+        </tr>
+        
+        
+        <tr>
+          <td><strong>CYP2C19</strong></td>
+          <td>*1/*2</td>
+          <td>
+            <span class="
+              phenotype-intermediate
+              ">
+              Intermediate Metabolizer
+            </span>
+          </td>
+          <td>
+            
+              Reduced enzyme activity — some drugs may need dose adjustment
+            
+          </td>
+        </tr>
+        
+        
+        <tr>
+          <td><strong>TPMT</strong></td>
+          <td>*1/*1</td>
+          <td>
+            <span class="
+              phenotype-normal
+              ">
+              Normal Metabolizer
+            </span>
+          </td>
+          <td>
+            
+              Standard enzyme activity / drug response expected
+            
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- GENE-DRUG INTERACTION FINDINGS -->
+
+<div class="section">
+  <div class="section-header">Gene-Drug Interaction Analysis</div>
+  <div class="section-body">
+    
+    <div class="finding-card">
+      <div class="finding-card-header">
+        <div>
+          <span class="drug-name">Irinotecan</span>
+          <span class="gene-info">— UGT1A1 (Poor Metabolizer)</span>
+        </div>
+        <div>
+          <span class="badge badge-critical">CRITICAL</span>
+          <span class="badge badge-fda">FDA LABEL</span>
+          <span class="badge badge-cpic">CPIC Level A</span>
+        </div>
+      </div>
+      <div class="finding-card-body">
+        <div class="finding-row">
+          <span class="finding-label">Diplotype</span>
+          <span>*28/*28</span>
+        </div>
+        <div class="finding-row">
+          <span class="finding-label">Clinical Effect</span>
+          <span>UGT1A1 Poor Metabolizer: Greatly increased SN-38 exposure; severe neutropenia and diarrhea</span>
+        </div>
+        
+        <div class="finding-row">
+          <span class="finding-label">Mechanism</span>
+          <span>UGT1A1 glucuronidates SN-38 (active metabolite of irinotecan). Reduced activity leads to SN-38 accumulation and severe toxicity.</span>
+        </div>
+        
+        
+        <div class="finding-row">
+          <span class="finding-label">Consequence</span>
+          <span><strong>Severe neutropenia; life-threatening diarrhea; sepsis risk</strong></span>
+        </div>
+        
+
+        <div class="rec-box rec-box-critical">
+          <div class="rec-title">Recommendation</div>
+          <div class="rec-text">Reduce irinotecan dose by 30% for UGT1A1 *28/*28 (homozygous). Monitor closely for neutropenia and severe diarrhea.</div>
+        </div>
+
+        
+        <div class="finding-row">
+          <span class="finding-label">References</span>
+          <span style="font-size:11px;color:var(--slate);">
+            FDA Label: Camptosar (irinotecan) - UGT1A1*28 dosing guidance<br>Innocenti F, et al. J Clin Oncol. 2009;27(16):2604-2614
+          </span>
+        </div>
+        
+      </div>
+    </div>
+    
+    <div class="finding-card">
+      <div class="finding-card-header">
+        <div>
+          <span class="drug-name">Fluorouracil</span>
+          <span class="gene-info">— DPYD (Normal Metabolizer)</span>
+        </div>
+        <div>
+          <span class="badge badge-informational">INFORMATIONAL</span>
+          
+          <span class="badge badge-cpic">CPIC Level A</span>
+        </div>
+      </div>
+      <div class="finding-card-body">
+        <div class="finding-row">
+          <span class="finding-label">Diplotype</span>
+          <span>*1/*1</span>
+        </div>
+        <div class="finding-row">
+          <span class="finding-label">Clinical Effect</span>
+          <span>DPYD Normal Metabolizer: Normal DPD activity; standard 5-FU catabolism</span>
+        </div>
+        
+        <div class="finding-row">
+          <span class="finding-label">Mechanism</span>
+          <span>DPYD encodes dihydropyrimidine dehydrogenase (DPD), responsible for &gt;80% of 5-FU catabolism. Deficiency causes life-threatening toxicity.</span>
+        </div>
+        
+        
+        <div class="finding-row">
+          <span class="finding-label">Consequence</span>
+          <span><strong>Standard toxicity profile</strong></span>
+        </div>
+        
+
+        <div class="rec-box rec-box-informational">
+          <div class="rec-title">Recommendation</div>
+          <div class="rec-text">Use label-recommended dosing based on BSA.</div>
+        </div>
+
+        
+        <div class="finding-row">
+          <span class="finding-label">References</span>
+          <span style="font-size:11px;color:var(--slate);">
+            Amstutz U, et al. Clin Pharmacol Ther. 2018;103(2):210-216<br>EMA Recommendation: DPD testing before fluoropyrimidine treatment (2020)
+          </span>
+        </div>
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+<!-- DRUG-DRUG INTERACTIONS -->
+
+
+<!-- ORGAN FUNCTION WARNINGS -->
+
+
+<!-- PRIORITIZED RECOMMENDATIONS -->
+
+<div class="section">
+  <div class="section-header">Prioritized Clinical Recommendations</div>
+  <div class="section-body">
+    
+    <div style="display:flex; gap:14px; align-items:flex-start; margin-bottom:18px; padding-bottom:18px; border-bottom:1px solid var(--gray-200);">
+      <div class="rec-priority rec-p1">1</div>
+      <div style="flex:1;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <div>
+            <strong style="font-size:14px;">Irinotecan</strong>
+            <span style="color:var(--slate);"> — UGT1A1</span>
+          </div>
+          <div>
+            <span class="badge badge-critical">ADJUST DOSE</span>
+            <span class="badge" style="background:var(--gray-600);color:white;">Immediate Action</span>
+          </div>
+        </div>
+        <div style="margin-bottom:6px;">Reduce irinotecan dose by 30% for UGT1A1 *28/*28 (homozygous). Monitor closely for neutropenia and severe diarrhea.</div>
+        
+        <div style="font-size:12px; color:var(--navy); margin-bottom:4px;">
+          <strong>Dose adjustment:</strong> Reduce dose by 30%
+        </div>
+        
+        
+        <div style="font-size:12px; color:var(--navy); margin-bottom:4px;">
+          <strong>Alternatives:</strong> dose-reduced irinotecan (70% of standard)
+        </div>
+        
+        <div style="font-size:11px; color:var(--slate);">
+          <strong>Monitoring:</strong> Implement dose reduction. Monitor for therapeutic response and side effects at 2 and 4 weeks.
+        </div>
+        
+        <div style="font-size:11px; color:var(--slate); margin-top:4px;">
+          <strong>Rationale:</strong> Patient is a poor metabolizer for UGT1A1. UGT1A1 glucuronidates SN-38 (active metabolite of irinotecan). Reduced activity leads to SN-38 accumulation and severe toxicity. Clinical risk: Severe neutropenia; life-threatening diarrhea; sepsis risk. Evidence: CPIC Level A.
+        </div>
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+<!-- LAB VALUES -->
+<div class="section">
+  <div class="section-header">Relevant Laboratory Values</div>
+  <div class="section-body">
+    <table>
+      <thead>
+        <tr><th>Test</th><th>Value</th><th>Reference Range</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td>eGFR</td>
+          <td>72 mL/min/1.73m²</td>
+          <td>≥90 mL/min/1.73m²</td>
+          <td><span class="phenotype-intermediate">Mild Impairment</span>
+              </td>
+        </tr>
+        
+        
+        <tr>
+          <td>ALT</td>
+          <td>38 U/L</td>
+          <td>7-40 U/L</td>
+          <td><span class="phenotype-normal">Normal</span>
+              </td>
+        </tr>
+        
+        
+        <tr>
+          <td>AST</td>
+          <td>42 U/L</td>
+          <td>8-33 U/L</td>
+          <td><span class="phenotype-intermediate">Elevated</span>
+              </td>
+        </tr>
+        
+        
+        <tr>
+          <td>Serum Creatinine</td>
+          <td>0.9 mg/dL</td>
+          <td>0.6-1.2 mg/dL</td>
+          <td><span class="phenotype-normal">Normal</span>
+              </td>
+        </tr>
+        
+        
+        
+        <tr>
+          <td>Albumin</td>
+          <td>3.4 g/dL</td>
+          <td>3.5-5.5 g/dL</td>
+          <td><span class="phenotype-intermediate">Low</span></td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- METHODOLOGY & DISCLAIMERS -->
+<div class="section">
+  <div class="section-header">Methodology, Evidence, &amp; Disclaimers</div>
+  <div class="section-body">
+    <div class="disclaimer">
+      <h4>Clinical Interpretation Methodology</h4>
+      <p>This report was generated using clinical pharmacogenomics guidelines from the Clinical Pharmacogenetics Implementation Consortium (CPIC), FDA pharmacogenomic labeling, and PharmGKB clinical annotations. Drug-drug interaction analysis includes phenoconversion assessment where concomitant medications may alter functional enzyme activity.</p>
+
+      <h4 style="margin-top:12px;">Evidence Level Legend</h4>
+      <div class="evidence-legend">
+        <div class="evidence-item">
+          <strong>CPIC Level A</strong>
+          Strong evidence. Prescribing action recommended based on preponderance of evidence from clinical studies.
+        </div>
+        <div class="evidence-item">
+          <strong>CPIC Level B</strong>
+          Moderate evidence. Prescribing action may be considered based on available evidence.
+        </div>
+        <div class="evidence-item">
+          <strong>CPIC Level C</strong>
+          Optional. Evidence is limited; clinical action based on expert opinion.
+        </div>
+      </div>
+
+      <h4 style="margin-top:12px;">Important Disclaimers</h4>
+      <ul style="margin-left:16px; margin-top:4px;">
+        <li>This report is intended to <strong>support, not replace</strong>, clinical judgment by qualified healthcare professionals.</li>
+        <li>Genetic test results should be interpreted in the context of the patient's complete clinical picture, including comorbidities, organ function, and concomitant medications.</li>
+        <li>Pharmacogenomic recommendations may change as new evidence emerges. This report reflects guidelines current as of the report generation date.</li>
+        <li>Not all genetic variants affecting drug metabolism have been characterized. A "normal metabolizer" result does not guarantee typical drug response.</li>
+        <li>Environmental factors (diet, smoking, supplements) may also influence drug metabolism and are not captured in genetic testing.</li>
+      </ul>
+
+      <h4 style="margin-top:12px;">Data Privacy</h4>
+      <p>This report contains Protected Health Information (PHI) governed by HIPAA. Distribution is limited to authorized healthcare personnel involved in the patient's care. Do not transmit via unsecured channels.</p>
+    </div>
+  </div>
+</div>
+
+</div><!-- end .page -->
+
+<!-- FOOTER -->
+<div class="report-footer">
+  <div class="page">
+    <strong>PGx Clinical Solutions</strong> — Clinical Pharmacogenomics Interpretation Services<br>
+    Report RPT-PGX024-20260207 | Generated February 07, 2026 at 09:44 PM | Platform v1.0.0<br>
+    Ernest Moyo | Rangarirai Makuku | Tapiwa Mupereki | Ngonidzashe Faya<br>
+    This document is confidential and intended solely for the use of the addressee.
+  </div>
+</div>
+
+</body>
+</html>
