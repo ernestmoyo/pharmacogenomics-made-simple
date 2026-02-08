@@ -24,7 +24,7 @@
 - **Multi-drug analysis**: Comprehensive review across entire medication list, including drug-drug-gene interactions
 
 ### For Health Systems
-- **Cost reduction**: Preventing one adverse drug reaction saves $2,500-$50,000+ per event
+- **Cost reduction**: Preventing adverse drug reactions reduces hospitalization and treatment costs
 - **Readmission reduction**: Optimized prescribing reduces medication-related readmissions
 - **Quality metrics**: Supports precision medicine quality initiatives
 - **Liability reduction**: Documented, evidence-based prescribing decisions
@@ -55,22 +55,22 @@
 ## 3. Revenue Streams
 
 ### Per-Report Pricing (Primary)
-| Tier | Report Type | Price Point | Target Volume |
-|------|------------|-------------|---------------|
-| Basic | Single gene-drug pair | $25-50 | High volume, screening |
-| Standard | Full panel interpretation (5-10 genes) | $75-150 | Core product |
-| Comprehensive | Full panel + DDI + monitoring plan | $150-300 | Premium offering |
-| Oncology | Specialized chemo dosing report | $200-400 | Oncology centers |
+| Tier | Report Type | Target Volume |
+|------|------------|---------------|
+| Basic | Single gene-drug pair | High volume, screening |
+| Standard | Full panel interpretation (5-10 genes) | Core product |
+| Comprehensive | Full panel + DDI + monitoring plan | Premium offering |
+| Oncology | Specialized chemo dosing report | Oncology centers |
 
 ### Enterprise Licensing
-- **Annual subscription**: $50K-200K/year for unlimited reports (large health systems)
-- **API access**: $25K-100K/year for EHR integration partners
+- **Annual subscription** for unlimited reports (large health systems)
+- **API access** for EHR integration partners
 - **White-label**: Custom-branded reports for laboratory partners
 
 ### Professional Services
-- **Implementation & training**: $10K-25K per client onboarding
-- **Custom guideline integration**: $15K-50K for specialty-specific rule sets
-- **Ongoing clinical support**: $5K-15K/year for pharmacist consultation access
+- **Implementation & training** per client onboarding
+- **Custom guideline integration** for specialty-specific rule sets
+- **Ongoing clinical support** for pharmacist consultation access
 
 ---
 
@@ -151,17 +151,10 @@
 - Sales and marketing
 
 ### Variable Costs
-- Per-report computation costs (~$0.50-2.00/report)
+- Per-report computation costs
 - Clinical pharmacist review for complex cases
 - Customer support per client
 - Ongoing guideline updates
-
-### Unit Economics Target
-- **Cost per report**: $5-15 (fully loaded)
-- **Revenue per report**: $75-300
-- **Gross margin**: 80-93%
-- **Customer acquisition cost**: $5,000-15,000 per laboratory partner
-- **Lifetime value**: $100K-500K per laboratory partner (3-year)
 
 ---
 
@@ -181,9 +174,9 @@
 |--------|---------------|---------------|
 | Laboratory partners | 5-10 | 30-50 |
 | Monthly report volume | 500-1,000 | 10,000-25,000 |
-| Annual recurring revenue | $500K-1M | $5M-15M |
-| Gross margin | 75% | 85% |
-| Net revenue retention | 110% | 120% |
+| Annual recurring revenue | Growth | Scale |
+| Gross margin | High | Higher |
+| Net revenue retention | >100% | >100% |
 
 ### Operational Metrics
 | Metric | Target |

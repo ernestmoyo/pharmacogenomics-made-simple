@@ -178,9 +178,7 @@ Therapeutic areas validated:
 ## Business Model
 
 See [docs/business_model.md](docs/business_model.md) for the full canvas including:
-- Per-report pricing ($75-300)
 - Laboratory partnership model
-- ROI projections ($650K adverse event cost avoidance in test cohort)
 - Competitive landscape analysis
 - Regulatory considerations (HIPAA, CLIA, FDA CDS exemption)
 

@@ -1,0 +1,26 @@
+Patient ID,First Name,Last Name,Age,Sex,Weight (kg),Height (cm),Ethnicity,Primary Diagnosis,Therapeutic Area,Reason for PGx Testing,eGFR,ALT,AST,SCr,Albumin,INR
+PGX001,Maria,Santos,34,F,62,163,Hispanic,Major Depressive Disorder,psychiatry,Inadequate response to citalopram 40mg after 8 weeks; considering dose adjustment or switch,95,22,19,0.8,4.1,
+PGX002,James,Williams,28,M,81,178,African American,Generalized Anxiety Disorder with Insomnia,psychiatry,Escitalopram 20mg not achieving adequate anxiolytic effect,110,18,20,1.0,4.3,
+PGX003,Yuki,Tanaka,45,F,55,158,East Asian,Panic Disorder,psychiatry,Psychiatrist considering carbamazepine for mood stabilization; HLA testing ordered,88,25,22,0.7,3.9,
+PGX004,Robert,Chen,62,M,73,170,East Asian,Treatment-Resistant Depression with Neuropathic Pain,psychiatry,Experiencing significant anticholinergic side effects on nortriptyline 75mg,72,31,28,1.1,3.8,
+PGX005,Priya,Sharma,19,F,58,162,South Asian,Bipolar II Disorder,psychiatry,Baseline PGx testing before medication optimization,115,15,14,0.6,4.4,
+PGX006,David,Okonkwo,41,M,90,183,African American,"Schizoaffective Disorder, Depressive Type",psychiatry,Persistent depressive symptoms despite citalopram 40mg; QTc 470ms on ECG,85,35,30,1.2,3.9,
+PGX007,Emily,Kowalski,55,F,70,165,Caucasian,ADHD and Comorbid Depression,psychiatry,"Experiencing cardiovascular side effects on atomoxetine 80mg (elevated HR, palpitations)",78,28,25,0.9,4.0,
+PGX008,Michael,Thompson,47,M,95,180,Caucasian,"Chronic Low Back Pain, Post-Surgical",pain_management,Reported excessive sedation and nausea on standard codeine dose; concern for ultra-rapid metabolism,92,40,35,1.0,4.2,
+PGX009,Linda,Martinez,67,F,68,160,Hispanic,Diabetic Neuropathy with Osteoarthritis,pain_management,Tramadol 50mg TID not providing adequate pain relief despite dose escalation,55,28,30,1.3,3.6,
+PGX010,Anthony,Jackson,35,M,88,185,African American,Acute Post-Operative Pain (ACL Reconstruction),pain_management,Pre-surgical PGx testing for opioid prescribing guidance,105,20,18,1.1,4.3,
+PGX011,Susan,Nguyen,72,F,52,155,East Asian,Chronic Pain from Vertebral Compression Fractures,pain_management,Codeine ineffective for pain; also on fluoxetine which may inhibit CYP2D6,48,32,35,1.4,3.4,
+PGX012,Thomas,O'Brien,58,M,102,175,Caucasian,Fibromyalgia with Comorbid Depression,pain_management,Concern about tramadol safety given multiple medications and potential serotonin syndrome risk,75,45,40,1.2,3.8,
+PGX013,Karen,Patel,43,F,65,167,South Asian,Migraine with Chronic Tension Headache,pain_management,Codeine-containing analgesics consistently ineffective for migraine rescue,98,18,16,0.7,4.2,
+PGX014,Harold,Washington,71,M,78,172,African American,"Atrial Fibrillation, Heart Failure (HFrEF)",cardiology,Difficulty achieving stable INR on warfarin; multiple supratherapeutic INR episodes despite dose reductions,62,28,25,1.3,3.7,3.8
+PGX015,Angela,Rossi,59,F,72,165,Caucasian,"Acute Coronary Syndrome, Post-PCI with Drug-Eluting Stent",cardiology,Post-stent PGx testing; on clopidogrel dual antiplatelet therapy,80,30,27,0.9,4.0,
+PGX016,George,Papadopoulos,65,M,85,176,Caucasian,"Coronary Artery Disease, Hyperlipidemia",cardiology,Muscle pain and elevated CK on simvastatin 40mg; questioning statin tolerance,70,55,48,1.2,3.8,
+PGX017,Catherine,Dubois,76,F,60,158,Caucasian,"Atrial Fibrillation with Amiodarone, Heart Failure",cardiology,Unstable INR despite compliance; amiodarone DDI suspected,45,38,42,1.5,3.3,3.2
+PGX018,William,Kim,52,M,77,174,East Asian,"Acute MI, Post-PCI with DES",cardiology,Routine post-ACS PGx testing per institutional protocol,90,22,20,1.0,4.1,
+PGX019,Patricia,Anderson,68,F,82,168,Caucasian,"Atrial Fibrillation, Hypertension, Hyperlipidemia",cardiology,Warfarin dose requirements unusually low (2mg/day); statin myalgia,58,42,38,1.2,3.6,2.8
+PGX020,Margaret,Taylor,56,F,68,164,Caucasian,"ER+ Breast Cancer (Stage IIA), Comorbid Depression",oncology,Oncologist concerned about fluoxetine-tamoxifen interaction; CYP2D6 status unknown,82,35,30,0.8,3.9,
+PGX021,Richard,Garcia,63,M,75,170,Hispanic,"Colorectal Cancer (Stage III), FOLFOX Chemotherapy",oncology,Pre-chemotherapy DPYD testing per institutional protocol,68,45,50,1.1,3.5,
+PGX022,Jennifer,Brown,48,F,64,168,Caucasian,"ER+ Breast Cancer (Stage I), Anxiety",oncology,Routine PGx testing at tamoxifen initiation,95,20,18,0.7,4.2,
+PGX023,Daniel,Mwangi,7,M,23,122,African American,"Acute Lymphoblastic Leukemia (ALL), Maintenance Phase",oncology,Severe neutropenia on standard-dose mercaptopurine; TPMT testing ordered,120,55,48,0.4,3.8,
+PGX024,Barbara,Nakamura,61,F,58,157,East Asian,"Metastatic Colorectal Cancer, FOLFIRI Regimen",oncology,Severe diarrhea and neutropenia after first FOLFIRI cycle,72,38,42,0.9,3.4,
+PGX025,Steven,Mueller,70,M,80,178,Caucasian,"Gastric Cancer (Stage III), Planned Capecitabine Monotherapy",oncology,Pre-chemotherapy DPYD genotyping (institutional requirement),55,30,28,1.4,3.5,
