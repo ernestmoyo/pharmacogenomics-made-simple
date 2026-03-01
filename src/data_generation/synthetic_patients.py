@@ -604,6 +604,341 @@ def generate_patients(seed: int = 42) -> list:
     return patients
 
 
+def generate_oncology_gap_patients(seed: int = 100) -> list:
+    """Generate 15 oncology patients specifically designed for gap analysis.
+
+    Patient categories:
+    - GAP_01-05: PGx-relevant drugs with NO genotype testing (testing gaps)
+    - GAP_06-10: Testing done with actionable results but no action (missed interventions)
+    - GAP_11-13: Fully compliant (tested, results acted upon or non-actionable)
+    - GAP_14-15: Complex DDI profiles with PGx interactions
+    """
+    random.seed(seed)
+    patients = []
+
+    # =========================================================================
+    # GAP PATIENTS — PGx-relevant drugs, NO genotype testing
+    # =========================================================================
+
+    patients.append({
+        "patient_id": "GAP_01",
+        "demographics": {
+            "first_name": "Dorothy", "last_name": "Fischer",
+            "age": 58, "sex": "F", "weight_kg": 70, "height_cm": 165,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {},  # NO PGx testing done
+        "medications": ["fluorouracil", "leucovorin", "oxaliplatin", "ondansetron", "dexamethasone"],
+        "lab_values": {"egfr": 78, "alt": 32, "ast": 28, "scr": 0.9, "albumin": 3.8},
+        "clinical_context": {
+            "primary_diagnosis": "Colon Cancer (Stage III), FOLFOX Regimen",
+            "therapeutic_area": "oncology",
+            "cancer_type": "colorectal",
+            "reason_for_pgx_testing": "No PGx testing ordered despite fluorouracil use"
+        }
+    })
+
+    patients.append({
+        "patient_id": "GAP_02",
+        "demographics": {
+            "first_name": "Walter", "last_name": "Brooks",
+            "age": 52, "sex": "M", "weight_kg": 88, "height_cm": 180,
+            "ethnicity": "African American"
+        },
+        "genotype": {},  # NO PGx testing done
+        "medications": ["capecitabine", "oxaliplatin", "ondansetron", "omeprazole", "metoprolol"],
+        "lab_values": {"egfr": 85, "alt": 25, "ast": 22, "scr": 1.1, "albumin": 4.0},
+        "clinical_context": {
+            "primary_diagnosis": "Rectal Cancer (Stage II), CAPOX Regimen",
+            "therapeutic_area": "oncology",
+            "cancer_type": "colorectal",
+            "reason_for_pgx_testing": "No DPYD testing before capecitabine initiation"
+        }
+    })
+
+    patients.append({
+        "patient_id": "GAP_03",
+        "demographics": {
+            "first_name": "Ruth", "last_name": "Mendez",
+            "age": 49, "sex": "F", "weight_kg": 62, "height_cm": 160,
+            "ethnicity": "Hispanic"
+        },
+        "genotype": {},  # NO PGx testing done
+        "medications": ["tamoxifen", "sertraline", "omeprazole", "calcium_vitamin_d"],
+        "lab_values": {"egfr": 95, "alt": 18, "ast": 16, "scr": 0.7, "albumin": 4.2},
+        "clinical_context": {
+            "primary_diagnosis": "ER+ Breast Cancer (Stage IIA)",
+            "therapeutic_area": "oncology",
+            "cancer_type": "breast",
+            "reason_for_pgx_testing": "No CYP2D6 testing for tamoxifen efficacy assessment"
+        }
+    })
+
+    patients.append({
+        "patient_id": "GAP_04",
+        "demographics": {
+            "first_name": "Henry", "last_name": "Yates",
+            "age": 65, "sex": "M", "weight_kg": 75, "height_cm": 172,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {},  # NO PGx testing done
+        "medications": ["irinotecan", "fluorouracil", "leucovorin", "bevacizumab", "ondansetron", "dexamethasone"],
+        "lab_values": {"egfr": 68, "alt": 40, "ast": 38, "scr": 1.2, "albumin": 3.5},
+        "clinical_context": {
+            "primary_diagnosis": "Metastatic Colorectal Cancer, FOLFIRI + Bevacizumab",
+            "therapeutic_area": "oncology",
+            "cancer_type": "colorectal",
+            "reason_for_pgx_testing": "No UGT1A1 or DPYD testing before FOLFIRI initiation"
+        }
+    })
+
+    patients.append({
+        "patient_id": "GAP_05",
+        "demographics": {
+            "first_name": "Alice", "last_name": "Park",
+            "age": 9, "sex": "F", "weight_kg": 28, "height_cm": 132,
+            "ethnicity": "East Asian"
+        },
+        "genotype": {},  # NO PGx testing done
+        "medications": ["mercaptopurine", "methotrexate", "prednisone", "ondansetron"],
+        "lab_values": {"egfr": 125, "alt": 42, "ast": 38, "scr": 0.4, "albumin": 4.0},
+        "clinical_context": {
+            "primary_diagnosis": "Acute Lymphoblastic Leukemia (ALL), Maintenance Phase",
+            "therapeutic_area": "oncology",
+            "cancer_type": "leukemia",
+            "reason_for_pgx_testing": "No TPMT/NUDT15 testing before mercaptopurine"
+        }
+    })
+
+    # =========================================================================
+    # MISSED INTERVENTION PATIENTS — Testing done, actionable results, no action
+    # =========================================================================
+
+    patients.append({
+        "patient_id": "GAP_06",
+        "demographics": {
+            "first_name": "Gloria", "last_name": "Whitfield",
+            "age": 61, "sex": "F", "weight_kg": 65, "height_cm": 162,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "DPYD": {"diplotype": "*1/*2A", "phenotype": "intermediate_metabolizer"},
+            "UGT1A1": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": ["fluorouracil", "leucovorin", "oxaliplatin", "ondansetron"],
+        "lab_values": {"egfr": 72, "alt": 35, "ast": 30, "scr": 1.0, "albumin": 3.7},
+        "clinical_context": {
+            "primary_diagnosis": "Colon Cancer (Stage III), FOLFOX",
+            "therapeutic_area": "oncology",
+            "cancer_type": "colorectal",
+            "reason_for_pgx_testing": "DPYD IM result available but no dose reduction applied"
+        }
+    })
+
+    patients.append({
+        "patient_id": "GAP_07",
+        "demographics": {
+            "first_name": "Raymond", "last_name": "Cooper",
+            "age": 55, "sex": "M", "weight_kg": 82, "height_cm": 178,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "CYP2D6": {"diplotype": "*4/*4", "phenotype": "poor_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": ["tamoxifen", "fluoxetine", "ondansetron", "omeprazole"],
+        "lab_values": {"egfr": 88, "alt": 22, "ast": 20, "scr": 0.9, "albumin": 4.1},
+        "clinical_context": {
+            "primary_diagnosis": "ER+ Breast Cancer (Stage IIA), Depression",
+            "therapeutic_area": "oncology",
+            "cancer_type": "breast",
+            "reason_for_pgx_testing": "CYP2D6 PM on tamoxifen + fluoxetine DDI — no switch made"
+        }
+    })
+
+    patients.append({
+        "patient_id": "GAP_08",
+        "demographics": {
+            "first_name": "Evelyn", "last_name": "Nakamura",
+            "age": 59, "sex": "F", "weight_kg": 56, "height_cm": 155,
+            "ethnicity": "East Asian"
+        },
+        "genotype": {
+            "UGT1A1": {"diplotype": "*28/*28", "phenotype": "poor_metabolizer"},
+            "DPYD": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": ["irinotecan", "fluorouracil", "leucovorin", "ondansetron", "dexamethasone"],
+        "lab_values": {"egfr": 70, "alt": 45, "ast": 50, "scr": 0.8, "albumin": 3.3},
+        "clinical_context": {
+            "primary_diagnosis": "Metastatic Colorectal Cancer, FOLFIRI",
+            "therapeutic_area": "oncology",
+            "cancer_type": "colorectal",
+            "reason_for_pgx_testing": "UGT1A1 *28/*28 result available but full-dose irinotecan given"
+        }
+    })
+
+    patients.append({
+        "patient_id": "GAP_09",
+        "demographics": {
+            "first_name": "Charles", "last_name": "Okafor",
+            "age": 5, "sex": "M", "weight_kg": 20, "height_cm": 110,
+            "ethnicity": "African American"
+        },
+        "genotype": {
+            "TPMT": {"diplotype": "*3A/*3A", "phenotype": "poor_metabolizer"},
+            "CYP2D6": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": ["mercaptopurine", "methotrexate", "prednisone", "ondansetron", "trimethoprim_sulfamethoxazole"],
+        "lab_values": {"egfr": 130, "alt": 60, "ast": 55, "scr": 0.3, "albumin": 3.9},
+        "clinical_context": {
+            "primary_diagnosis": "ALL, Maintenance Phase",
+            "therapeutic_area": "oncology",
+            "cancer_type": "leukemia",
+            "reason_for_pgx_testing": "TPMT PM result known but standard dose 6-MP continued"
+        }
+    })
+
+    patients.append({
+        "patient_id": "GAP_10",
+        "demographics": {
+            "first_name": "Marion", "last_name": "Schneider",
+            "age": 72, "sex": "F", "weight_kg": 60, "height_cm": 158,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "DPYD": {"diplotype": "*2A/*2A", "phenotype": "poor_metabolizer"},
+            "UGT1A1": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": ["capecitabine", "ondansetron", "omeprazole", "metoprolol", "lisinopril"],
+        "lab_values": {"egfr": 52, "alt": 38, "ast": 35, "scr": 1.3, "albumin": 3.4},
+        "clinical_context": {
+            "primary_diagnosis": "Gastric Cancer (Stage III), Capecitabine Monotherapy",
+            "therapeutic_area": "oncology",
+            "cancer_type": "gastric",
+            "reason_for_pgx_testing": "DPYD PM result available — capecitabine CONTRAINDICATED but still prescribed"
+        }
+    })
+
+    # =========================================================================
+    # COMPLIANT PATIENTS — Testing done, results acted upon or non-actionable
+    # =========================================================================
+
+    patients.append({
+        "patient_id": "GAP_11",
+        "demographics": {
+            "first_name": "Frank", "last_name": "Morrison",
+            "age": 64, "sex": "M", "weight_kg": 80, "height_cm": 175,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "DPYD": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "UGT1A1": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "TPMT": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": ["fluorouracil", "leucovorin", "oxaliplatin", "ondansetron", "dexamethasone"],
+        "lab_values": {"egfr": 80, "alt": 28, "ast": 25, "scr": 1.0, "albumin": 4.0},
+        "clinical_context": {
+            "primary_diagnosis": "Colon Cancer (Stage III), FOLFOX",
+            "therapeutic_area": "oncology",
+            "cancer_type": "colorectal",
+            "reason_for_pgx_testing": "Pre-chemo DPYD testing — normal, standard dose appropriate"
+        }
+    })
+
+    patients.append({
+        "patient_id": "GAP_12",
+        "demographics": {
+            "first_name": "Shirley", "last_name": "Reeves",
+            "age": 50, "sex": "F", "weight_kg": 67, "height_cm": 168,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "CYP2D6": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": ["tamoxifen", "venlafaxine", "calcium_vitamin_d"],
+        "lab_values": {"egfr": 92, "alt": 20, "ast": 18, "scr": 0.8, "albumin": 4.1},
+        "clinical_context": {
+            "primary_diagnosis": "ER+ Breast Cancer (Stage I)",
+            "therapeutic_area": "oncology",
+            "cancer_type": "breast",
+            "reason_for_pgx_testing": "CYP2D6 NM — tamoxifen effective, venlafaxine chosen (weak CYP2D6 inhibitor)"
+        }
+    })
+
+    patients.append({
+        "patient_id": "GAP_13",
+        "demographics": {
+            "first_name": "Leonard", "last_name": "Tsai",
+            "age": 68, "sex": "M", "weight_kg": 72, "height_cm": 170,
+            "ethnicity": "East Asian"
+        },
+        "genotype": {
+            "UGT1A1": {"diplotype": "*1/*28", "phenotype": "intermediate_metabolizer"},
+            "DPYD": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": ["irinotecan", "fluorouracil", "leucovorin", "ondansetron"],
+        "lab_values": {"egfr": 65, "alt": 30, "ast": 28, "scr": 1.1, "albumin": 3.6},
+        "clinical_context": {
+            "primary_diagnosis": "Colorectal Cancer, FOLFIRI",
+            "therapeutic_area": "oncology",
+            "cancer_type": "colorectal",
+            "reason_for_pgx_testing": "UGT1A1 IM — monitored closely, dose appropriate"
+        }
+    })
+
+    # =========================================================================
+    # COMPLEX DDI PATIENTS — Multiple PGx-relevant DDIs
+    # =========================================================================
+
+    patients.append({
+        "patient_id": "GAP_14",
+        "demographics": {
+            "first_name": "Virginia", "last_name": "Campbell",
+            "age": 54, "sex": "F", "weight_kg": 75, "height_cm": 167,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "CYP2D6": {"diplotype": "*1/*4", "phenotype": "intermediate_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*2", "phenotype": "intermediate_metabolizer"},
+            "DPYD": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": ["tamoxifen", "fluoxetine", "codeine", "ondansetron", "omeprazole", "clopidogrel"],
+        "lab_values": {"egfr": 82, "alt": 25, "ast": 22, "scr": 0.9, "albumin": 3.9},
+        "clinical_context": {
+            "primary_diagnosis": "ER+ Breast Cancer + Recent Coronary Stent + Chronic Pain",
+            "therapeutic_area": "oncology",
+            "cancer_type": "breast",
+            "reason_for_pgx_testing": "Complex polypharmacy — multiple PGx-relevant DDIs"
+        }
+    })
+
+    patients.append({
+        "patient_id": "GAP_15",
+        "demographics": {
+            "first_name": "Eugene", "last_name": "Petrov",
+            "age": 60, "sex": "M", "weight_kg": 78, "height_cm": 175,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "CYP2D6": {"diplotype": "*4/*4", "phenotype": "poor_metabolizer"},
+            "CYP2C19": {"diplotype": "*2/*2", "phenotype": "poor_metabolizer"},
+            "DPYD": {"diplotype": "*1/*2A", "phenotype": "intermediate_metabolizer"},
+            "UGT1A1": {"diplotype": "*28/*28", "phenotype": "poor_metabolizer"},
+        },
+        "medications": ["fluorouracil", "irinotecan", "leucovorin", "tamoxifen", "codeine", "omeprazole", "ondansetron", "dexamethasone"],
+        "lab_values": {"egfr": 60, "alt": 50, "ast": 48, "scr": 1.3, "albumin": 3.2},
+        "clinical_context": {
+            "primary_diagnosis": "Colorectal Cancer + ER+ Breast Cancer (second primary) + Chronic Pain",
+            "therapeutic_area": "oncology",
+            "cancer_type": "colorectal",
+            "reason_for_pgx_testing": "Maximally complex scenario: multiple PGx-relevant drugs, all genes actionable"
+        }
+    })
+
+    return patients
+
+
 def save_patients(patients: list, output_path: Path):
     """Save patient data to JSON file."""
     output_path.parent.mkdir(parents=True, exist_ok=True)

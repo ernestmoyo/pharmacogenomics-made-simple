@@ -6,6 +6,24 @@ Format follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.3.0] - 2026-03-01
+
+### Added
+- **Oncology Gap Analysis Module** (`src/oncology_gap/`):
+  - `gap_analyzer.py` — identifies PGx testing gaps and missed interventions per patient
+  - `ddi_burden_scorer.py` — quantifies DDI load with severity-weighted scoring
+  - `population_analytics.py` — aggregates gap statistics across patient cohorts
+- 15 synthetic oncology gap analysis patients in `synthetic_patients.py`:
+  - 5 gap patients (PGx-relevant drugs, no testing)
+  - 5 missed intervention patients (testing done, actionable results, no action)
+  - 3 compliant patients (fully tested, results appropriate)
+  - 2 complex DDI patients (multiple PGx interactions)
+- `--oncology-gap` CLI mode in `main.py`
+- JSON output to `output/oncology_gap/` (gap_results, ddi_burden, population_summary)
+- Formatted console report with cohort overview, testing rates, gap analysis, missed interventions
+
+---
+
 ## [0.3.0-kb] - 2026-03-01
 
 ### Added
