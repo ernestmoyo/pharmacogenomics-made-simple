@@ -4,6 +4,10 @@ Recommendation Generator
 Generates structured, prioritized clinical recommendations from scored findings.
 """
 
+from src.utils.logger import get_logger
+
+logger = get_logger("recommender")
+
 
 class Recommender:
     """Generates actionable clinical recommendations from pharmacogenomic findings."""

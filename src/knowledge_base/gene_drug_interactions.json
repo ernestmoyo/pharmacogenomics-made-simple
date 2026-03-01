@@ -1,4 +1,15 @@
 {
+  "_metadata": {
+    "version": "1.0.0",
+    "last_updated": "2026-03-01",
+    "sources": [
+      "CPIC Guidelines (https://cpicpgx.org/guidelines/)",
+      "FDA Table of Pharmacogenomic Biomarkers in Drug Labeling",
+      "PharmGKB (https://www.pharmgkb.org/)"
+    ],
+    "cpic_version": "Current as of February 2026",
+    "maintainer": "PGx Clinical Solutions"
+  },
   "gene_drug_interactions": [
     {
       "gene": "CYP2D6",

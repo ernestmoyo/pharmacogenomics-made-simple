@@ -7,6 +7,10 @@ and calculates clinical impact metrics.
 
 from typing import Optional
 
+from src.utils.logger import get_logger
+
+logger = get_logger("validation")
+
 
 class ClinicalValidator:
     """Validates PGx interpretation against known clinical test cases."""
@@ -279,7 +283,10 @@ class ClinicalValidator:
         results = []
         for tc in self.TEST_CASES:
             result = self.validate_single_case(engine, scorer, recommender, tc)
+            status = "PASS" if result["passed"] else "FAIL"
+            logger.debug(f"{result['test_id']}: {status} — {result['description']}")
             results.append(result)
+        logger.info(f"Validation complete: {sum(1 for r in results if r['passed'])}/{len(results)} passed")
         return results
 
     def validate_single_case(self, engine, scorer, recommender, test_case: dict) -> dict:

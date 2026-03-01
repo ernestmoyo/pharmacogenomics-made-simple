@@ -1,4 +1,14 @@
 {
+  "_metadata": {
+    "version": "1.0.0",
+    "last_updated": "2026-03-01",
+    "sources": [
+      "CPIC Guidelines (https://cpicpgx.org/guidelines/)",
+      "FDA Drug Interaction Labeling",
+      "Lexicomp Drug Interactions Reference"
+    ],
+    "maintainer": "PGx Clinical Solutions"
+  },
   "drug_drug_interactions": [
     {
       "drug_a": "fluoxetine",

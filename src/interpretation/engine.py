@@ -7,6 +7,9 @@ and generates clinical findings with drug-drug-gene interaction logic.
 
 from typing import Optional
 from src.knowledge_base.kb_loader import KnowledgeBase
+from src.utils.logger import get_logger
+
+logger = get_logger("engine")
 
 
 class InterpretationEngine:
@@ -46,6 +49,9 @@ class InterpretationEngine:
 
         # Deduplicate findings (same gene+drug combination)
         findings = self._deduplicate_findings(findings)
+
+        pid = patient.get("patient_id", "?")
+        logger.debug(f"Patient {pid}: {len(findings)} findings from {len(medications)} medications")
 
         return findings
 

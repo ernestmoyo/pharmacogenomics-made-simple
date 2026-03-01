@@ -1,4 +1,14 @@
 {
+  "_metadata": {
+    "version": "1.0.0",
+    "last_updated": "2026-03-01",
+    "sources": [
+      "CPIC Dosing Guidelines (https://cpicpgx.org/guidelines/)",
+      "FDA Approved Drug Labeling",
+      "KDIGO Clinical Practice Guidelines (renal adjustments)"
+    ],
+    "maintainer": "PGx Clinical Solutions"
+  },
   "dosing_guidelines": {
     "warfarin": {
       "standard_starting_dose_mg": 5.0,

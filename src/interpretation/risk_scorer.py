@@ -4,6 +4,10 @@ Risk Scoring System
 Scores individual findings and overall patient risk on a 0-100 scale.
 """
 
+from src.utils.logger import get_logger
+
+logger = get_logger("risk_scorer")
+
 
 class RiskScorer:
     """Scores pharmacogenomic findings by clinical severity and evidence quality."""

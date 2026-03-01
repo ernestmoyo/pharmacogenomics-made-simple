@@ -8,6 +8,10 @@ import json
 from pathlib import Path
 from typing import Optional
 
+from src.utils.logger import get_logger
+
+logger = get_logger("knowledge_base")
+
 
 class KnowledgeBase:
     """Loads all PGx knowledge base JSON files and provides lookup methods."""
@@ -34,13 +38,34 @@ class KnowledgeBase:
             self._ddi_index[key_ab] = entry
             self._ddi_index[key_ba] = entry
 
+        # Log KB metadata
+        for name, data in [("gene_drug_interactions", self.gene_drug_data),
+                           ("drug_drug_interactions", self.ddi_data),
+                           ("dosing_guidelines", self.dosing_data)]:
+            meta = data.get("_metadata", {})
+            if meta:
+                logger.debug(f"{name} v{meta.get('version', '?')} (updated {meta.get('last_updated', '?')})")
+
+        logger.info(f"Knowledge base loaded: {len(self._gene_drug_index)} gene-drug pairs, "
+                    f"{len(self._ddi_index) // 2} DDIs")
+
     def _load_json(self, filename: str) -> dict:
         filepath = self.base_path / filename
         if not filepath.exists():
-            print(f"  Warning: {filepath} not found, using empty dict")
+            logger.warning(f"{filepath} not found, using empty dict")
             return {}
         with open(filepath, "r", encoding="utf-8") as f:
             return json.load(f)
+
+    def get_kb_versions(self) -> dict:
+        """Return version metadata for all loaded KB files."""
+        versions = {}
+        for name, data in [("gene_drug_interactions", self.gene_drug_data),
+                           ("drug_drug_interactions", self.ddi_data),
+                           ("dosing_guidelines", self.dosing_data)]:
+            meta = data.get("_metadata", {})
+            versions[name] = meta.get("version", "unknown")
+        return versions
 
     def get_gene_drug_interaction(self, gene: str, drug: str) -> Optional[dict]:
         """Get interaction entry for a gene-drug pair."""

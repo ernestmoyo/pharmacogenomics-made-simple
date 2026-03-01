@@ -4,11 +4,14 @@ Clinical Report Generator
 Generates professional HTML clinical pharmacogenomics reports.
 """
 
-import uuid
 from pathlib import Path
 from datetime import datetime
 
 from jinja2 import Environment, FileSystemLoader
+
+from src.utils.logger import get_logger, PLATFORM_VERSION
+
+logger = get_logger("reports")
 
 
 class ReportGenerator:
@@ -36,7 +39,7 @@ class ReportGenerator:
             "report_id": f"RPT-{patient.get('patient_id', 'UNK')}-{datetime.now().strftime('%Y%m%d')}",
             "generated_date": datetime.now().strftime("%B %d, %Y at %I:%M %p"),
             "generated_iso": datetime.now().isoformat(),
-            "version": "1.0.0",
+            "version": PLATFORM_VERSION,
             "platform": "PGx Clinical Solutions",
         }
 
@@ -67,6 +70,7 @@ class ReportGenerator:
         output_path.parent.mkdir(parents=True, exist_ok=True)
         with open(output_path, "w", encoding="utf-8") as f:
             f.write(html)
+        logger.debug(f"Report saved: {output_path.name}")
 
     def generate_summary(self, patient: dict, analysis_results: dict) -> str:
         """Generate plain-text executive summary."""
