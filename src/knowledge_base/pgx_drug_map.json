@@ -1,0 +1,288 @@
+{
+  "_metadata": {
+    "version": "1.0.0",
+    "last_updated": "2026-03-01",
+    "sources": [
+      "CPIC Guidelines (https://cpicpgx.org/guidelines/)",
+      "FDA Table of Pharmacogenomic Biomarkers in Drug Labeling",
+      "PharmGKB (https://www.pharmgkb.org/)"
+    ],
+    "cpic_version": "Current as of February 2026",
+    "maintainer": "PGx Clinical Solutions"
+  },
+  "pgx_drug_map": {
+    "fluorouracil": {
+      "genes": ["DPYD"],
+      "cpic_level": "A",
+      "fda_label": true,
+      "testing_recommendation": "required_before_initiation",
+      "therapeutic_area": "oncology"
+    },
+    "capecitabine": {
+      "genes": ["DPYD"],
+      "cpic_level": "A",
+      "fda_label": true,
+      "testing_recommendation": "required_before_initiation",
+      "therapeutic_area": "oncology"
+    },
+    "tamoxifen": {
+      "genes": ["CYP2D6"],
+      "cpic_level": "A",
+      "fda_label": true,
+      "testing_recommendation": "recommended",
+      "therapeutic_area": "oncology"
+    },
+    "irinotecan": {
+      "genes": ["UGT1A1"],
+      "cpic_level": "A",
+      "fda_label": true,
+      "testing_recommendation": "recommended",
+      "therapeutic_area": "oncology"
+    },
+    "mercaptopurine": {
+      "genes": ["TPMT", "NUDT15"],
+      "cpic_level": "A",
+      "fda_label": true,
+      "testing_recommendation": "required_before_initiation",
+      "therapeutic_area": "oncology"
+    },
+    "thioguanine": {
+      "genes": ["TPMT", "NUDT15"],
+      "cpic_level": "A",
+      "fda_label": true,
+      "testing_recommendation": "recommended",
+      "therapeutic_area": "oncology"
+    },
+    "cisplatin": {
+      "genes": ["TPMT"],
+      "cpic_level": "B",
+      "fda_label": false,
+      "testing_recommendation": "optional",
+      "therapeutic_area": "oncology"
+    },
+    "cyclophosphamide": {
+      "genes": ["CYP2B6"],
+      "cpic_level": "C",
+      "fda_label": false,
+      "testing_recommendation": "optional",
+      "therapeutic_area": "oncology"
+    },
+    "clopidogrel": {
+      "genes": ["CYP2C19"],
+      "cpic_level": "A",
+      "fda_label": true,
+      "testing_recommendation": "recommended",
+      "therapeutic_area": "cardiology"
+    },
+    "warfarin": {
+      "genes": ["CYP2C9", "VKORC1"],
+      "cpic_level": "A",
+      "fda_label": true,
+      "testing_recommendation": "recommended",
+      "therapeutic_area": "cardiology"
+    },
+    "simvastatin": {
+      "genes": ["SLCO1B1"],
+      "cpic_level": "A",
+      "fda_label": true,
+      "testing_recommendation": "recommended",
+      "therapeutic_area": "cardiology"
+    },
+    "atorvastatin": {
+      "genes": ["SLCO1B1"],
+      "cpic_level": "B",
+      "fda_label": false,
+      "testing_recommendation": "optional",
+      "therapeutic_area": "cardiology"
+    },
+    "metoprolol": {
+      "genes": ["CYP2D6"],
+      "cpic_level": "B",
+      "fda_label": false,
+      "testing_recommendation": "optional",
+      "therapeutic_area": "cardiology"
+    },
+    "propafenone": {
+      "genes": ["CYP2D6"],
+      "cpic_level": "B",
+      "fda_label": true,
+      "testing_recommendation": "recommended",
+      "therapeutic_area": "cardiology"
+    },
+    "flecainide": {
+      "genes": ["CYP2D6"],
+      "cpic_level": "B",
+      "fda_label": false,
+      "testing_recommendation": "optional",
+      "therapeutic_area": "cardiology"
+    },
+    "citalopram": {
+      "genes": ["CYP2C19"],
+      "cpic_level": "A",
+      "fda_label": true,
+      "testing_recommendation": "recommended",
+      "therapeutic_area": "psychiatry"
+    },
+    "escitalopram": {
+      "genes": ["CYP2C19"],
+      "cpic_level": "A",
+      "fda_label": true,
+      "testing_recommendation": "recommended",
+      "therapeutic_area": "psychiatry"
+    },
+    "sertraline": {
+      "genes": ["CYP2C19"],
+      "cpic_level": "A",
+      "fda_label": false,
+      "testing_recommendation": "recommended",
+      "therapeutic_area": "psychiatry"
+    },
+    "paroxetine": {
+      "genes": ["CYP2D6"],
+      "cpic_level": "A",
+      "fda_label": false,
+      "testing_recommendation": "recommended",
+      "therapeutic_area": "psychiatry"
+    },
+    "fluoxetine": {
+      "genes": ["CYP2D6"],
+      "cpic_level": "A",
+      "fda_label": false,
+      "testing_recommendation": "recommended",
+      "therapeutic_area": "psychiatry"
+    },
+    "fluvoxamine": {
+      "genes": ["CYP2D6"],
+      "cpic_level": "B",
+      "fda_label": false,
+      "testing_recommendation": "optional",
+      "therapeutic_area": "psychiatry"
+    },
+    "nortriptyline": {
+      "genes": ["CYP2D6"],
+      "cpic_level": "A",
+      "fda_label": false,
+      "testing_recommendation": "recommended",
+      "therapeutic_area": "psychiatry"
+    },
+    "amitriptyline": {
+      "genes": ["CYP2D6", "CYP2C19"],
+      "cpic_level": "A",
+      "fda_label": false,
+      "testing_recommendation": "recommended",
+      "therapeutic_area": "psychiatry"
+    },
+    "clomipramine": {
+      "genes": ["CYP2D6", "CYP2C19"],
+      "cpic_level": "A",
+      "fda_label": false,
+      "testing_recommendation": "recommended",
+      "therapeutic_area": "psychiatry"
+    },
+    "carbamazepine": {
+      "genes": ["HLA-B"],
+      "cpic_level": "A",
+      "fda_label": true,
+      "testing_recommendation": "required_before_initiation",
+      "therapeutic_area": "psychiatry"
+    },
+    "oxcarbazepine": {
+      "genes": ["HLA-B"],
+      "cpic_level": "A",
+      "fda_label": true,
+      "testing_recommendation": "recommended",
+      "therapeutic_area": "psychiatry"
+    },
+    "phenytoin": {
+      "genes": ["CYP2C9", "HLA-B"],
+      "cpic_level": "A",
+      "fda_label": true,
+      "testing_recommendation": "recommended",
+      "therapeutic_area": "psychiatry"
+    },
+    "atomoxetine": {
+      "genes": ["CYP2D6"],
+      "cpic_level": "B",
+      "fda_label": true,
+      "testing_recommendation": "recommended",
+      "therapeutic_area": "psychiatry"
+    },
+    "venlafaxine": {
+      "genes": ["CYP2D6"],
+      "cpic_level": "B",
+      "fda_label": false,
+      "testing_recommendation": "optional",
+      "therapeutic_area": "psychiatry"
+    },
+    "aripiprazole": {
+      "genes": ["CYP2D6"],
+      "cpic_level": "B",
+      "fda_label": true,
+      "testing_recommendation": "optional",
+      "therapeutic_area": "psychiatry"
+    },
+    "codeine": {
+      "genes": ["CYP2D6"],
+      "cpic_level": "A",
+      "fda_label": true,
+      "testing_recommendation": "recommended",
+      "therapeutic_area": "pain_management"
+    },
+    "tramadol": {
+      "genes": ["CYP2D6"],
+      "cpic_level": "A",
+      "fda_label": true,
+      "testing_recommendation": "recommended",
+      "therapeutic_area": "pain_management"
+    },
+    "oxycodone": {
+      "genes": ["CYP2D6"],
+      "cpic_level": "B",
+      "fda_label": false,
+      "testing_recommendation": "optional",
+      "therapeutic_area": "pain_management"
+    },
+    "hydrocodone": {
+      "genes": ["CYP2D6"],
+      "cpic_level": "B",
+      "fda_label": false,
+      "testing_recommendation": "optional",
+      "therapeutic_area": "pain_management"
+    },
+    "celecoxib": {
+      "genes": ["CYP2C9"],
+      "cpic_level": "B",
+      "fda_label": false,
+      "testing_recommendation": "optional",
+      "therapeutic_area": "pain_management"
+    },
+    "ondansetron": {
+      "genes": ["CYP2D6"],
+      "cpic_level": "B",
+      "fda_label": false,
+      "testing_recommendation": "optional",
+      "therapeutic_area": "supportive_care"
+    },
+    "voriconazole": {
+      "genes": ["CYP2C19"],
+      "cpic_level": "A",
+      "fda_label": true,
+      "testing_recommendation": "recommended",
+      "therapeutic_area": "infectious_disease"
+    },
+    "tacrolimus": {
+      "genes": ["CYP3A5"],
+      "cpic_level": "A",
+      "fda_label": false,
+      "testing_recommendation": "recommended",
+      "therapeutic_area": "transplant"
+    },
+    "abacavir": {
+      "genes": ["HLA-B"],
+      "cpic_level": "A",
+      "fda_label": true,
+      "testing_recommendation": "required_before_initiation",
+      "therapeutic_area": "infectious_disease"
+    }
+  }
+}

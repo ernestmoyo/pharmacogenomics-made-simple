@@ -1,0 +1,306 @@
+{
+  "_metadata": {
+    "version": "1.0.0",
+    "last_updated": "2026-03-01",
+    "sources": [
+      "O'Mahony D, et al. STOPP/START criteria for potentially inappropriate prescribing in older people: version 3. Eur Geriatr Med. 2023;14:625-632.",
+      "Adapted for prototype use — highest-yield criteria selected"
+    ],
+    "applicable_population": "Adults aged 65 years and older",
+    "maintainer": "PGx Clinical Solutions"
+  },
+  "stopp_criteria": [
+    {
+      "id": "STOPP_A1",
+      "section": "cardiovascular",
+      "criterion": "Digoxin at dose >0.125mg/day with impaired renal function",
+      "drugs": ["digoxin"],
+      "conditions": ["renal_impairment"],
+      "rationale": "Risk of digoxin toxicity if renal function impaired. Reduce dose in renal impairment.",
+      "severity": "high",
+      "action": "reduce_dose"
+    },
+    {
+      "id": "STOPP_A2",
+      "section": "cardiovascular",
+      "criterion": "Loop diuretic as first-line treatment for hypertension",
+      "drugs": ["furosemide", "bumetanide", "torsemide"],
+      "conditions": ["hypertension"],
+      "rationale": "Safer, more effective alternatives available for hypertension. Loop diuretics indicated for heart failure, not hypertension.",
+      "severity": "moderate",
+      "action": "switch_drug"
+    },
+    {
+      "id": "STOPP_A3",
+      "section": "cardiovascular",
+      "criterion": "Beta-blocker with bradycardia (<50 bpm), type II heart block, or sick sinus syndrome",
+      "drugs": ["metoprolol", "atenolol", "propranolol", "carvedilol", "bisoprolol"],
+      "conditions": ["bradycardia", "heart_block", "sick_sinus_syndrome"],
+      "rationale": "Risk of severe bradycardia, syncope, cardiac arrest.",
+      "severity": "high",
+      "action": "stop_drug"
+    },
+    {
+      "id": "STOPP_B1",
+      "section": "cns",
+      "criterion": "Benzodiazepines for >=4 weeks",
+      "drugs": ["diazepam", "lorazepam", "alprazolam", "clonazepam", "temazepam", "chlordiazepoxide"],
+      "conditions": ["duration_over_4_weeks"],
+      "rationale": "Risk of prolonged sedation, confusion, impaired balance, falls, road traffic accidents. Tolerance and withdrawal effects.",
+      "severity": "high",
+      "action": "taper_and_stop"
+    },
+    {
+      "id": "STOPP_B2",
+      "section": "cns",
+      "criterion": "Antipsychotics (other than quetiapine or clozapine) in patients with parkinsonism or Lewy body dementia",
+      "drugs": ["haloperidol", "risperidone", "olanzapine", "aripiprazole"],
+      "conditions": ["parkinsonism", "lewy_body_dementia"],
+      "rationale": "Risk of severe extrapyramidal symptoms and neuroleptic malignant syndrome.",
+      "severity": "high",
+      "action": "stop_drug"
+    },
+    {
+      "id": "STOPP_B3",
+      "section": "cns",
+      "criterion": "Anticholinergics/antimuscarinics in patients with dementia or cognitive impairment",
+      "drugs": ["oxybutynin", "tolterodine", "solifenacin", "diphenhydramine", "chlorpheniramine", "hydroxyzine"],
+      "conditions": ["dementia", "cognitive_impairment"],
+      "rationale": "Risk of worsening cognitive impairment, confusion, agitation.",
+      "severity": "high",
+      "action": "stop_drug"
+    },
+    {
+      "id": "STOPP_B4",
+      "section": "cns",
+      "criterion": "Neuroleptic antipsychotics in patients with behavioral/psychological symptoms of dementia unless severe and non-pharmacological approaches have failed",
+      "drugs": ["haloperidol", "quetiapine", "olanzapine", "risperidone"],
+      "conditions": ["dementia"],
+      "rationale": "Increased risk of stroke and mortality. Non-pharmacological interventions preferred first-line.",
+      "severity": "high",
+      "action": "review_and_consider_stopping"
+    },
+    {
+      "id": "STOPP_C1",
+      "section": "gastrointestinal",
+      "criterion": "PPI for uncomplicated peptic ulcer disease or erosive peptic esophagitis at full therapeutic dosage for >8 weeks",
+      "drugs": ["omeprazole", "pantoprazole", "lansoprazole", "esomeprazole", "rabeprazole"],
+      "conditions": ["prolonged_use_over_8_weeks"],
+      "rationale": "Dose reduction or earlier discontinuation indicated. Risk of C. difficile, hypomagnesemia, bone fractures.",
+      "severity": "moderate",
+      "action": "reduce_dose_or_stop"
+    },
+    {
+      "id": "STOPP_D1",
+      "section": "musculoskeletal",
+      "criterion": "NSAID with concurrent anticoagulant therapy",
+      "drugs": ["naproxen", "ibuprofen", "meloxicam", "indomethacin", "celecoxib"],
+      "conditions": ["on_anticoagulant"],
+      "rationale": "Risk of major GI bleeding synergistically increased.",
+      "severity": "high",
+      "action": "stop_nsaid"
+    },
+    {
+      "id": "STOPP_D2",
+      "section": "musculoskeletal",
+      "criterion": "NSAID with severe hypertension or heart failure",
+      "drugs": ["naproxen", "ibuprofen", "meloxicam", "indomethacin", "celecoxib"],
+      "conditions": ["severe_hypertension", "heart_failure"],
+      "rationale": "Risk of worsening hypertension and heart failure exacerbation.",
+      "severity": "high",
+      "action": "stop_drug"
+    },
+    {
+      "id": "STOPP_D3",
+      "section": "musculoskeletal",
+      "criterion": "Long-term NSAID (>3 months) for symptom relief of osteoarthritis without gastroprotection",
+      "drugs": ["naproxen", "ibuprofen", "meloxicam", "celecoxib"],
+      "conditions": ["osteoarthritis", "no_gastroprotection"],
+      "rationale": "Risk of GI bleeding increases with prolonged use.",
+      "severity": "moderate",
+      "action": "add_gastroprotection_or_switch"
+    },
+    {
+      "id": "STOPP_E1",
+      "section": "renal",
+      "criterion": "NSAID with eGFR <50 mL/min/1.73m2",
+      "drugs": ["naproxen", "ibuprofen", "meloxicam", "indomethacin", "celecoxib"],
+      "conditions": ["egfr_below_50"],
+      "rationale": "Risk of further deterioration of renal function.",
+      "severity": "high",
+      "action": "stop_drug"
+    },
+    {
+      "id": "STOPP_E2",
+      "section": "renal",
+      "criterion": "Metformin with eGFR <30 mL/min/1.73m2",
+      "drugs": ["metformin"],
+      "conditions": ["egfr_below_30"],
+      "rationale": "Risk of lactic acidosis.",
+      "severity": "high",
+      "action": "stop_drug"
+    },
+    {
+      "id": "STOPP_F1",
+      "section": "endocrine",
+      "criterion": "Sulfonylureas with a long duration of action (glibenclamide/glyburide, chlorpropamide, glimepiride) in type 2 diabetes",
+      "drugs": ["glyburide", "glimepiride", "chlorpropamide"],
+      "conditions": ["type2_diabetes"],
+      "rationale": "Risk of prolonged hypoglycemia in older adults.",
+      "severity": "high",
+      "action": "switch_drug"
+    },
+    {
+      "id": "STOPP_G1",
+      "section": "falls_risk",
+      "criterion": "Benzodiazepines in patients with history of falls in past 3 months",
+      "drugs": ["diazepam", "lorazepam", "alprazolam", "clonazepam", "temazepam"],
+      "conditions": ["fall_history"],
+      "rationale": "Sedating drugs increase fall risk. May cause drowsiness, impaired balance.",
+      "severity": "high",
+      "action": "taper_and_stop"
+    },
+    {
+      "id": "STOPP_G2",
+      "section": "falls_risk",
+      "criterion": "Hypnotic Z-drugs in patients with history of falls",
+      "drugs": ["zolpidem", "eszopiclone", "zaleplon"],
+      "conditions": ["fall_history"],
+      "rationale": "Risk of drowsiness, motor incoordination, increased falls.",
+      "severity": "high",
+      "action": "stop_drug"
+    },
+    {
+      "id": "STOPP_H1",
+      "section": "analgesic",
+      "criterion": "Regular opioids without concurrent laxative",
+      "drugs": ["codeine", "tramadol", "oxycodone", "morphine", "hydrocodone", "fentanyl"],
+      "conditions": ["no_concurrent_laxative"],
+      "rationale": "Risk of severe constipation, bowel obstruction.",
+      "severity": "moderate",
+      "action": "add_laxative"
+    },
+    {
+      "id": "STOPP_H2",
+      "section": "analgesic",
+      "criterion": "Long-acting opioids without short-acting opioid for breakthrough pain",
+      "drugs": ["morphine_er", "oxycodone_er", "fentanyl_patch"],
+      "conditions": ["chronic_pain"],
+      "rationale": "Inadequate pain control without breakthrough medication.",
+      "severity": "moderate",
+      "action": "add_breakthrough_med"
+    },
+    {
+      "id": "STOPP_I1",
+      "section": "anticholinergic",
+      "criterion": "Concurrent use of two or more drugs with anticholinergic properties",
+      "drugs": ["_any_anticholinergic"],
+      "conditions": ["multiple_anticholinergics"],
+      "rationale": "Risk of cumulative anticholinergic toxicity: cognitive impairment, falls, constipation, urinary retention.",
+      "severity": "high",
+      "action": "reduce_anticholinergic_burden"
+    },
+    {
+      "id": "STOPP_J1",
+      "section": "duplicate",
+      "criterion": "Duplicate drug class prescriptions (two concurrent NSAIDs, SSRIs, loop diuretics, ACE inhibitors)",
+      "drugs": ["_any_duplicate_class"],
+      "conditions": ["therapeutic_duplication"],
+      "rationale": "Optimization of monotherapy within a single drug class before adding second agent.",
+      "severity": "moderate",
+      "action": "remove_duplicate"
+    }
+  ],
+  "start_criteria": [
+    {
+      "id": "START_A1",
+      "section": "cardiovascular",
+      "criterion": "Statin therapy with documented history of coronary, cerebral or peripheral vascular disease where functional status is not severely limited",
+      "conditions": ["cardiovascular_disease"],
+      "recommended_drugs": ["atorvastatin", "rosuvastatin"],
+      "rationale": "Secondary prevention of cardiovascular events unless end-of-life/severe frailty.",
+      "severity": "moderate"
+    },
+    {
+      "id": "START_A2",
+      "section": "cardiovascular",
+      "criterion": "ACE inhibitor or ARB in patients with heart failure with reduced ejection fraction",
+      "conditions": ["heart_failure_reduced_ef"],
+      "recommended_drugs": ["lisinopril", "enalapril", "losartan", "valsartan"],
+      "rationale": "Reduce mortality and hospitalization in HFrEF.",
+      "severity": "high"
+    },
+    {
+      "id": "START_A3",
+      "section": "cardiovascular",
+      "criterion": "Antiplatelet therapy in patients with documented atherosclerotic coronary, cerebral or peripheral vascular disease",
+      "conditions": ["atherosclerotic_disease"],
+      "recommended_drugs": ["aspirin", "clopidogrel"],
+      "rationale": "Secondary prevention of cardiovascular events.",
+      "severity": "moderate"
+    },
+    {
+      "id": "START_B1",
+      "section": "endocrine",
+      "criterion": "Vitamin D supplement in patients with known osteoporosis or previous fragility fracture",
+      "conditions": ["osteoporosis", "fragility_fracture"],
+      "recommended_drugs": ["vitamin_d", "cholecalciferol"],
+      "rationale": "Reduce further bone loss and fracture risk.",
+      "severity": "moderate"
+    },
+    {
+      "id": "START_B2",
+      "section": "endocrine",
+      "criterion": "Bone anti-resorptive or anabolic therapy in patients with known osteoporosis where no pharmacological or clinical contraindication",
+      "conditions": ["osteoporosis"],
+      "recommended_drugs": ["alendronate", "risedronate", "denosumab"],
+      "rationale": "Reduce vertebral and non-vertebral fractures.",
+      "severity": "moderate"
+    },
+    {
+      "id": "START_C1",
+      "section": "cns",
+      "criterion": "L-DOPA or dopamine agonist in idiopathic Parkinson's disease with functional impairment",
+      "conditions": ["parkinsons_disease"],
+      "recommended_drugs": ["levodopa_carbidopa", "pramipexole", "ropinirole"],
+      "rationale": "Improve motor function and quality of life.",
+      "severity": "high"
+    },
+    {
+      "id": "START_D1",
+      "section": "gastrointestinal",
+      "criterion": "PPI in patients with severe GERD or peptic stricture requiring dilatation",
+      "conditions": ["severe_gerd", "peptic_stricture"],
+      "recommended_drugs": ["omeprazole", "pantoprazole", "lansoprazole"],
+      "rationale": "Symptom relief and prevention of esophageal stricture recurrence.",
+      "severity": "moderate"
+    },
+    {
+      "id": "START_E1",
+      "section": "respiratory",
+      "criterion": "Regular inhaled beta-2 agonist or anticholinergic agent for mild-moderate asthma or COPD",
+      "conditions": ["asthma", "copd"],
+      "recommended_drugs": ["albuterol", "ipratropium", "tiotropium"],
+      "rationale": "Improve FEV1, symptoms, and quality of life.",
+      "severity": "moderate"
+    },
+    {
+      "id": "START_F1",
+      "section": "musculoskeletal",
+      "criterion": "DMARD in patients with active moderate-severe rheumatoid arthritis",
+      "conditions": ["rheumatoid_arthritis"],
+      "recommended_drugs": ["methotrexate", "hydroxychloroquine"],
+      "rationale": "Disease-modifying therapy to prevent joint destruction.",
+      "severity": "high"
+    },
+    {
+      "id": "START_G1",
+      "section": "vaccination",
+      "criterion": "Annual seasonal influenza vaccine",
+      "conditions": ["age_65_plus"],
+      "recommended_drugs": ["influenza_vaccine"],
+      "rationale": "Reduce mortality and morbidity from influenza in older adults.",
+      "severity": "moderate"
+    }
+  ]
+}

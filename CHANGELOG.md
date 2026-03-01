@@ -6,6 +6,23 @@ Format follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.3.0-kb] - 2026-03-01
+
+### Added
+- `pgx_drug_map.json` — 39 drugs mapped to pharmacogenes across 7 therapeutic areas with CPIC levels, FDA label status, and testing recommendations
+- `beers_criteria.json` — 45 entries from the 2023 AGS Beers Criteria for potentially inappropriate medications in older adults
+- `stopp_start_criteria.json` — 20 STOPP criteria (medications to stop) + 10 START criteria (medications to start) from STOPP/START v3
+- `anticholinergic_burden.json` — 97 medications scored on the Anticholinergic Cognitive Burden (ACB) scale (0-3) with risk thresholds
+- `prescribing_cascades.json` — 15 well-documented prescribing cascade patterns with PGx relevance annotations
+- New `KnowledgeBase` lookup methods: `get_pgx_relevant_genes()`, `get_pgx_drug_info()`, `get_beers_flag()`, `get_stopp_flags()`, `get_start_flags()`, `get_acb_score()`, `get_total_acb_score()`, `get_prescribing_cascades()`
+
+### Changed
+- `kb_loader.py` now loads all 8 knowledge base files and builds indexes for fast lookups
+- `get_kb_versions()` includes all KB files in version tracking
+- KB load summary now reports PGx-mapped drug count, Beers entries, and ACB-scored medications
+
+---
+
 ## [0.2.0] - 2026-03-01
 
 ### Added

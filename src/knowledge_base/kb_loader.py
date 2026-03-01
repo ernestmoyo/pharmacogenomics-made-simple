@@ -21,11 +21,19 @@ class KnowledgeBase:
             base_path = Path(__file__).parent
         self.base_path = Path(base_path)
 
+        # Core KB files
         self.gene_drug_data = self._load_json("gene_drug_interactions.json")
         self.ddi_data = self._load_json("drug_drug_interactions.json")
         self.dosing_data = self._load_json("dosing_guidelines.json")
 
-        # Build lookup indexes
+        # Extended KB files (geriatric deprescribing + oncology gap)
+        self.pgx_drug_map_data = self._load_json("pgx_drug_map.json")
+        self.beers_data = self._load_json("beers_criteria.json")
+        self.stopp_start_data = self._load_json("stopp_start_criteria.json")
+        self.acb_data = self._load_json("anticholinergic_burden.json")
+        self.cascades_data = self._load_json("prescribing_cascades.json")
+
+        # Build core lookup indexes
         self._gene_drug_index = {}
         for entry in self.gene_drug_data.get("gene_drug_interactions", []):
             key = (entry["gene"].lower(), entry["drug"].lower())
@@ -38,16 +46,38 @@ class KnowledgeBase:
             self._ddi_index[key_ab] = entry
             self._ddi_index[key_ba] = entry
 
+        # Build extended indexes
+        self._pgx_drug_index = {}
+        for drug, info in self.pgx_drug_map_data.get("pgx_drug_map", {}).items():
+            self._pgx_drug_index[drug.lower()] = info
+
+        self._beers_index = {}
+        for entry in self.beers_data.get("beers_criteria", []):
+            self._beers_index[entry["drug"].lower()] = entry
+
+        self._acb_index = self.acb_data.get("acb_scores", {})
+
         # Log KB metadata
-        for name, data in [("gene_drug_interactions", self.gene_drug_data),
-                           ("drug_drug_interactions", self.ddi_data),
-                           ("dosing_guidelines", self.dosing_data)]:
+        all_kb = [
+            ("gene_drug_interactions", self.gene_drug_data),
+            ("drug_drug_interactions", self.ddi_data),
+            ("dosing_guidelines", self.dosing_data),
+            ("pgx_drug_map", self.pgx_drug_map_data),
+            ("beers_criteria", self.beers_data),
+            ("stopp_start_criteria", self.stopp_start_data),
+            ("anticholinergic_burden", self.acb_data),
+            ("prescribing_cascades", self.cascades_data),
+        ]
+        for name, data in all_kb:
             meta = data.get("_metadata", {})
             if meta:
                 logger.debug(f"{name} v{meta.get('version', '?')} (updated {meta.get('last_updated', '?')})")
 
         logger.info(f"Knowledge base loaded: {len(self._gene_drug_index)} gene-drug pairs, "
-                    f"{len(self._ddi_index) // 2} DDIs")
+                    f"{len(self._ddi_index) // 2} DDIs, "
+                    f"{len(self._pgx_drug_index)} PGx-mapped drugs, "
+                    f"{len(self._beers_index)} Beers entries, "
+                    f"{len(self._acb_index)} ACB-scored medications")
 
     def _load_json(self, filename: str) -> dict:
         filepath = self.base_path / filename
@@ -62,7 +92,12 @@ class KnowledgeBase:
         versions = {}
         for name, data in [("gene_drug_interactions", self.gene_drug_data),
                            ("drug_drug_interactions", self.ddi_data),
-                           ("dosing_guidelines", self.dosing_data)]:
+                           ("dosing_guidelines", self.dosing_data),
+                           ("pgx_drug_map", self.pgx_drug_map_data),
+                           ("beers_criteria", self.beers_data),
+                           ("stopp_start_criteria", self.stopp_start_data),
+                           ("anticholinergic_burden", self.acb_data),
+                           ("prescribing_cascades", self.cascades_data)]:
             meta = data.get("_metadata", {})
             versions[name] = meta.get("version", "unknown")
         return versions
@@ -174,6 +209,111 @@ class KnowledgeBase:
             return thresholds.get("severe_impairment", {}).get("label", "Severe impairment")
         else:
             return thresholds.get("kidney_failure", {}).get("label", "Kidney failure")
+
+    # ---- Extended KB lookup methods (geriatric deprescribing + oncology gap) ----
+
+    def get_pgx_relevant_genes(self, drug: str) -> list:
+        """Return list of pharmacogenes relevant to a drug, from pgx_drug_map."""
+        entry = self._pgx_drug_index.get(drug.lower())
+        if entry:
+            logger.debug(f"PGx lookup: {drug} → {entry['genes']}")
+            return entry["genes"]
+        return []
+
+    def get_pgx_drug_info(self, drug: str) -> Optional[dict]:
+        """Return full PGx drug map entry (genes, cpic_level, fda_label, testing_recommendation)."""
+        return self._pgx_drug_index.get(drug.lower())
+
+    def get_beers_flag(self, drug: str) -> Optional[dict]:
+        """Return Beers Criteria entry for a drug, or None if not flagged."""
+        entry = self._beers_index.get(drug.lower())
+        if entry:
+            logger.debug(f"Beers flag: {drug} → {entry['category']} ({entry['severity']})")
+        return entry
+
+    def get_stopp_flags(self, drug: str, conditions: list = None) -> list:
+        """Return STOPP criteria triggered by a drug, optionally filtered by patient conditions."""
+        conditions = [c.lower() for c in (conditions or [])]
+        drug_lower = drug.lower()
+        flags = []
+        for criterion in self.stopp_start_data.get("stopp_criteria", []):
+            if drug_lower in [d.lower() for d in criterion.get("drugs", [])]:
+                # If criterion has conditions, check at least one matches (or no conditions = always applies)
+                crit_conditions = criterion.get("conditions", [])
+                if not crit_conditions or any(c in conditions for c in crit_conditions):
+                    flags.append(criterion)
+        if flags:
+            logger.debug(f"STOPP flags for {drug}: {len(flags)} criteria triggered")
+        return flags
+
+    def get_start_flags(self, conditions: list, current_drugs: list) -> list:
+        """Return START criteria — medications that SHOULD be prescribed but aren't."""
+        conditions_lower = [c.lower() for c in conditions]
+        current_lower = [d.lower() for d in current_drugs]
+        flags = []
+        for criterion in self.stopp_start_data.get("start_criteria", []):
+            crit_conditions = criterion.get("conditions", [])
+            if any(c in conditions_lower for c in crit_conditions):
+                # Check if patient is already on a recommended drug
+                recommended = [d.lower() for d in criterion.get("recommended_drugs", [])]
+                if not any(d in current_lower for d in recommended):
+                    flags.append(criterion)
+        if flags:
+            logger.debug(f"START flags: {len(flags)} missing recommended medications")
+        return flags
+
+    def get_acb_score(self, drug: str) -> int:
+        """Return ACB (Anticholinergic Cognitive Burden) score for a drug (0-3)."""
+        entry = self._acb_index.get(drug.lower())
+        if entry:
+            return entry["score"]
+        return 0
+
+    def get_total_acb_score(self, drug_list: list) -> dict:
+        """Calculate cumulative ACB score for a medication list."""
+        total = 0
+        contributions = []
+        for drug in drug_list:
+            score = self.get_acb_score(drug)
+            if score > 0:
+                total += score
+                contributions.append({"drug": drug, "score": score})
+        if total >= 6:
+            risk_level = "high"
+        elif total >= 3:
+            risk_level = "moderate"
+        else:
+            risk_level = "low"
+        logger.debug(f"ACB total: {total} ({risk_level}) from {len(contributions)} medications")
+        return {"total_score": total, "risk_level": risk_level, "contributions": contributions}
+
+    def get_prescribing_cascades(self, drug_list: list) -> list:
+        """Detect prescribing cascade patterns in a medication list."""
+        drug_list_lower = [d.lower() for d in drug_list]
+        detected = []
+        for cascade in self.cascades_data.get("cascades", []):
+            trigger_drugs = [d.lower() for d in cascade.get("trigger_drugs", [])]
+            cascade_drugs = [d.lower() for d in cascade.get("cascade_drugs", [])]
+            has_trigger = any(d in drug_list_lower for d in trigger_drugs)
+            has_cascade = any(d in drug_list_lower for d in cascade_drugs)
+            if has_trigger and has_cascade:
+                # Find the specific drugs involved
+                trigger_found = [d for d in drug_list if d.lower() in trigger_drugs]
+                cascade_found = [d for d in drug_list if d.lower() in cascade_drugs]
+                detected.append({
+                    "cascade_id": cascade["id"],
+                    "name": cascade["name"],
+                    "trigger_drugs_found": trigger_found,
+                    "cascade_drugs_found": cascade_found,
+                    "severity": cascade["severity"],
+                    "recommendation": cascade["recommendation"],
+                    "pgx_relevance": cascade.get("pgx_relevance"),
+                })
+        if detected:
+            logger.debug(f"Prescribing cascades detected: {len(detected)} patterns in {len(drug_list)} medications")
+        return detected
+
+    # ---- Original helper methods ----
 
     def get_cyp_inhibitors_in_list(self, drug_list: list) -> dict:
         """Identify all CYP inhibitors present in the drug list."""
