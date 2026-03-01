@@ -939,6 +939,336 @@ def generate_oncology_gap_patients(seed: int = 100) -> list:
     return patients
 
 
+def generate_geriatric_patients(seed: int = 200) -> list:
+    """Generate 12 geriatric patients (age 65-92) for deprescribing analysis.
+
+    Each patient has 8-15 medications, realistic comorbidities, and clear
+    deprescribing targets. Designed to demonstrate Beers, STOPP/START,
+    ACB scoring, cascade detection, and PGx overlay.
+    """
+    random.seed(seed)
+    patients = []
+
+    # GER_01: High ACB burden + PGx interaction (nortriptyline CYP2D6 PM)
+    patients.append({
+        "patient_id": "GER_01",
+        "demographics": {
+            "first_name": "Edna", "last_name": "Whitmore",
+            "age": 78, "sex": "F", "weight_kg": 58, "height_cm": 155,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "CYP2D6": {"diplotype": "*4/*4", "phenotype": "poor_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2C9": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": [
+            "nortriptyline", "diphenhydramine", "oxybutynin", "omeprazole",
+            "metoprolol", "lisinopril", "amlodipine", "atorvastatin",
+            "gabapentin", "acetaminophen", "calcium_vitamin_d"
+        ],
+        "lab_values": {"egfr": 52, "alt": 28, "ast": 25, "scr": 1.2, "albumin": 3.4},
+        "clinical_context": {
+            "primary_diagnosis": "Depression, Overactive Bladder, Insomnia, Hypertension",
+            "therapeutic_area": "geriatrics",
+            "conditions": ["depression", "overactive_bladder", "insomnia", "hypertension"],
+            "comorbidities": ["osteoporosis", "chronic_pain"]
+        }
+    })
+
+    # GER_02: Donepezil + oxybutynin cascade + multiple Beers flags
+    patients.append({
+        "patient_id": "GER_02",
+        "demographics": {
+            "first_name": "Harold", "last_name": "Jenkins",
+            "age": 82, "sex": "M", "weight_kg": 72, "height_cm": 170,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "CYP2D6": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*2", "phenotype": "intermediate_metabolizer"},
+        },
+        "medications": [
+            "donepezil", "oxybutynin", "lorazepam", "quetiapine",
+            "omeprazole", "warfarin", "metoprolol", "furosemide",
+            "potassium_chloride", "aspirin"
+        ],
+        "lab_values": {"egfr": 45, "alt": 32, "ast": 30, "scr": 1.5, "albumin": 3.2},
+        "clinical_context": {
+            "primary_diagnosis": "Alzheimer's Dementia, Atrial Fibrillation, Heart Failure",
+            "therapeutic_area": "geriatrics",
+            "conditions": ["dementia", "cognitive_impairment", "atrial_fibrillation", "heart_failure"],
+            "comorbidities": ["fall_history", "osteoporosis"]
+        }
+    })
+
+    # GER_03: Heavy NSAID use + renal impairment + prescribing cascades
+    patients.append({
+        "patient_id": "GER_03",
+        "demographics": {
+            "first_name": "Margaret", "last_name": "O'Sullivan",
+            "age": 74, "sex": "F", "weight_kg": 80, "height_cm": 162,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "CYP2C9": {"diplotype": "*2/*3", "phenotype": "poor_metabolizer"},
+            "CYP2D6": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": [
+            "naproxen", "omeprazole", "amlodipine", "furosemide",
+            "lisinopril", "hydrochlorothiazide", "allopurinol",
+            "metformin", "glimepiride", "atorvastatin"
+        ],
+        "lab_values": {"egfr": 42, "alt": 25, "ast": 22, "scr": 1.4, "albumin": 3.5},
+        "clinical_context": {
+            "primary_diagnosis": "Osteoarthritis, Type 2 Diabetes, Hypertension, Gout",
+            "therapeutic_area": "geriatrics",
+            "conditions": ["osteoarthritis", "type2_diabetes", "hypertension", "gout"],
+            "comorbidities": ["chronic_kidney_disease", "peripheral_edema"]
+        }
+    })
+
+    # GER_04: Benzodiazepine + falls risk + CYP2C19 PM on omeprazole
+    patients.append({
+        "patient_id": "GER_04",
+        "demographics": {
+            "first_name": "Robert", "last_name": "Andersen",
+            "age": 85, "sex": "M", "weight_kg": 65, "height_cm": 168,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "CYP2C19": {"diplotype": "*2/*2", "phenotype": "poor_metabolizer"},
+            "CYP2D6": {"diplotype": "*1/*4", "phenotype": "intermediate_metabolizer"},
+        },
+        "medications": [
+            "diazepam", "zolpidem", "omeprazole", "citalopram",
+            "metoprolol", "warfarin", "furosemide", "potassium_chloride",
+            "acetaminophen"
+        ],
+        "lab_values": {"egfr": 48, "alt": 30, "ast": 28, "scr": 1.4, "albumin": 3.3},
+        "clinical_context": {
+            "primary_diagnosis": "Insomnia, Anxiety, Depression, Heart Failure",
+            "therapeutic_area": "geriatrics",
+            "conditions": ["insomnia", "anxiety", "depression", "heart_failure"],
+            "comorbidities": ["fall_history", "atrial_fibrillation"]
+        }
+    })
+
+    # GER_05: Complex polypharmacy — 15 meds, multiple cascades
+    patients.append({
+        "patient_id": "GER_05",
+        "demographics": {
+            "first_name": "Dorothy", "last_name": "Kowalczyk",
+            "age": 88, "sex": "F", "weight_kg": 55, "height_cm": 152,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "CYP2D6": {"diplotype": "*4/*4", "phenotype": "poor_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2C9": {"diplotype": "*1/*2", "phenotype": "intermediate_metabolizer"},
+            "VKORC1": {"variant": "-1639G>A", "phenotype": "moderate_sensitivity"},
+        },
+        "medications": [
+            "amitriptyline", "diphenhydramine", "oxybutynin", "diazepam",
+            "omeprazole", "naproxen", "warfarin", "amlodipine", "furosemide",
+            "metoprolol", "lisinopril", "atorvastatin", "glimepiride",
+            "potassium_chloride", "senna"
+        ],
+        "lab_values": {"egfr": 38, "alt": 35, "ast": 32, "scr": 1.6, "albumin": 3.0},
+        "clinical_context": {
+            "primary_diagnosis": "Depression, Insomnia, OAB, OA, AFib, HTN, T2DM",
+            "therapeutic_area": "geriatrics",
+            "conditions": ["depression", "insomnia", "overactive_bladder", "osteoarthritis",
+                          "atrial_fibrillation", "hypertension", "type2_diabetes"],
+            "comorbidities": ["chronic_kidney_disease", "fall_history", "osteoporosis"]
+        }
+    })
+
+    # GER_06: Codeine CYP2D6 PM + multiple pain meds
+    patients.append({
+        "patient_id": "GER_06",
+        "demographics": {
+            "first_name": "Arthur", "last_name": "Bergström",
+            "age": 76, "sex": "M", "weight_kg": 70, "height_cm": 173,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "CYP2D6": {"diplotype": "*4/*6", "phenotype": "poor_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": [
+            "codeine", "acetaminophen", "naproxen", "omeprazole",
+            "amlodipine", "lisinopril", "atorvastatin",
+            "metformin", "gabapentin"
+        ],
+        "lab_values": {"egfr": 55, "alt": 22, "ast": 20, "scr": 1.3, "albumin": 3.6},
+        "clinical_context": {
+            "primary_diagnosis": "Chronic Pain, Osteoarthritis, Hypertension, Diabetes",
+            "therapeutic_area": "geriatrics",
+            "conditions": ["chronic_pain", "osteoarthritis", "hypertension", "type2_diabetes"],
+            "comorbidities": []
+        }
+    })
+
+    # GER_07: Clopidogrel + omeprazole DDI + CYP2C19 PM
+    patients.append({
+        "patient_id": "GER_07",
+        "demographics": {
+            "first_name": "Mildred", "last_name": "Nakamura",
+            "age": 71, "sex": "F", "weight_kg": 62, "height_cm": 157,
+            "ethnicity": "East Asian"
+        },
+        "genotype": {
+            "CYP2C19": {"diplotype": "*2/*3", "phenotype": "poor_metabolizer"},
+            "CYP2D6": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "SLCO1B1": {"diplotype": "*5/*5", "phenotype": "poor_function"},
+        },
+        "medications": [
+            "clopidogrel", "omeprazole", "simvastatin", "metoprolol",
+            "lisinopril", "aspirin", "amlodipine", "metformin"
+        ],
+        "lab_values": {"egfr": 60, "alt": 48, "ast": 42, "scr": 1.1, "albumin": 3.7},
+        "clinical_context": {
+            "primary_diagnosis": "Post-ACS, CAD, Hypertension, Diabetes",
+            "therapeutic_area": "geriatrics",
+            "conditions": ["coronary_artery_disease", "hypertension", "type2_diabetes"],
+            "comorbidities": ["hyperlipidemia"]
+        }
+    })
+
+    # GER_08: Paroxetine (high ACB SSRI) + multiple anticholinergics
+    patients.append({
+        "patient_id": "GER_08",
+        "demographics": {
+            "first_name": "Clarence", "last_name": "Dubois",
+            "age": 80, "sex": "M", "weight_kg": 68, "height_cm": 166,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "CYP2D6": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": [
+            "paroxetine", "tolterodine", "diphenhydramine",
+            "omeprazole", "amlodipine", "lisinopril", "aspirin",
+            "atorvastatin", "acetaminophen"
+        ],
+        "lab_values": {"egfr": 58, "alt": 25, "ast": 22, "scr": 1.2, "albumin": 3.5},
+        "clinical_context": {
+            "primary_diagnosis": "Depression, OAB, Allergic Rhinitis, Hypertension",
+            "therapeutic_area": "geriatrics",
+            "conditions": ["depression", "overactive_bladder", "hypertension"],
+            "comorbidities": ["insomnia"]
+        }
+    })
+
+    # GER_09: Statin myopathy cascade + SLCO1B1 variant
+    patients.append({
+        "patient_id": "GER_09",
+        "demographics": {
+            "first_name": "Helen", "last_name": "Petrova",
+            "age": 69, "sex": "F", "weight_kg": 75, "height_cm": 164,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "SLCO1B1": {"diplotype": "*5/*5", "phenotype": "poor_function"},
+            "CYP2D6": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": [
+            "simvastatin", "naproxen", "omeprazole", "amlodipine",
+            "lisinopril", "metformin", "gabapentin", "acetaminophen"
+        ],
+        "lab_values": {"egfr": 65, "alt": 55, "ast": 48, "scr": 1.0, "albumin": 3.8},
+        "clinical_context": {
+            "primary_diagnosis": "Hyperlipidemia, Myalgia (statin-related), Hypertension, T2DM",
+            "therapeutic_area": "geriatrics",
+            "conditions": ["hyperlipidemia", "myalgia", "hypertension", "type2_diabetes"],
+            "comorbidities": ["neuropathic_pain"]
+        }
+    })
+
+    # GER_10: Minimal risk — well-managed elderly patient (control)
+    patients.append({
+        "patient_id": "GER_10",
+        "demographics": {
+            "first_name": "George", "last_name": "Franklin",
+            "age": 70, "sex": "M", "weight_kg": 78, "height_cm": 175,
+            "ethnicity": "African American"
+        },
+        "genotype": {
+            "CYP2D6": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": [
+            "lisinopril", "amlodipine", "atorvastatin", "metformin",
+            "aspirin"
+        ],
+        "lab_values": {"egfr": 72, "alt": 20, "ast": 18, "scr": 1.1, "albumin": 4.0},
+        "clinical_context": {
+            "primary_diagnosis": "Hypertension, Hyperlipidemia, Diabetes",
+            "therapeutic_area": "geriatrics",
+            "conditions": ["hypertension", "hyperlipidemia", "type2_diabetes"],
+            "comorbidities": []
+        }
+    })
+
+    # GER_11: Tramadol CYP2D6 UM in elderly + Beers opioid concern
+    patients.append({
+        "patient_id": "GER_11",
+        "demographics": {
+            "first_name": "Evelyn", "last_name": "Morales",
+            "age": 77, "sex": "F", "weight_kg": 60, "height_cm": 158,
+            "ethnicity": "Hispanic"
+        },
+        "genotype": {
+            "CYP2D6": {"diplotype": "*1/*1xN", "phenotype": "ultra_rapid_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": [
+            "tramadol", "acetaminophen", "gabapentin", "omeprazole",
+            "lisinopril", "amlodipine", "metformin", "senna"
+        ],
+        "lab_values": {"egfr": 50, "alt": 28, "ast": 25, "scr": 1.3, "albumin": 3.4},
+        "clinical_context": {
+            "primary_diagnosis": "Chronic Pain, Neuropathy, Hypertension, Diabetes",
+            "therapeutic_area": "geriatrics",
+            "conditions": ["chronic_pain", "neuropathy", "hypertension", "type2_diabetes"],
+            "comorbidities": ["chronic_kidney_disease"]
+        }
+    })
+
+    # GER_12: Warfarin sensitivity + multiple interacting drugs
+    patients.append({
+        "patient_id": "GER_12",
+        "demographics": {
+            "first_name": "Walter", "last_name": "Johansson",
+            "age": 92, "sex": "M", "weight_kg": 62, "height_cm": 168,
+            "ethnicity": "Caucasian"
+        },
+        "genotype": {
+            "VKORC1": {"variant": "-1639A>A", "phenotype": "high_sensitivity"},
+            "CYP2C9": {"diplotype": "*2/*3", "phenotype": "poor_metabolizer"},
+            "CYP2D6": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+            "CYP2C19": {"diplotype": "*1/*1", "phenotype": "normal_metabolizer"},
+        },
+        "medications": [
+            "warfarin", "amiodarone", "digoxin", "furosemide",
+            "omeprazole", "metoprolol", "lisinopril",
+            "potassium_chloride", "aspirin", "acetaminophen"
+        ],
+        "lab_values": {"egfr": 35, "alt": 38, "ast": 42, "scr": 1.8, "albumin": 2.9, "inr": 4.1},
+        "clinical_context": {
+            "primary_diagnosis": "AFib, Heart Failure, CKD Stage 3b",
+            "therapeutic_area": "geriatrics",
+            "conditions": ["atrial_fibrillation", "heart_failure", "chronic_kidney_disease"],
+            "comorbidities": ["fall_history", "renal_impairment"]
+        }
+    })
+
+    return patients
+
+
 def save_patients(patients: list, output_path: Path):
     """Save patient data to JSON file."""
     output_path.parent.mkdir(parents=True, exist_ok=True)

@@ -6,6 +6,23 @@ Format follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.4.0] - 2026-03-02
+
+### Added
+- **Geriatric Deprescribing Module** (`src/deprescribing/`):
+  - `beers_checker.py` — 2023 AGS Beers Criteria screening (age 65+)
+  - `stopp_start_checker.py` — STOPP/START v3 criteria with condition-aware filtering
+  - `anticholinergic_scorer.py` — cumulative ACB scoring with risk classification
+  - `cascade_detector.py` — prescribing cascade pattern detection
+  - `polypharmacy_scorer.py` — composite 0-100 risk score from 6 weighted components
+  - `deprescribing_recommender.py` — orchestrator with prioritized recommendations and PGx overlay
+- 12 synthetic geriatric patients (age 69-92, 5-15 meds each) with realistic polypharmacy scenarios
+- `--deprescribing` CLI mode in `main.py`
+- PGx overlay analysis: highlights what pharmacogenomics reveals beyond standard Beers/STOPP criteria
+- JSON output to `output/deprescribing/`
+
+---
+
 ## [0.3.0] - 2026-03-01
 
 ### Added

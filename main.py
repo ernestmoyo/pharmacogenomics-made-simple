@@ -29,7 +29,9 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.utils.logger import get_logger, PLATFORM_VERSION
 from src.knowledge_base.kb_loader import KnowledgeBase
-from src.data_generation.synthetic_patients import generate_patients, generate_oncology_gap_patients
+from src.data_generation.synthetic_patients import (
+    generate_patients, generate_oncology_gap_patients, generate_geriatric_patients
+)
 from src.interpretation.engine import InterpretationEngine
 from src.interpretation.risk_scorer import RiskScorer
 from src.interpretation.recommender import Recommender
@@ -440,6 +442,160 @@ def _print_gap_summary(summary: dict, gap_results: list, elapsed: float):
     print("=" * 72)
 
 
+def run_deprescribing(args):
+    """Run geriatric deprescribing analysis on synthetic elderly patients."""
+    start_time = time.time()
+    output_dir = PROJECT_ROOT / "output"
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    logger.info("=" * 60)
+    logger.info("PGx Clinical Solutions - Geriatric Deprescribing v%s", PLATFORM_VERSION)
+    logger.info("=" * 60)
+
+    # Step 1: Load knowledge base
+    logger.info("[1/4] Loading pharmacogenomics knowledge base...")
+    kb = KnowledgeBase(base_path=PROJECT_ROOT / "src" / "knowledge_base")
+
+    # Step 2: Generate geriatric patients
+    logger.info("[2/4] Generating geriatric patient cohort...")
+    patients = generate_geriatric_patients()
+    logger.info(f"Generated {len(patients)} geriatric patients")
+
+    # Step 3: Initialize and run deprescribing analysis
+    logger.info("[3/4] Running deprescribing analysis...")
+    from src.deprescribing.deprescribing_recommender import DeprescribingRecommender
+
+    engine = InterpretationEngine(kb)
+    recommender = DeprescribingRecommender(kb, engine)
+    results = recommender.analyze_cohort(patients)
+
+    # Step 4: Output results
+    logger.info("[4/4] Generating deprescribing output...")
+
+    dep_output_dir = output_dir / "deprescribing"
+    dep_output_dir.mkdir(parents=True, exist_ok=True)
+
+    with open(dep_output_dir / "deprescribing_results.json", "w", encoding="utf-8") as f:
+        json.dump(results, f, indent=2, default=str)
+
+    # Print console summary
+    elapsed = time.time() - start_time
+    _print_deprescribing_summary(results, elapsed)
+
+    # Audit trail
+    total_recs = sum(len(r["recommendations"]) for r in results)
+    total_overlay = sum(len(r["pgx_overlay"]) for r in results)
+    write_audit_trail(output_dir, "deprescribing", len(patients),
+                      total_recs, total_overlay, {}, kb, elapsed)
+
+    return results
+
+
+def _print_deprescribing_summary(results: list, elapsed: float):
+    """Print a formatted deprescribing summary to the console."""
+    n = len(results)
+    print()
+    print("=" * 72)
+    print("  PGx CLINICAL SOLUTIONS — GERIATRIC DEPRESCRIBING REPORT")
+    print("  Ernest Moyo | Rangarirai Makuku | Tapiwa Mupereki | Ngonidzashe Faya")
+    print("=" * 72)
+    print()
+    print("COHORT OVERVIEW")
+    print("-" * 40)
+    print(f"  Patients analyzed:          {n}")
+
+    avg_meds = sum(r["medication_count"] for r in results) / n if n else 0
+    avg_score = sum(r["polypharmacy_score"]["composite_score"] for r in results) / n if n else 0
+    print(f"  Avg medications per patient: {avg_meds:.1f}")
+    print(f"  Avg polypharmacy score:      {avg_score:.1f}")
+
+    # Risk distribution
+    risk_dist = {}
+    for r in results:
+        level = r["polypharmacy_score"]["risk_level"]
+        risk_dist[level] = risk_dist.get(level, 0) + 1
+    print()
+    print("  Risk Distribution:")
+    for level in ["high", "moderate", "low", "minimal"]:
+        if level in risk_dist:
+            print(f"    {level:10s}: {risk_dist[level]} patients")
+
+    # Beers summary
+    total_beers = sum(r["beers_result"].get("flag_count", 0) for r in results)
+    patients_with_beers = sum(1 for r in results if r["beers_result"].get("flag_count", 0) > 0)
+    print()
+    print("BEERS CRITERIA")
+    print("-" * 40)
+    print(f"  Total Beers flags:          {total_beers}")
+    print(f"  Patients with Beers flags:  {patients_with_beers}/{n}")
+
+    # STOPP/START summary
+    total_stopp = sum(r["stopp_start_result"].get("stopp_count", 0) for r in results)
+    total_start = sum(r["stopp_start_result"].get("start_count", 0) for r in results)
+    print()
+    print("STOPP/START CRITERIA")
+    print("-" * 40)
+    print(f"  Total STOPP flags:          {total_stopp}")
+    print(f"  Total START flags:          {total_start}")
+
+    # ACB summary
+    avg_acb = sum(r["acb_result"]["total_acb_score"] for r in results) / n if n else 0
+    high_acb = sum(1 for r in results if r["acb_result"]["risk_level"] == "high")
+    print()
+    print("ANTICHOLINERGIC BURDEN")
+    print("-" * 40)
+    print(f"  Avg ACB score:              {avg_acb:.1f}")
+    print(f"  Patients with high ACB:     {high_acb}/{n}")
+
+    # Cascade summary
+    total_cascades = sum(r["cascade_result"]["cascade_count"] for r in results)
+    patients_with_cascades = sum(1 for r in results if r["cascade_result"]["cascade_count"] > 0)
+    print()
+    print("PRESCRIBING CASCADES")
+    print("-" * 40)
+    print(f"  Total cascades detected:    {total_cascades}")
+    print(f"  Patients with cascades:     {patients_with_cascades}/{n}")
+
+    # PGx Overlay
+    total_overlay = sum(len(r["pgx_overlay"]) for r in results)
+    unique_pgx = sum(1 for r in results for o in r["pgx_overlay"] if o.get("unique_to_pgx"))
+    additive_pgx = sum(1 for r in results for o in r["pgx_overlay"] if o.get("adds_to_beers"))
+    print()
+    print("PGx OVERLAY (Key Differentiator)")
+    print("-" * 40)
+    print(f"  Total PGx insights:         {total_overlay}")
+    print(f"  Unique to PGx:              {unique_pgx} (not flagged by standard criteria)")
+    print(f"  Additive to Beers:          {additive_pgx} (strengthens existing flags)")
+
+    # Per-patient summary
+    print()
+    print("PER-PATIENT RESULTS")
+    print("-" * 40)
+    for r in results:
+        pid = r["patient_id"]
+        score = r["polypharmacy_score"]["composite_score"]
+        risk = r["polypharmacy_score"]["risk_level"]
+        meds = r["medication_count"]
+        beers = r["beers_result"].get("flag_count", 0)
+        acb = r["acb_result"]["total_acb_score"]
+        recs = len(r["recommendations"])
+        pgx = len(r["pgx_overlay"])
+
+        badge = {"high": "!!!", "moderate": "!! ", "low": "!  ", "minimal": "OK "}
+        print(f"  [{badge.get(risk, '?  ')}] {pid:8s}: "
+              f"score {score:5.1f} | {meds:2d} meds | "
+              f"{beers} Beers | ACB {acb} | "
+              f"{recs} recs | {pgx} PGx")
+
+    # Total recommendations
+    total_recs = sum(len(r["recommendations"]) for r in results)
+    print()
+    print(f"  Total deprescribing recommendations: {total_recs}")
+    print(f"  Execution time: {elapsed:.2f} seconds")
+    print("  Output: output/deprescribing/")
+    print("=" * 72)
+
+
 def run_patients_only(args):
     """Generate patient data only."""
     data_dir = PROJECT_ROOT / "data"
@@ -466,6 +622,8 @@ def main():
                         help="Force regeneration of patient data")
     parser.add_argument("--oncology-gap", action="store_true",
                         help="Run oncology PGx gap analysis")
+    parser.add_argument("--deprescribing", action="store_true",
+                        help="Run geriatric deprescribing analysis")
 
     args = parser.parse_args()
 
@@ -475,6 +633,8 @@ def main():
         run_validation_only(args)
     elif args.oncology_gap:
         run_oncology_gap(args)
+    elif args.deprescribing:
+        run_deprescribing(args)
     else:
         run_full_pipeline(args)
 
