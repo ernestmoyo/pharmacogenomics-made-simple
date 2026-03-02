@@ -250,29 +250,33 @@ def run_full_pipeline(args):
 
 
 def run_validation_only(args):
-    """Run validation suite only."""
+    """Run full validation suite (24 test cases across all modules)."""
     start_time = time.time()
-    logger.info("Loading knowledge base and running validation...")
+    logger.info("Loading knowledge base and running full validation...")
     kb = KnowledgeBase(base_path=PROJECT_ROOT / "src" / "knowledge_base")
     engine = InterpretationEngine(kb)
     scorer = RiskScorer()
     recommender = Recommender()
     validator = ClinicalValidator()
 
-    validation_results = validator.run_validation(engine, scorer, recommender)
-    metrics = validator.calculate_metrics(validation_results)
-    impact_report = validator.generate_impact_report(validation_results, metrics)
+    # Run all 24 test cases
+    full_results = validator.run_full_validation(engine, scorer, recommender, kb)
 
-    # Print to console for visibility
-    print(impact_report)
+    # Calculate PGx-specific metrics for backward compatibility
+    pgx_metrics = validator.calculate_metrics(full_results["pgx_results"])
+
+    # Generate and print the full report
+    full_report = validator.generate_full_impact_report(full_results, pgx_metrics)
+    print(full_report)
 
     output_dir = PROJECT_ROOT / "output"
     output_dir.mkdir(parents=True, exist_ok=True)
-    with open(output_dir / "validation_report.txt", "w") as f:
-        f.write(impact_report)
+    with open(output_dir / "validation_report.txt", "w", encoding="utf-8") as f:
+        f.write(full_report)
 
     elapsed = time.time() - start_time
-    write_audit_trail(output_dir, "validation", 0, 0, 0, metrics, kb, elapsed)
+    logger.info(f"Full validation: {full_results['total_passed']}/{full_results['total_cases']} passed in {elapsed:.1f}s")
+    write_audit_trail(output_dir, "validation", 0, 0, 0, pgx_metrics, kb, elapsed)
 
 
 def run_oncology_gap(args):

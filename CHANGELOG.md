@@ -6,6 +6,21 @@ Format follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.5.0-validated] - 2026-03-02
+
+### Added
+- **12 new validation test cases** (24 total across all modules):
+  - 6 oncology gap analysis test cases (TC_GAP01-TC_GAP06): testing gap detection, missed interventions, population aggregation, compliant patient baseline
+  - 6 geriatric deprescribing test cases (TC_DEP01-TC_DEP06): Beers screening, ACB scoring, cascade detection, polypharmacy scoring, PGx overlay validation
+- `run_full_validation()` method: runs all 24 test cases across PGx, gap, and deprescribing modules
+- `generate_full_impact_report()`: combined validation report covering all modules
+- `--validate-only` now runs all 24 test cases (up from 12)
+
+### Changed
+- Updated `docs/standards/validation_methodology.md` with full documentation of all 24 test cases
+
+---
+
 ## [0.5.0] - 2026-03-02
 
 ### Added
