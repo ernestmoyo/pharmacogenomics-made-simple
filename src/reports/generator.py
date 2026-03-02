@@ -103,6 +103,58 @@ class ReportGenerator:
             path = output_dir / f"report_{pid}.html"
             self.generate_and_save(patient, results, path)
 
+    def generate_gap_analysis_report(self, summary: dict, gap_results: list,
+                                      kb_versions: dict, output_path: Path):
+        """Generate population-level oncology gap analysis HTML report."""
+        template = self.env.get_template("gap_analysis_report.html")
+        report_metadata = self._make_metadata("GAP-ANALYSIS")
+        report_metadata["kb_versions"] = kb_versions
+
+        html = template.render(
+            summary=summary,
+            gap_results=gap_results,
+            report_metadata=report_metadata,
+        )
+        output_path = Path(output_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(output_path, "w", encoding="utf-8") as f:
+            f.write(html)
+        logger.info(f"Gap analysis report saved: {output_path.name}")
+
+    def generate_deprescribing_report(self, result: dict, output_path: Path):
+        """Generate per-patient deprescribing HTML report."""
+        template = self.env.get_template("deprescribing_report.html")
+        report_metadata = self._make_metadata(f"DEP-{result.get('patient_id', 'UNK')}")
+
+        html = template.render(
+            result=result,
+            report_metadata=report_metadata,
+        )
+        output_path = Path(output_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(output_path, "w", encoding="utf-8") as f:
+            f.write(html)
+        logger.debug(f"Deprescribing report saved: {output_path.name}")
+
+    def generate_all_deprescribing_reports(self, results: list, output_dir: Path):
+        """Batch generate deprescribing reports for all patients."""
+        output_dir = Path(output_dir)
+        output_dir.mkdir(parents=True, exist_ok=True)
+        for result in results:
+            pid = result.get("patient_id", "UNKNOWN")
+            path = output_dir / f"deprescribing_{pid}.html"
+            self.generate_deprescribing_report(result, path)
+        logger.info(f"Generated {len(results)} deprescribing reports in {output_dir}")
+
+    def _make_metadata(self, prefix: str) -> dict:
+        return {
+            "report_id": f"RPT-{prefix}-{datetime.now().strftime('%Y%m%d')}",
+            "generated_date": datetime.now().strftime("%B %d, %Y at %I:%M %p"),
+            "generated_iso": datetime.now().isoformat(),
+            "version": PLATFORM_VERSION,
+            "platform": "PGx Clinical Solutions",
+        }
+
     @staticmethod
     def _phenotype_display(phenotype: str) -> str:
         return phenotype.replace("_", " ").title() if phenotype else ""

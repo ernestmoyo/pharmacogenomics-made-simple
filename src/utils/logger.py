@@ -13,7 +13,7 @@ from datetime import datetime
 from pathlib import Path
 
 # Platform version — single source of truth
-PLATFORM_VERSION = "0.2.0"
+PLATFORM_VERSION = "0.5.0"
 
 # Log directory
 LOG_DIR = Path(__file__).parent.parent.parent / "output" / "logs"

@@ -10,9 +10,12 @@ Main orchestrator that runs the complete pipeline:
 6. Output impact metrics
 
 Usage:
-    python main.py                  # Full pipeline
-    python main.py --patients-only  # Generate patient data only
+    python main.py                  # Standard PGx pipeline
+    python main.py --oncology-gap   # Oncology PGx gap analysis
+    python main.py --deprescribing  # Geriatric deprescribing analysis
+    python main.py --full           # All modules combined
     python main.py --validate-only  # Run validation only
+    python main.py --patients-only  # Generate patient data only
     python main.py --report PGX001  # Generate report for specific patient
 """
 
@@ -324,6 +327,13 @@ def run_oncology_gap(args):
     with open(gap_output_dir / "population_summary.json", "w", encoding="utf-8") as f:
         json.dump(population_summary, f, indent=2, default=str)
 
+    # Generate HTML report
+    report_gen = ReportGenerator(template_dir=PROJECT_ROOT / "src" / "reports" / "templates")
+    report_gen.generate_gap_analysis_report(
+        population_summary, gap_results, kb.get_kb_versions(),
+        gap_output_dir / "gap_analysis_report.html"
+    )
+
     # Print console summary
     elapsed = time.time() - start_time
     _print_gap_summary(population_summary, gap_results, elapsed)
@@ -478,6 +488,10 @@ def run_deprescribing(args):
     with open(dep_output_dir / "deprescribing_results.json", "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2, default=str)
 
+    # Generate HTML reports
+    report_gen = ReportGenerator(template_dir=PROJECT_ROOT / "src" / "reports" / "templates")
+    report_gen.generate_all_deprescribing_reports(results, dep_output_dir)
+
     # Print console summary
     elapsed = time.time() - start_time
     _print_deprescribing_summary(results, elapsed)
@@ -596,6 +610,81 @@ def _print_deprescribing_summary(results: list, elapsed: float):
     print("=" * 72)
 
 
+def run_full_combined(args):
+    """Run all three modules: standard PGx + oncology gap + deprescribing."""
+    start_time = time.time()
+    output_dir = PROJECT_ROOT / "output"
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    logger.info("=" * 60)
+    logger.info("PGx Clinical Solutions - Full Combined Analysis v%s", PLATFORM_VERSION)
+    logger.info("=" * 60)
+
+    # Module 1: Standard PGx pipeline
+    logger.info("")
+    logger.info(">>> MODULE 1: Standard PGx Interpretation Pipeline")
+    logger.info("-" * 60)
+    std_results, std_metrics = run_full_pipeline(args)
+
+    # Module 2: Oncology gap analysis
+    logger.info("")
+    logger.info(">>> MODULE 2: Oncology PGx Gap Analysis")
+    logger.info("-" * 60)
+    gap_results, pop_summary = run_oncology_gap(args)
+
+    # Module 3: Geriatric deprescribing
+    logger.info("")
+    logger.info(">>> MODULE 3: Geriatric Deprescribing Analysis")
+    logger.info("-" * 60)
+    dep_results = run_deprescribing(args)
+
+    # Combined summary
+    elapsed = time.time() - start_time
+    logger.info("")
+    logger.info("=" * 60)
+    logger.info("FULL COMBINED ANALYSIS COMPLETE")
+    logger.info("=" * 60)
+    logger.info(f"Standard PGx:   25 patients, {std_metrics.get('accuracy', 0):.1%} validation accuracy")
+    logger.info(f"Oncology Gap:   {len(gap_results)} patients, "
+                f"{pop_summary.get('gap_summary', {}).get('total_gaps', 0)} gaps, "
+                f"{pop_summary.get('missed_interventions', {}).get('total_missed_interventions', 0)} missed interventions")
+    logger.info(f"Deprescribing:  {len(dep_results)} patients, "
+                f"{sum(len(r['recommendations']) for r in dep_results)} recommendations, "
+                f"{sum(len(r['pgx_overlay']) for r in dep_results)} PGx insights")
+    logger.info(f"Total execution time: {elapsed:.1f} seconds")
+    logger.info("=" * 60)
+
+    # Write combined audit trail
+    kb = KnowledgeBase(base_path=PROJECT_ROOT / "src" / "knowledge_base")
+    write_audit_trail(output_dir, "full", 25 + len(gap_results) + len(dep_results),
+                      0, 0, std_metrics, kb, elapsed)
+
+    print()
+    print("=" * 72)
+    print("  PGx CLINICAL SOLUTIONS — FULL PLATFORM SUMMARY")
+    print("  Ernest Moyo | Rangarirai Makuku | Tapiwa Mupereki | Ngonidzashe Faya")
+    print("=" * 72)
+    print()
+    print("  Module 1 — Standard PGx Interpretation")
+    print(f"    Patients: 25 | Accuracy: {std_metrics.get('accuracy', 0):.1%} | "
+          f"Critical detection: {std_metrics.get('critical_finding_detection_rate', 0):.1%}")
+    print()
+    print("  Module 2 — Oncology PGx Gap Analysis")
+    print(f"    Patients: {len(gap_results)} | "
+          f"Gaps: {pop_summary.get('gap_summary', {}).get('total_gaps', 0)} | "
+          f"Missed: {pop_summary.get('missed_interventions', {}).get('total_missed_interventions', 0)} | "
+          f"Testing rate: {pop_summary.get('testing_rates', {}).get('overall_rate', 0)}%")
+    print()
+    print("  Module 3 — Geriatric Deprescribing")
+    print(f"    Patients: {len(dep_results)} | "
+          f"Recommendations: {sum(len(r['recommendations']) for r in dep_results)} | "
+          f"PGx insights: {sum(len(r['pgx_overlay']) for r in dep_results)}")
+    print()
+    print(f"  Total execution time: {elapsed:.1f} seconds")
+    print(f"  Output: output/")
+    print("=" * 72)
+
+
 def run_patients_only(args):
     """Generate patient data only."""
     data_dir = PROJECT_ROOT / "data"
@@ -624,6 +713,8 @@ def main():
                         help="Run oncology PGx gap analysis")
     parser.add_argument("--deprescribing", action="store_true",
                         help="Run geriatric deprescribing analysis")
+    parser.add_argument("--full", action="store_true",
+                        help="Run all modules: standard PGx + oncology gap + deprescribing")
 
     args = parser.parse_args()
 
@@ -635,6 +726,8 @@ def main():
         run_oncology_gap(args)
     elif args.deprescribing:
         run_deprescribing(args)
+    elif args.full:
+        run_full_combined(args)
     else:
         run_full_pipeline(args)
 

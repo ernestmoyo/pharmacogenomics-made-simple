@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PGx Oncology Gap Analysis Report</title>
+<style>
+  :root {
+    --navy: #1a365d; --navy-light: #2c5282; --slate: #475569;
+    --gray-50: #f8fafc; --gray-100: #f1f5f9; --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1; --gray-600: #475569; --gray-800: #1e293b;
+    --critical: #dc2626; --critical-bg: #fef2f2;
+    --high: #ea580c; --high-bg: #fff7ed;
+    --moderate: #d97706; --moderate-bg: #fffbeb;
+    --low: #16a34a; --low-bg: #f0fdf4;
+    --info: #2563eb; --info-bg: #eff6ff;
+    --white: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; color: var(--gray-800); background: var(--white); font-size: 13px; line-height: 1.5; }
+  .page { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+  .report-header { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); color: white; padding: 28px 32px; display: flex; justify-content: space-between; align-items: center; }
+  .report-header .company-name { font-size: 22px; font-weight: 700; }
+  .report-header .company-sub { font-size: 12px; opacity: 0.85; margin-top: 2px; }
+  .report-header .report-meta { text-align: right; font-size: 11px; line-height: 1.6; }
+  .report-header .report-id { font-weight: 600; font-size: 13px; }
+
+  .section { margin: 24px 0; }
+  .section-title { font-size: 16px; font-weight: 700; color: var(--navy); border-bottom: 2px solid var(--navy); padding-bottom: 6px; margin-bottom: 14px; }
+
+  .dashboard { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 16px 0; }
+  .dash-card { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; padding: 14px; text-align: center; }
+  .dash-card .value { font-size: 28px; font-weight: 700; color: var(--navy); }
+  .dash-card .label { font-size: 11px; color: var(--gray-600); margin-top: 4px; }
+  .dash-card.alert .value { color: var(--critical); }
+  .dash-card.warn .value { color: var(--high); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 10px 0; }
+  th { background: var(--navy); color: white; padding: 8px 10px; text-align: left; font-weight: 600; }
+  td { padding: 7px 10px; border-bottom: 1px solid var(--gray-200); }
+  tr:nth-child(even) { background: var(--gray-50); }
+  tr:hover { background: var(--gray-100); }
+
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; text-transform: uppercase; }
+  .badge-critical { background: var(--critical-bg); color: var(--critical); border: 1px solid var(--critical); }
+  .badge-high { background: var(--high-bg); color: var(--high); border: 1px solid var(--high); }
+  .badge-moderate { background: var(--moderate-bg); color: var(--moderate); border: 1px solid var(--moderate); }
+  .badge-none { background: var(--low-bg); color: var(--low); border: 1px solid var(--low); }
+  .badge-cpic-a { background: var(--info-bg); color: var(--info); border: 1px solid var(--info); }
+  .badge-fda { background: #faf5ff; color: #7c3aed; border: 1px solid #7c3aed; }
+
+  .bar-chart { margin: 12px 0; }
+  .bar-row { display: flex; align-items: center; margin: 4px 0; }
+  .bar-label { width: 100px; font-size: 12px; font-weight: 600; }
+  .bar-container { flex: 1; height: 22px; background: var(--gray-100); border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 10px; font-weight: 600; color: white; }
+  .bar-fill.tested { background: var(--low); }
+  .bar-fill.gap { background: var(--critical); }
+  .bar-value { width: 50px; text-align: right; font-size: 11px; }
+
+  .recommendations { background: var(--info-bg); border: 1px solid var(--info); border-radius: 8px; padding: 16px; margin: 16px 0; }
+  .recommendations h3 { color: var(--navy); margin-bottom: 10px; }
+  .recommendations li { margin: 6px 0; padding-left: 4px; }
+
+  .footer { background: var(--gray-50); border-top: 1px solid var(--gray-200); padding: 14px 32px; font-size: 10px; color: var(--gray-600); margin-top: 30px; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+  <div class="report-header">
+    <div>
+      <div class="company-name">PGx Clinical Solutions</div>
+      <div class="company-sub">Oncology Pharmacogenomics Gap Analysis</div>
+    </div>
+    <div class="report-meta">
+      <div class="report-id">{{ report_metadata.report_id }}</div>
+      <div>{{ report_metadata.generated_date }}</div>
+      <div>Platform v{{ report_metadata.version }}</div>
+    </div>
+  </div>
+
+  <div class="page">
+    <!-- Executive Dashboard -->
+    <div class="section">
+      <h2 class="section-title">Executive Summary Dashboard</h2>
+      <div class="dashboard">
+        <div class="dash-card">
+          <div class="value">{{ summary.cohort_size }}</div>
+          <div class="label">Patients Analyzed</div>
+        </div>
+        <div class="dash-card warn">
+          <div class="value">{{ summary.pgx_drug_exposure.percent_on_pgx_drugs }}%</div>
+          <div class="label">On PGx-Relevant Drugs</div>
+        </div>
+        <div class="dash-card alert">
+          <div class="value">{{ summary.gap_summary.percent_with_gaps }}%</div>
+          <div class="label">With Testing Gaps</div>
+        </div>
+        <div class="dash-card alert">
+          <div class="value">{{ summary.missed_interventions.percent_with_missed }}%</div>
+          <div class="label">Missed Interventions</div>
+        </div>
+      </div>
+      <div class="dashboard">
+        <div class="dash-card">
+          <div class="value">{{ summary.testing_rates.overall_rate }}%</div>
+          <div class="label">Overall Testing Rate</div>
+        </div>
+        <div class="dash-card">
+          <div class="value">{{ summary.gap_summary.total_gaps }}</div>
+          <div class="label">Total Testing Gaps</div>
+        </div>
+        <div class="dash-card">
+          <div class="value">{{ summary.missed_interventions.total_missed_interventions }}</div>
+          <div class="label">Missed Interventions</div>
+        </div>
+        <div class="dash-card">
+          <div class="value">{{ summary.compliance_summary.percent_compliant }}%</div>
+          <div class="label">Fully Compliant</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testing Rates by Gene -->
+    <div class="section">
+      <h2 class="section-title">Testing Rates by Gene</h2>
+      <div class="bar-chart">
+        {% for gene, info in summary.testing_rates.by_gene.items()|sort %}
+        <div class="bar-row">
+          <div class="bar-label">{{ gene }}</div>
+          <div class="bar-container">
+            <div class="bar-fill tested" style="width: {{ info.rate }}%">{{ info.rate }}%</div>
+          </div>
+          <div class="bar-value">{{ info.tested }}/{{ info.total }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Top Testing Gaps -->
+    <div class="section">
+      <h2 class="section-title">Top Testing Gaps</h2>
+      <table>
+        <thead>
+          <tr><th>Gene</th><th>Drug</th><th>CPIC</th><th>FDA</th><th>Severity</th><th>Patients</th><th>% of Cohort</th></tr>
+        </thead>
+        <tbody>
+          {% for gap in summary.top_gaps %}
+          <tr>
+            <td><strong>{{ gap.gene }}</strong></td>
+            <td>{{ gap.drug }}</td>
+            <td><span class="badge badge-cpic-a">Level {{ gap.cpic_level }}</span></td>
+            <td>{% if gap.fda_label %}<span class="badge badge-fda">FDA</span>{% else %}&mdash;{% endif %}</td>
+            <td><span class="badge badge-{{ gap.gap_severity }}">{{ gap.gap_severity }}</span></td>
+            <td>{{ gap.patient_count }}</td>
+            <td>{{ gap.percent_of_cohort }}%</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Per-Patient Results -->
+    <div class="section">
+      <h2 class="section-title">Per-Patient Results</h2>
+      <table>
+        <thead>
+          <tr><th>Patient</th><th>PGx Drugs</th><th>Gaps</th><th>Missed</th><th>Testing Rate</th><th>Severity</th></tr>
+        </thead>
+        <tbody>
+          {% for r in gap_results %}
+          <tr>
+            <td><strong>{{ r.patient_id }}</strong></td>
+            <td>{{ r.pgx_relevant_count }}</td>
+            <td>{{ r.testing_gap_count }}</td>
+            <td>{{ r.missed_intervention_count }}</td>
+            <td>{{ r.testing_rate }}%</td>
+            <td><span class="badge badge-{{ r.gap_severity }}">{{ r.gap_severity }}</span></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Institutional Recommendations -->
+    <div class="section">
+      <div class="recommendations">
+        <h3>Institutional Recommendations</h3>
+        <ol>
+          <li><strong>Implement pre-treatment DPYD testing</strong> for all patients starting fluoropyrimidine therapy (fluorouracil, capecitabine) — CPIC Level A, FDA-required.</li>
+          <li><strong>Expand UGT1A1 testing</strong> for patients on irinotecan-based regimens — CPIC Level A, FDA-labeled.</li>
+          <li><strong>Add TPMT/NUDT15 testing</strong> to ALL maintenance protocol for thiopurine therapy — CPIC Level A, FDA-required.</li>
+          <li><strong>Implement CYP2D6 testing</strong> for all tamoxifen-treated breast cancer patients — CPIC Level A.</li>
+          <li><strong>Review clinical decision support</strong> to flag actionable PGx results and prompt dose adjustments or drug switches.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>PGx Clinical Solutions | Ernest Moyo, Rangarirai Makuku, Tapiwa Mupereki, Ngonidzashe Faya</div>
+    <div>Generated: {{ report_metadata.generated_date }} | Platform v{{ report_metadata.version }} | KB v{{ report_metadata.kb_versions.gene_drug_interactions|default('1.0.0') }}</div>
+  </div>
+</body>
+</html>

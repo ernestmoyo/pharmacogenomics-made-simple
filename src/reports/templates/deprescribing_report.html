@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PGx Deprescribing Report — {{ result.patient_id }}</title>
+<style>
+  :root {
+    --navy: #1a365d; --navy-light: #2c5282; --slate: #475569;
+    --gray-50: #f8fafc; --gray-100: #f1f5f9; --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1; --gray-600: #475569; --gray-800: #1e293b;
+    --critical: #dc2626; --critical-bg: #fef2f2;
+    --high: #ea580c; --high-bg: #fff7ed;
+    --moderate: #d97706; --moderate-bg: #fffbeb;
+    --low: #16a34a; --low-bg: #f0fdf4;
+    --info: #2563eb; --info-bg: #eff6ff;
+    --pgx: #7c3aed; --pgx-bg: #faf5ff;
+    --white: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; color: var(--gray-800); background: var(--white); font-size: 13px; line-height: 1.5; }
+  .page { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+  .report-header { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); color: white; padding: 28px 32px; display: flex; justify-content: space-between; align-items: center; }
+  .report-header .company-name { font-size: 22px; font-weight: 700; }
+  .report-header .company-sub { font-size: 12px; opacity: 0.85; margin-top: 2px; }
+  .report-header .report-meta { text-align: right; font-size: 11px; line-height: 1.6; }
+  .report-header .report-id { font-weight: 600; font-size: 13px; }
+
+  .patient-bar { background: var(--gray-100); padding: 12px 32px; display: flex; gap: 24px; font-size: 12px; border-bottom: 1px solid var(--gray-200); }
+  .patient-bar .item { display: flex; gap: 4px; }
+  .patient-bar .label { color: var(--gray-600); }
+  .patient-bar .value { font-weight: 600; }
+
+  .section { margin: 24px 0; }
+  .section-title { font-size: 16px; font-weight: 700; color: var(--navy); border-bottom: 2px solid var(--navy); padding-bottom: 6px; margin-bottom: 14px; }
+
+  .dashboard { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+  .dash-card { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; padding: 14px; text-align: center; }
+  .dash-card .value { font-size: 28px; font-weight: 700; color: var(--navy); }
+  .dash-card .label { font-size: 11px; color: var(--gray-600); margin-top: 4px; }
+  .dash-card.alert .value { color: var(--critical); }
+  .dash-card.warn .value { color: var(--high); }
+
+  .risk-badge { display: inline-block; padding: 4px 14px; border-radius: 20px; font-weight: 700; font-size: 14px; }
+  .risk-high { background: var(--critical-bg); color: var(--critical); border: 2px solid var(--critical); }
+  .risk-moderate { background: var(--high-bg); color: var(--high); border: 2px solid var(--high); }
+  .risk-low { background: var(--moderate-bg); color: var(--moderate); border: 2px solid var(--moderate); }
+  .risk-minimal { background: var(--low-bg); color: var(--low); border: 2px solid var(--low); }
+
+  .score-display { text-align: center; margin: 16px 0; }
+  .score-display .score-number { font-size: 48px; font-weight: 700; color: var(--navy); }
+  .score-display .score-label { font-size: 12px; color: var(--gray-600); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 10px 0; }
+  th { background: var(--navy); color: white; padding: 8px 10px; text-align: left; font-weight: 600; }
+  td { padding: 7px 10px; border-bottom: 1px solid var(--gray-200); }
+  tr:nth-child(even) { background: var(--gray-50); }
+
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; text-transform: uppercase; }
+  .badge-critical { background: var(--critical-bg); color: var(--critical); border: 1px solid var(--critical); }
+  .badge-high { background: var(--high-bg); color: var(--high); border: 1px solid var(--high); }
+  .badge-moderate { background: var(--moderate-bg); color: var(--moderate); border: 1px solid var(--moderate); }
+  .badge-low { background: var(--low-bg); color: var(--low); border: 1px solid var(--low); }
+  .badge-beers { background: #fdf2f8; color: #be185d; border: 1px solid #be185d; }
+  .badge-stopp { background: var(--high-bg); color: var(--high); border: 1px solid var(--high); }
+  .badge-acb { background: var(--moderate-bg); color: var(--moderate); border: 1px solid var(--moderate); }
+  .badge-cascade { background: var(--info-bg); color: var(--info); border: 1px solid var(--info); }
+  .badge-pgx { background: var(--pgx-bg); color: var(--pgx); border: 1px solid var(--pgx); }
+
+  .flag-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin: 0 1px; }
+  .dot-beers { background: #be185d; }
+  .dot-stopp { background: var(--high); }
+  .dot-acb { background: var(--moderate); }
+  .dot-cascade { background: var(--info); }
+  .dot-pgx { background: var(--pgx); }
+
+  .pgx-overlay { background: var(--pgx-bg); border: 2px solid var(--pgx); border-radius: 8px; padding: 16px; margin: 16px 0; }
+  .pgx-overlay h3 { color: var(--pgx); margin-bottom: 10px; font-size: 14px; }
+  .pgx-overlay .insight { margin: 8px 0; padding: 8px; background: white; border-radius: 4px; border-left: 3px solid var(--pgx); }
+  .pgx-overlay .insight-type { font-size: 10px; font-weight: 600; text-transform: uppercase; }
+  .pgx-unique { color: var(--pgx); }
+  .pgx-additive { color: var(--high); }
+
+  .rec-card { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; padding: 12px; margin: 8px 0; border-left: 4px solid var(--gray-300); }
+  .rec-card.urgency-high { border-left-color: var(--critical); }
+  .rec-card.urgency-moderate { border-left-color: var(--high); }
+  .rec-card.urgency-low { border-left-color: var(--moderate); }
+  .rec-drug { font-weight: 700; font-size: 14px; }
+  .rec-reasons { margin: 6px 0; padding-left: 16px; font-size: 11px; color: var(--gray-600); }
+  .rec-actions { font-size: 12px; font-weight: 600; color: var(--navy); margin-top: 6px; }
+
+  .cascade-card { background: var(--info-bg); border: 1px solid var(--info); border-radius: 6px; padding: 10px; margin: 6px 0; }
+  .cascade-name { font-weight: 600; color: var(--navy); }
+  .cascade-detail { font-size: 11px; color: var(--gray-600); margin-top: 4px; }
+
+  .footer { background: var(--gray-50); border-top: 1px solid var(--gray-200); padding: 14px 32px; font-size: 10px; color: var(--gray-600); margin-top: 30px; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+  <div class="report-header">
+    <div>
+      <div class="company-name">PGx Clinical Solutions</div>
+      <div class="company-sub">Geriatric Deprescribing Analysis</div>
+    </div>
+    <div class="report-meta">
+      <div class="report-id">{{ report_metadata.report_id }}</div>
+      <div>{{ report_metadata.generated_date }}</div>
+      <div>Platform v{{ report_metadata.version }}</div>
+    </div>
+  </div>
+
+  <div class="patient-bar">
+    <div class="item"><span class="label">Patient:</span> <span class="value">{{ result.demographics.first_name }} {{ result.demographics.last_name }}</span></div>
+    <div class="item"><span class="label">ID:</span> <span class="value">{{ result.patient_id }}</span></div>
+    <div class="item"><span class="label">Age:</span> <span class="value">{{ result.demographics.age }}</span></div>
+    <div class="item"><span class="label">Sex:</span> <span class="value">{{ result.demographics.sex }}</span></div>
+    <div class="item"><span class="label">Medications:</span> <span class="value">{{ result.medication_count }}</span></div>
+  </div>
+
+  <div class="page">
+    <!-- Polypharmacy Dashboard -->
+    <div class="section">
+      <h2 class="section-title">Polypharmacy Risk Assessment</h2>
+      <div style="display: flex; gap: 24px; align-items: center;">
+        <div class="score-display" style="flex: 0 0 160px;">
+          <div class="score-number">{{ result.polypharmacy_score.composite_score }}</div>
+          <div class="score-label">Polypharmacy Score (0-100)</div>
+          <div style="margin-top: 8px;"><span class="risk-badge risk-{{ result.polypharmacy_score.risk_level }}">{{ result.polypharmacy_score.risk_level|upper }}</span></div>
+        </div>
+        <div class="dashboard" style="flex: 1;">
+          <div class="dash-card{% if result.beers_result.flag_count > 2 %} alert{% endif %}">
+            <div class="value">{{ result.beers_result.flag_count }}</div>
+            <div class="label">Beers Flags</div>
+          </div>
+          <div class="dash-card{% if result.stopp_start_result.stopp_count > 2 %} warn{% endif %}">
+            <div class="value">{{ result.stopp_start_result.stopp_count }}</div>
+            <div class="label">STOPP Flags</div>
+          </div>
+          <div class="dash-card{% if result.acb_result.total_acb_score >= 6 %} alert{% elif result.acb_result.total_acb_score >= 3 %} warn{% endif %}">
+            <div class="value">{{ result.acb_result.total_acb_score }}</div>
+            <div class="label">ACB Score</div>
+          </div>
+          <div class="dash-card">
+            <div class="value">{{ result.cascade_result.cascade_count }}</div>
+            <div class="label">Cascades</div>
+          </div>
+          <div class="dash-card">
+            <div class="value">{{ result.ddis|length }}</div>
+            <div class="label">DDIs</div>
+          </div>
+          <div class="dash-card">
+            <div class="value">{{ result.pgx_overlay|length }}</div>
+            <div class="label">PGx Insights</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Medication Flag Table -->
+    <div class="section">
+      <h2 class="section-title">Medication Review</h2>
+      <table>
+        <thead>
+          <tr><th>Medication</th><th>Beers</th><th>STOPP</th><th>ACB</th><th>Cascade</th><th>PGx</th><th>Flags</th><th>Priority</th></tr>
+        </thead>
+        <tbody>
+          {% for drug, info in result.medication_flags.items()|sort(attribute='1.priority_score', reverse=true) %}
+          <tr>
+            <td><strong>{{ drug }}</strong></td>
+            <td>{% if info.beers_flag %}<span class="flag-dot dot-beers" title="Beers: {{ info.beers_flag.category }}"></span>{% endif %}</td>
+            <td>{% for _ in info.stopp_flags %}<span class="flag-dot dot-stopp" title="STOPP"></span>{% endfor %}</td>
+            <td>{% if info.acb_score > 0 %}<span class="badge badge-acb">{{ info.acb_score }}</span>{% endif %}</td>
+            <td>{% for c in info.cascade_involvement %}<span class="flag-dot dot-cascade" title="{{ c }}"></span>{% endfor %}</td>
+            <td>{% for _ in info.pgx_findings %}<span class="flag-dot dot-pgx" title="PGx finding"></span>{% endfor %}</td>
+            <td>{{ info.total_flag_count }}</td>
+            <td>{% if info.priority_score >= 5 %}<span class="badge badge-critical">{{ info.priority_score }}</span>
+                {% elif info.priority_score >= 3 %}<span class="badge badge-high">{{ info.priority_score }}</span>
+                {% elif info.priority_score > 0 %}<span class="badge badge-moderate">{{ info.priority_score }}</span>
+                {% else %}<span class="badge badge-low">0</span>{% endif %}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div style="font-size: 10px; color: var(--gray-600); margin-top: 6px;">
+        <span class="flag-dot dot-beers"></span> Beers &nbsp;
+        <span class="flag-dot dot-stopp"></span> STOPP &nbsp;
+        <span class="flag-dot dot-acb"></span> ACB &nbsp;
+        <span class="flag-dot dot-cascade"></span> Cascade &nbsp;
+        <span class="flag-dot dot-pgx"></span> PGx
+      </div>
+    </div>
+
+    <!-- PGx Overlay -->
+    {% if result.pgx_overlay %}
+    <div class="section">
+      <div class="pgx-overlay">
+        <h3>PGx Overlay — What Pharmacogenomics Adds</h3>
+        <p style="font-size: 11px; color: var(--gray-600); margin-bottom: 10px;">These insights are ONLY available with pharmacogenomic testing and would be missed by standard Beers/STOPP criteria alone.</p>
+        {% for insight in result.pgx_overlay %}
+        <div class="insight">
+          <span class="insight-type {% if insight.unique_to_pgx %}pgx-unique{% else %}pgx-additive{% endif %}">
+            {% if insight.unique_to_pgx %}PGx UNIQUE{% else %}PGx ADDITIVE{% endif %}
+          </span>
+          <strong>{{ insight.drug }}</strong> ({{ insight.gene }}): {{ insight.summary }}
+          {% if insight.recommendation %}<br><em style="font-size: 11px;">Recommendation: {{ insight.recommendation }}</em>{% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Prescribing Cascades -->
+    {% if result.cascade_result.cascades %}
+    <div class="section">
+      <h2 class="section-title">Prescribing Cascades Detected</h2>
+      {% for cascade in result.cascade_result.cascades %}
+      <div class="cascade-card">
+        <div class="cascade-name">{{ cascade.name }}</div>
+        <div class="cascade-detail">
+          Trigger: {{ cascade.trigger_drugs_found|join(', ') }} &rarr; Cascade: {{ cascade.cascade_drugs_found|join(', ') }}
+          <br>{{ cascade.recommendation }}
+          {% if cascade.pgx_relevance %}<br><span class="badge badge-pgx">PGx</span> {{ cascade.pgx_relevance }}{% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Prioritized Recommendations -->
+    {% if result.recommendations %}
+    <div class="section">
+      <h2 class="section-title">Deprescribing Recommendations</h2>
+      {% for rec in result.recommendations %}
+      <div class="rec-card urgency-{{ rec.urgency }}">
+        <div class="rec-drug">
+          {{ rec.drug }}
+          <span class="badge badge-{{ rec.urgency }}">{{ rec.urgency }}</span>
+          {% if rec.acb_score >= 2 %}<span class="badge badge-acb">ACB {{ rec.acb_score }}</span>{% endif %}
+        </div>
+        <ul class="rec-reasons">
+          {% for reason in rec.reasons %}
+          <li>{{ reason }}</li>
+          {% endfor %}
+        </ul>
+        {% if rec.alternatives %}
+        <div class="rec-actions">Alternatives: {{ rec.alternatives|join(', ') }}</div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="footer">
+    <div>PGx Clinical Solutions | Ernest Moyo, Rangarirai Makuku, Tapiwa Mupereki, Ngonidzashe Faya</div>
+    <div>Generated: {{ report_metadata.generated_date }} | Platform v{{ report_metadata.version }}</div>
+  </div>
+</body>
+</html>
