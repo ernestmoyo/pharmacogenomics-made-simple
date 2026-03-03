@@ -6,24 +6,6 @@
 
 ---
 
-## Updates Since Last Meeting
-
-### Availability
-- Some team members have constraints on external work commitments for now
-- Agreement: those with constraints can contribute behind the scenes until their situation changes
-
-### Market Landscape
-- Ernest researched the genomics space in Africa — found virtually no competition
-- Gates Foundation is actively pushing genomics funding, including mosquito genomics
-- A group in Zimbabwe is doing pharmacogenomics work, supported by Gates Foundation
-- Very little training in medical genetics across Africa — major gap
-
-### Ernest's Status
-- Available to dedicate time to this venture
-- Committed to doing research, building the website, and driving momentum
-
----
-
 ## Key Discussion Topics
 
 ### 1. Genomics Skills Transferability
