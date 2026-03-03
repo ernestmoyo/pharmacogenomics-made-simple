@@ -10,10 +10,9 @@
 
 ### 1. Genomics Skills Transferability
 - Question raised: can skills in one genomics area (e.g., mosquito, plant) transfer to human genomics?
-- Ngonidzashe has experience with Drosophila (fruit fly) genetics
 - Consensus: the analytical/bioinformatics skills are highly transferable across organisms
 - Key difference: human genomics requires clinical interpretation — understanding how mutations affect disease, treatment, and management
-- The team collectively covers this gap (Tapiwa for clinical interpretation, others for analysis)
+- The team collectively covers this gap 
 
 ### 2. Scope of Opportunity Beyond Pharmacogenomics
 Tapiwa outlined multiple areas where genetic testing is needed in Africa:
@@ -27,10 +26,10 @@ Tapiwa outlined multiple areas where genetic testing is needed in Africa:
 | Newborn screening | Expanded screening programs needed across Africa |
 | Autism & neurodevelopmental | Genetic component often undiagnosed |
 
-**Tapiwa's view:** "Everything here is low-hanging fruit in Africa. Just get started on anything."
+**Key view point:** "Everything here is low-hanging fruit in Africa. Just get started on anything."
 
 ### 3. Quality Improvement (QI) Project Path
-Rangarirai proposed a validated path to market:
+Ngoni proposed a validated path to market:
 
 1. **Find an in-house champion** at a US academic hospital
 2. **Frame it as a QI project** — hospitals are motivated and funded to do these
@@ -78,16 +77,16 @@ Tapiwa provided cost context:
 - Rather than just researching online, the team agreed to **request a direct conversation** with a Gates Foundation representative
 - Tapiwa to send the initial email — framing it as: "We are exploring a research project with partners in Africa, we'd like to discuss scope and potential support"
 - Ernest and Rangarirai to prepare the research brief first so the outreach speaks to what Gates cares about
-- Ernest committed to completing this research within 1-2 days
+- Ernest committed to completing this research within a few days
 
 ### 9. Website & Formalisation
-- Ernest to create a website (test site first, then refine)
+- Possible to create a website (test site first, then refine)
 - Company registration to follow once the team agrees on the entry point
 - LinkedIn page planned for sharing ideas and building visibility
 - Once formal: consistent content sharing and thought leadership
 
 ### 10. Tanzania Connection
-- Tapiwa met a Tanzanian pathologist at a conference who is interested in genetics for pathology but said "we don't have the expertise"
+- Ngoni met a Tanzanian pathologist at a conference who is interested in genetics for pathology but said "we don't have the expertise"
 - Tapiwa to share her contact with Ernest
 - Ernest to connect with her to test the market and explore collaboration
 
@@ -110,17 +109,12 @@ Tapiwa provided cost context:
 | 1 | Research who is doing what in genomics in Africa + globally | Ernest | 1-2 days |
 | 2 | Research Gates Foundation priorities and funding mechanisms | Ernest & Rangarirai | 1-2 days |
 | 3 | Identify other funders/grant opportunities beyond Gates | Ernest | 1-2 days |
-| 4 | Draft QI project proposal (pharmacogenomics or polypharmacy) | Tapiwa | 2 weeks |
+| 4 | Draft QI project proposal (pharmacogenomics or polypharmacy) | if possible | 2 weeks |
 | 5 | Explore geriatric polypharmacy QI project with local geriatrician | Rangarirai | 2 weeks |
-| 6 | Share sequencing instrument link ($5K machine) | Tapiwa | Immediate |
+| 6 | Share sequencing instruments costing .... | Ngoni | Immediate |
 | 7 | Share Tanzanian pathologist contact with Ernest | Tapiwa | Immediate |
 | 8 | Ernest to connect with Tanzanian pathologist to test market | Ernest | After receiving contact |
-| 9 | Draft outreach email for Gates Foundation representative | Ernest & Rangarirai | After research complete |
-| 10 | Tapiwa to send Gates Foundation outreach email | Tapiwa | After draft reviewed |
-| 11 | Create test website for the company | Ernest | 2 weeks |
-| 12 | Write up and share meeting notes with full team | Ernest | Immediate |
-| 13 | Publish research findings as a journal article | All | Ongoing |
-| 14 | Review outputs and reconvene | All | 2 weeks |
+| 9 | Check who to talk to at the Gates Foundation | Ernest & Rangarirai | After research complete |
 
 ---
 
@@ -142,21 +136,7 @@ Shared by Ngonidzashe:
 
 ---
 
-## Notable Quotes
 
-> "Everything here is, to me, in Africa, is low-hanging fruit." — Tapiwa
-
-> "If we have good funding from Gates Foundation, the first year, we'll be just testing and doing stuff." — Tapiwa
-
-> "Once these things get started, the doors, they just keep opening. But for me, what I really want is to just get started on anything." — Tapiwa
-
-> "We don't have anything to lose, except to gain. There's always a vast field." — Rangarirai
-
-> "Genetics and computer science cannot be separated. It's just big data that without that infrastructure it's impossible to really set up something of our own." — Tapiwa
-
-> "Let's not wait for two weeks to have some outputs. Two weeks is more of a review. Between now and two weeks, let's just have some outputs." — Ernest
-
----
 
 ## Next Meeting
 - **When:** ~2 weeks (date TBD)
