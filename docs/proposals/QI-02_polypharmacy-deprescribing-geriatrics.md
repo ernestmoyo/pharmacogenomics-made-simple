@@ -11,8 +11,8 @@
 | Role | Name | Credentials | Affiliation |
 |---|---|---|---|
 | **Principal Investigator** | Ngonidzashe Faya, PhD | Board-certified Medical Geneticist (ABMGG) | OHSU, Department of Medical Genetics |
-| Co-Investigator | Rangarirai Makuku, PharmD, DrPH(c) | Pharmacist, Public Health | PGx Clinical Solutions (Industry Partner) |
-| Co-Investigator | Tapiwa Mupereki | Board-certified Medical Geneticist (ABMGG) | OHSU / PGx Clinical Solutions (Industry Partner) |
+| Co-Investigator | Rangarirai Makuku, Msc, MD | Medical Doctor, Public Health | PGx Clinical Solutions (Industry Partner) |
+| Co-Investigator | Tapiwa Mupereki | Add | PGx Clinical Solutions (Industry Partner) |
 | Co-Investigator | Ernest Moyo, MSc, PhD(c) | Biostatistics & Epidemiology | PGx Clinical Solutions (Industry Partner) |
 | Collaborator (TBD) | Geriatrician at OHSU or partner institution | MD, Geriatric Medicine | To be identified |
 
