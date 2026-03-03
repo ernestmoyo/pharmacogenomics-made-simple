@@ -1,47 +1,33 @@
 # Team Kickoff Meeting
 
 **Date:** 8 February 2025, 6:00 AM EAT
-**Attendees:**
-- Ernest Moyo (ernestmoyo35@gmail.com)
-- Tapiwa Mupereki (tmupereki@jewelride.com)
-- Rangarirai Makuku (rangariraimakuku@gmail.com)
-- Ngonidzashe Faya (ngonifaya08@gmail.com)
+**Attendees:** Ernest, Tapiwa, Rangarirai, Ngonidzashe
 **Format:** Virtual (video call)
 
 ---
 
 ## Introductions
 
-### Ernest Moyo
-- Based in Tanzania, doing PhD in Mathematics
-- Scholarship from Rector Atlas (offshoot of Malaria Atlas Project, Australia), funded by Gates Foundation
+### Ernest
 - Background: actuarial science > public health > MSc biostatistics & epidemiology
-- Consulting for Clinton Health Access Initiative (CHAI) alongside PhD
-- Previously original epidemiologist for CHAI in Namibia
 - Strengths: analytics, modeling, risk estimation, data simulation
 
-### Tapiwa Mupereki
-- Board-certified by the American Board of Medical Genetics and Genomics
+### Tapiwa
+- Board-certified medical geneticist
 - Extensive experience in genetic testing: inherited diseases, cancer, pharmacogenomics, newborn screening
-- Previously at Cincinnati — handled ~90% of PGx cases in-house
 - Works with pathologists on genetic interpretation — translating raw genetic data into clinical meaning
-- Training involved understanding disease mechanisms, inheritance patterns, and clinical recommendations
-- Currently based in the US
 
-### Rangarirai Makuku
+### Rangarirai
 - Pharmacist by training (~20 years experience)
-- Public health masters (how he came to the US in 2010)
+- Public health background
 - Worked extensively in HIV, malaria, TB drug programs
-- Brief stint in retail pharmacy (CVS)
-- Currently dedicating ~60% of time to building this company
-- Also a student in an executive Doctor of Public Health program (global health major)
 - Deep understanding of drug interactions, medication management, and pharmacy operations
 
 ---
 
-## MVP Demo (Moyo)
+## MVP Demo (Ernest)
 
-Moyo presented the PGx Clinical Solutions platform built on GitHub:
+Ernest presented the PGx Clinical Solutions platform built on GitHub:
 
 - **Synthetic data:** 25 patient profiles with diverse demographics and conditions
 - **Knowledge base:** 21 gene-drug pairs, 14 drug-drug interactions

@@ -1,22 +1,16 @@
 # Strategy & Next Steps Meeting
 
 **Date:** 1 March 2026, 6:00 AM EAT
-**Attendees:**
-- Ernest Moyo (ernestmoyo35@gmail.com)
-- Tapiwa Mupereki (tmupereki@jewelride.com)
-- Rangarirai Makuku (rangariraimakuku@gmail.com)
-- Ngonidzashe Faya (ngonifaya08@gmail.com)
+**Attendees:** Ernest, Tapiwa, Rangarirai, Ngonidzashe
 **Format:** Virtual (video call)
 
 ---
 
 ## Updates Since Last Meeting
 
-### Visa Constraints
-- Tapiwa is on an H-1B visa — restricted to working only for his current hospital (now at Oregon Health & Science University, previously Cincinnati)
-- This limits his ability to be publicly associated with external ventures for now
-- Rangarirai and Ernest have no such restrictions (US citizens / non-US based respectively)
-- Agreement: Tapiwa can contribute behind the scenes until visa situation changes
+### Availability
+- Some team members have constraints on external work commitments for now
+- Agreement: those with constraints can contribute behind the scenes until their situation changes
 
 ### Market Landscape
 - Ernest researched the genomics space in Africa — found virtually no competition
@@ -25,8 +19,7 @@
 - Very little training in medical genetics across Africa — major gap
 
 ### Ernest's Status
-- Recently completed his DrPH program — described as mentally intensive
-- Currently not formally employed — available to dedicate time to this venture
+- Available to dedicate time to this venture
 - Committed to doing research, building the website, and driving momentum
 
 ---
@@ -57,14 +50,14 @@ Tapiwa outlined multiple areas where genetic testing is needed in Africa:
 ### 3. Quality Improvement (QI) Project Path
 Rangarirai proposed a validated path to market:
 
-1. **Find an in-house champion** at a US academic hospital (Tapiwa at OHSU)
+1. **Find an in-house champion** at a US academic hospital
 2. **Frame it as a QI project** — hospitals are motivated and funded to do these
 3. **Use retrospective patient data** — no clinical trial needed, uses existing records
 4. **Build the AI/interpretation model** on real-world data with clinician validation (human in the loop)
 5. **Publish in high-impact journals** (JAMA, NEJM) — builds credibility
 6. **Migrate from hospital tool to commercial product** — proven, validated, published
 
-- Tapiwa confirmed this is doable at OHSU — needs a project proposal and co-investigators
+- Confirmed this is doable at a US academic hospital — needs a project proposal and co-investigators
 - The company could be listed as an **industry partner** providing the technology
 - Estimated funding needed: $100K-$200K for a comprehensive protocol
 - Timeline: could be done in ~6 months
@@ -135,7 +128,7 @@ Tapiwa provided cost context:
 | 1 | Research who is doing what in genomics in Africa + globally | Ernest | 1-2 days |
 | 2 | Research Gates Foundation priorities and funding mechanisms | Ernest & Rangarirai | 1-2 days |
 | 3 | Identify other funders/grant opportunities beyond Gates | Ernest | 1-2 days |
-| 4 | Draft QI project proposal for OHSU (pharmacogenomics or polypharmacy) | Tapiwa | 2 weeks |
+| 4 | Draft QI project proposal (pharmacogenomics or polypharmacy) | Tapiwa | 2 weeks |
 | 5 | Explore geriatric polypharmacy QI project with local geriatrician | Rangarirai | 2 weeks |
 | 6 | Share sequencing instrument link ($5K machine) | Tapiwa | Immediate |
 | 7 | Share Tanzanian pathologist contact with Ernest | Tapiwa | Immediate |
