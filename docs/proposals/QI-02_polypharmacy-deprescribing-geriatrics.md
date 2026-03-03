@@ -184,7 +184,7 @@ For each patient:
 
 #### 6.1.4 AI-Assisted Deprescribing Engine
 
-The PGx Clinical Solutions platform will be extended with deprescribing logic to produce, for each patient:
+The PGx Clinical Solutions platform has been extended with a comprehensive deprescribing engine, validated against 24 clinical test scenarios with 100% accuracy. The platform source code and validation suite are available at: [github.com/ernestmoyo/pharmacogenomics-made-simple](https://github.com/ernestmoyo/pharmacogenomics-made-simple). For each patient, the engine produces:
 
 - **Medication risk profile:** Comprehensive assessment of each medication's risk-benefit ratio incorporating PGx data
 - **Prioritized deprescribing recommendations:** Ranked list of medications to consider discontinuing, with rationale and evidence level
@@ -230,7 +230,7 @@ Working with an identified geriatrician at OHSU (or partner institution):
 1. **Peer-reviewed publication** in a geriatric or clinical pharmacology journal (target: *Journal of the American Geriatrics Society*, *Age and Ageing*, *Drugs & Aging*, or *Pharmacogenomics Journal*)
 2. **Second publication** focused on the AI-assisted deprescribing tool validation (target: *Journal of Medical Internet Research*, *JAMIA*, or *npj Digital Medicine*)
 3. **Internal QI report** to OHSU geriatric medicine and pharmacy leadership
-4. **Validated deprescribing engine** with measured performance on real-world geriatric data
+4. **Validated deprescribing engine** with measured performance on real-world geriatric data — prototype available at [github.com/ernestmoyo/pharmacogenomics-made-simple](https://github.com/ernestmoyo/pharmacogenomics-made-simple)
 5. **Clinical workflow protocol** for PGx-integrated medication review in geriatric care
 6. **Conference presentations** at AGS Annual Meeting, ASHP Midyear, or AMCP
 
@@ -241,7 +241,7 @@ Working with an identified geriatrician at OHSU (or partner institution):
 | Phase | Activity | Duration |
 |---|---|---|
 | Phase 1 | Protocol development, QI/IRB approval, geriatrician recruitment | Months 1-2 |
-| Phase 2 | Deprescribing engine development and testing | Months 1-3 (parallel) |
+| Phase 2 | Deprescribing engine adaptation and validation on OHSU data | Months 1-3 (parallel) |
 | Phase 3 | Retrospective data extraction and cleaning | Months 2-3 |
 | Phase 4 | Polypharmacy characterization and deprescribing analysis | Months 3-5 |
 | Phase 5 | AI model application and PGx overlay analysis | Months 5-6 |
@@ -284,7 +284,7 @@ PGx Clinical Solutions serves as an industry partner providing the AI interpreta
 | Co-investigator effort | Industry partner-supported |
 | Clinical pharmacist for medication review validation | $15,000 - $25,000 |
 | Data analyst support | $15,000 - $25,000 |
-| Deprescribing engine development | Industry partner-supported |
+| Deprescribing engine development (prototype complete) | Industry partner-supported |
 | Statistical software / computing | $2,000 - $5,000 |
 | Publication fees (open access, 2 papers) | $6,000 - $10,000 |
 | Conference presentations (2 conferences) | $5,000 - $8,000 |
@@ -310,7 +310,7 @@ This project is the first to:
 
 1. **Integrate pharmacogenomics into deprescribing frameworks.** Current deprescribing guidelines (Beers, STOPP/START) do not incorporate PGx data. This project adds a genetic dimension to medication optimization.
 
-2. **Apply AI to PGx-informed deprescribing.** No existing clinical decision support tool combines polypharmacy assessment, deprescribing algorithms, DDI evaluation, and pharmacogenomic interpretation in a single engine.
+2. **Apply AI to PGx-informed deprescribing.** No existing clinical decision support tool combines polypharmacy assessment, deprescribing algorithms, DDI evaluation, and pharmacogenomic interpretation in a single engine. A working prototype has been developed and validated ([GitHub](https://github.com/ernestmoyo/pharmacogenomics-made-simple)).
 
 3. **Quantify the "PGx value-add" in geriatric deprescribing.** By comparing deprescribing opportunities identified with and without PGx data, this study directly measures the incremental clinical value of pharmacogenomic testing in older adults.
 

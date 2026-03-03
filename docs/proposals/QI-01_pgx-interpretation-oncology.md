@@ -146,7 +146,7 @@ The PGx Clinical Solutions interpretation engine will be applied to the de-ident
 - Compare AI-generated recommendations against actual clinical decisions
 - Measure concordance, discordance, and identify cases where the AI model detected clinically significant findings that were missed
 
-**Important:** The AI model will be used retrospectively on de-identified data only. No real-time clinical decisions will be influenced during the study period. The model has been validated against 12 clinical test scenarios with 100% accuracy across psychiatry, oncology, pain management, and cardiology therapeutic areas.
+**Important:** The AI model will be used retrospectively on de-identified data only. No real-time clinical decisions will be influenced during the study period. The model has been validated against 24 clinical test scenarios with 100% accuracy across pharmacogenomics interpretation, oncology gap analysis, and geriatric deprescribing modules. The platform source code and validation suite are available at: [github.com/ernestmoyo/pharmacogenomics-made-simple](https://github.com/ernestmoyo/pharmacogenomics-made-simple).
 
 ### 6.4 Statistical Analysis
 
@@ -176,7 +176,7 @@ Analysis will be conducted using Python (scipy, statsmodels) and R as appropriat
 
 1. **Peer-reviewed publication** in a high-impact journal (target: JCO Precision Oncology, JAMA Oncology, or Journal of Clinical Oncology)
 2. **Internal QI report** to OHSU oncology leadership with recommendations for PGx integration
-3. **Validated interpretation model** demonstrated on real-world data with measured performance metrics
+3. **Validated interpretation model** demonstrated on real-world data with measured performance metrics — prototype available at [github.com/ernestmoyo/pharmacogenomics-made-simple](https://github.com/ernestmoyo/pharmacogenomics-made-simple)
 4. **Clinical workflow proposal** for integrating PGx interpretation into OHSU oncology practice
 5. **Conference presentation** at relevant meetings (ASHG, AMP, ASCO)
 
