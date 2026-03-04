@@ -15,7 +15,7 @@
 - The team collectively covers this gap 
 
 ### 2. Scope of Opportunity Beyond Pharmacogenomics
-Tapiwa outlined multiple areas where genetic testing is needed in Africa:
+Ngoni outlined multiple areas where genetic testing is needed in Africa:
 
 | Area | Opportunity |
 |---|---|
@@ -50,7 +50,7 @@ Ngoni proposed a validated path to market:
 - Related but distinct from the PGx interpretation work
 
 ### 5. Equipment & Lab Setup Costs
-Tapiwa provided cost context:
+Ngoni provided cost context:
 
 | Item | US Cost | Africa Cost (estimated) |
 |---|---|---|
@@ -60,7 +60,7 @@ Tapiwa provided cost context:
 | Lab technologist hourly rate | High (US salaries) | <$5-10/hour |
 
 - New sequencing technology is making instruments cheaper (~$5,000 entry point)
-- Tapiwa to share link to the instrument he found
+- Ngoni to share link to the instrument he found
 - Key insight: **funding removes cost from patients initially**, allowing the team to build proof and awareness before charging
 
 ### 6. Biobanking as a Revenue Stream
@@ -75,7 +75,7 @@ Tapiwa provided cost context:
 
 ### 8. Gates Foundation Engagement
 - Rather than just researching online, the team agreed to **request a direct conversation** with a Gates Foundation representative
-- Tapiwa to send the initial email — framing it as: "We are exploring a research project with partners in Africa, we'd like to discuss scope and potential support"
+- Ngoni to send the initial email — framing it as: "We are exploring a research project with partners in Africa, we'd like to discuss scope and potential support"
 - Ernest and Rangarirai to prepare the research brief first so the outreach speaks to what Gates cares about
 - Ernest committed to completing this research within a few days
 
@@ -87,7 +87,7 @@ Tapiwa provided cost context:
 
 ### 10. Tanzania Connection
 - Ngoni met a Tanzanian pathologist at a conference who is interested in genetics for pathology but said "we don't have the expertise"
-- Tapiwa to share her contact with Ernest
+- Ngoni to share her contact with Ernest
 - Ernest to connect with her to test the market and explore collaboration
 
 ---
@@ -112,7 +112,7 @@ Tapiwa provided cost context:
 | 4 | Draft QI project proposal (pharmacogenomics or polypharmacy) | if possible | 2 weeks |
 | 5 | Explore geriatric polypharmacy QI project with local geriatrician | Rangarirai | 2 weeks |
 | 6 | Share sequencing instruments costing .... | Ngoni | Immediate |
-| 7 | Share Tanzanian pathologist contact with Ernest | Tapiwa | Immediate |
+| 7 | Share Tanzanian pathologist contact with Ernest | Ngoni | Immediate |
 | 8 | Ernest to connect with Tanzanian pathologist to test market | Ernest | After receiving contact |
 | 9 | Check who to talk to at the Gates Foundation | Ernest & Rangarirai | After research complete |
 
@@ -128,7 +128,7 @@ Shared by Ngonidzashe:
 
 2. **Oxford Nanopore MinION Sequencer**
    https://nanoporetech.com/products/sequence/minion
-   — Portable, affordable (~$5K) sequencing device. This is the instrument Tapiwa referenced as a low-cost entry point for setting up genetic testing in Africa. Small form factor, capable of real-time sequencing.
+   — Portable, affordable (~$5K) sequencing device. This is the instrument Ngoni referenced as a low-cost entry point for setting up genetic testing in Africa. Small form factor, capable of real-time sequencing.
 
 3. **"Clinical Opportunities for Germline Pharmacogenetics and Management of Drug-Drug Interactions in Patients With Advanced Solid Cancers"**
    https://pubmed.ncbi.nlm.nih.gov/35201852/
