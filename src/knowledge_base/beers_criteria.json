@@ -1,7 +1,7 @@
 {
   "_metadata": {
-    "version": "1.0.0",
-    "last_updated": "2026-03-01",
+    "version": "1.1.0-pending-review",
+    "last_updated": "2026-09-30",
     "sources": [
       "American Geriatrics Society 2023 Updated AGS Beers Criteria for Potentially Inappropriate Medication Use in Older Adults. J Am Geriatr Soc. 2023;71(7):2052-2081.",
       "By the 2023 American Geriatrics Society Beers Criteria Update Expert Panel"
@@ -549,6 +549,36 @@
       "alternatives": ["ondansetron"],
       "conditions": [],
       "acb_score": 0
+    },
+    {
+      "drug": "rivaroxaban",
+      "drug_class": "direct_oral_anticoagulant",
+      "category": "avoid",
+      "rationale": "AGS Beers 2023: avoid for long-term treatment of nonvalvular atrial fibrillation or venous thromboembolism in favour of safer anticoagulant alternatives; higher risk of major and gastrointestinal bleeding than other DOACs, particularly apixaban, in older adults.",
+      "severity": "high",
+      "quality_of_evidence": "moderate",
+      "strength_of_recommendation": "strong",
+      "alternatives": ["apixaban"],
+      "conditions": [],
+      "acb_score": 0,
+      "review_status": "pending_clinical_review",
+      "added": "2026-09-30",
+      "added_by": "wardmate change graph 2026-09-30 (Phase D)"
+    },
+    {
+      "drug": "dabigatran",
+      "drug_class": "direct_oral_anticoagulant",
+      "category": "caution",
+      "rationale": "AGS Beers 2023: use with caution for long-term treatment of atrial fibrillation or venous thromboembolism; increased risk of gastrointestinal bleeding compared with warfarin and other DOACs in adults aged 75 and older.",
+      "severity": "moderate",
+      "quality_of_evidence": "moderate",
+      "strength_of_recommendation": "strong",
+      "alternatives": ["apixaban"],
+      "conditions": [],
+      "acb_score": 0,
+      "review_status": "pending_clinical_review",
+      "added": "2026-09-30",
+      "added_by": "wardmate change graph 2026-09-30 (Phase D)"
     }
   ]
 }

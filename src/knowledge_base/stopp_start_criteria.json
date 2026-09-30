@@ -1,7 +1,7 @@
 {
   "_metadata": {
-    "version": "1.0.0",
-    "last_updated": "2026-03-01",
+    "version": "1.1.0-pending-review",
+    "last_updated": "2026-09-30",
     "sources": [
       "O'Mahony D, et al. STOPP/START criteria for potentially inappropriate prescribing in older people: version 3. Eur Geriatr Med. 2023;14:625-632.",
       "Adapted for prototype use — highest-yield criteria selected"
@@ -209,6 +209,19 @@
       "rationale": "Optimization of monotherapy within a single drug class before adding second agent.",
       "severity": "moderate",
       "action": "remove_duplicate"
+    },
+    {
+      "id": "STOPP_C_DABIGATRAN_RENAL",
+      "section": "antithrombotic",
+      "criterion": "Dabigatran if eGFR < 30 ml/min/1.73m2",
+      "drugs": ["dabigatran"],
+      "conditions": ["egfr_below_30"],
+      "rationale": "STOPP/START v3: risk of bleeding; dabigatran is renally cleared and accumulates in severe renal impairment.",
+      "severity": "high",
+      "action": "stop_or_switch",
+      "review_status": "pending_clinical_review",
+      "added": "2026-09-30",
+      "added_by": "wardmate change graph 2026-09-30 (Phase D)"
     }
   ],
   "start_criteria": [
